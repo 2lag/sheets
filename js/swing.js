@@ -1,14 +1,14 @@
-let swingAmount = Number( localStorage.getItem( "swing" ) ) || 0.5;
+let SWING_AMOUNT = Number( localStorage.getItem( "swing" ) ) || 0.5;
 
 function showSwing() {
-  swingSlider.value = Math.round( swingAmount * 100 );
-  swingReadout.textContent = swingAmount > 0.5 ? `${ swingSlider.value }%` : "off";
-  swingButton.classList.toggle( "on", swingAmount > 0.5 );
+  SWING_SLIDER.value = Math.round( SWING_AMOUNT * 100 );
+  SWING_READOUT.textContent = SWING_AMOUNT > 0.5 ? `${ SWING_SLIDER.value }%` : "off";
+  SWING_BUTTON.classList.toggle( "on", SWING_AMOUNT > 0.5 );
 }
 
-swingSlider.addEventListener( "input", () => {
-  swingAmount = swingSlider.value / 100;
-  localStorage.setItem( "swing", swingAmount );
+SWING_SLIDER.addEventListener( "input", () => {
+  SWING_AMOUNT = SWING_SLIDER.value / 100;
+  localStorage.setItem( "swing", SWING_AMOUNT );
   showSwing();
   restartPlaybackSoon();
 });

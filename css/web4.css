@@ -1,280 +1,280 @@
 :root {
-  --thumb: 16px;
-  --ink: #1a1a1a;
-  --paper: #fdfdfb;
-  --desk: #e6e4df;
-  --chrome: #f4f3f0;
-  --line: #c9c6bf;
-  --accent: #6a3fb5;
+  --editor-paper: #fff;
   --problem: #b3261e;
   --editor-ink: #222;
-  --editor-paper: #fff;
+  --chrome: #f4f3f0;
+  --accent: #6a3fb5;
+  --paper: #fdfdfb;
+  --desk: #e6e4df;
+  --line: #c9c6bf;
+  --ink: #1a1a1a;
+  --thumb: 16px;
 }
 
 body.dark {
-  --ink: #e8e6e1;
-  --paper: #1e1f22;
-  --desk: #121315;
-  --chrome: #1a1b1e;
-  --line: #34363b;
-  --accent: #b493f0;
+  --editor-paper: #17181a;
   --problem: #f2b8b5;
   --editor-ink: #ddd;
-  --editor-paper: #17181a;
+  --chrome: #1a1b1e;
+  --accent: #b493f0;
+  --paper: #1e1f22;
+  --desk: #121315;
+  --line: #34363b;
+  --ink: #e8e6e1;
 }
 
 body {
+  font-family: system-ui, sans-serif;
   background: var(--chrome);
   color: var(--ink);
-  font-family: system-ui, sans-serif;
 }
 
 header {
   border-bottom: 1px solid var(--line);
 }
 
-#brand {
+#BRAND {
   font-family: "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
   font-size: 22px;
 }
 
 nav > button,
-#exportButton,
-#lookButton {
-  border: none;
-  border-radius: 6px;
+#EXPORT_BUTTON,
+#LOOK_BUTTON {
   background: transparent;
+  border-radius: 6px;
   color: var(--ink);
   font-size: 20px;
+  border: none;
 }
 
 nav > button:hover,
-#exportButton:hover,
-#lookButton:hover,
-#exportItem:has( #exportMenu.open ) #exportButton,
-#lookItem:has( #lookMenu.open ) #lookButton {
+#EXPORT_BUTTON:hover,
+#LOOK_BUTTON:hover,
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
+#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON {
   background: var(--line);
 }
 
-#lookMenu {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--chrome);
+#LOOK_MENU {
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
+  border: 1px solid var(--line);
+  background: var(--chrome);
+  border-radius: 6px;
 }
 
-#lookMenu button {
-  border: none;
-  border-radius: 4px;
+#LOOK_MENU button {
   background: transparent;
+  border-radius: 4px;
   color: var(--ink);
   font-size: 18px;
+  border: none;
 }
 
-#eraButton {
+#ERA_BUTTON {
   font: bold 14px ui-monospace, Menlo, monospace;
 }
 
-#lookMenu button:hover {
+#LOOK_MENU button:hover {
   background: var(--line);
 }
 
-#exportMenu {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--chrome);
+#EXPORT_MENU {
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
+  border: 1px solid var(--line);
+  background: var(--chrome);
+  border-radius: 6px;
 }
 
-#exportMenu button {
-  border: none;
-  border-radius: 4px;
+#EXPORT_MENU button {
   background: transparent;
+  border-radius: 4px;
   color: var(--ink);
   font-size: 14px;
+  border: none;
 }
 
-#exportMenu button:hover {
+#EXPORT_MENU button:hover {
   background: var(--line);
 }
 
-#help {
+#HELP {
   border: 1px solid var(--line);
-  border-radius: 8px;
   background: var(--chrome);
+  border-radius: 8px;
   color: var(--ink);
-  font-size: 14px;
   line-height: 1.5;
+  font-size: 14px;
 }
 
-#sampleRow {
+#SAMPLE_ROW {
   border: 1px solid var(--accent);
   border-radius: 6px;
 }
 
-#samplePicker {
+#SAMPLE_PICKER {
+  background: var(--editor-paper);
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: var(--editor-paper);
   color: var(--ink);
   font-size: 14px;
 }
 
-#help::backdrop {
+#HELP::backdrop {
   background: rgba( 0, 0, 0, 0.35 );
 }
 
-#help h2 {
+#HELP h2 {
   font: italic 22px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
 }
 
-#help pre,
-#help code {
+#HELP pre,
+#HELP code {
   font: 13px ui-monospace, Menlo, monospace;
 }
 
-#help pre {
-  border-radius: 6px;
+#HELP pre {
   background: var(--editor-paper);
+  border-radius: 6px;
 }
 
-#help i {
+#HELP i {
   opacity: 0.55;
 }
 
-#closeHelpButton {
+#CLOSE_HELP_BUTTON {
   border: 1px solid var(--line);
-  border-radius: 6px;
   background: transparent;
+  border-radius: 6px;
   color: var(--ink);
 }
 
-#editorFrame {
+#EDITOR_FRAME {
   background: var(--editor-paper);
 }
 
-#highlights mark {
-  border-radius: 2px;
+#HIGHLIGHTS mark {
+  background: color-mix( in srgb, var(--problem) 18%, transparent );
   text-decoration: underline wavy var(--problem);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
-  background: color-mix( in srgb, var(--problem) 18%, transparent );
-}
-
-#highlights .playing {
   border-radius: 2px;
-  background: color-mix( in srgb, var(--sheet-highlight) 30%, transparent );
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .playing {
+  background: color-mix( in srgb, var(--sheet-highlight) 30%, transparent );
+  border-radius: 2px;
+}
+
+#HIGHLIGHTS .barMarker::before {
   border-left: 1.5px solid color-mix( in srgb, var(--accent) 60%, transparent );
 }
 
-#highlights .barMarker::after {
+#HIGHLIGHTS .barMarker::after {
   color: var(--accent);
 }
 
-#editor {
-  color: var(--editor-ink);
+#EDITOR {
   caret-color: var(--editor-ink);
+  color: var(--editor-ink);
 }
 
-#noteHint {
-  border-top: 1px solid var(--line);
-  background: var(--chrome);
+#NOTE_HINT {
   color: color-mix( in srgb, var(--ink) 70%, transparent );
   font: 12px/1.4 system-ui, sans-serif;
+  border-top: 1px solid var(--line);
+  background: var(--chrome);
 }
 
-#problemTip {
-  border-radius: 5px;
+#PROBLEM_TIP {
+  font: 12px/1.4 system-ui, sans-serif;
   background: var(--problem);
   color: var(--editor-paper);
-  font: 12px/1.4 system-ui, sans-serif;
+  border-radius: 5px;
 }
 
-#splitter {
+#SPLITTER {
   background: var(--line);
 }
 
-#splitter:hover,
-body.resizing #splitter {
+#SPLITTER:hover,
+body.resizing #SPLITTER {
   background: var(--accent);
 }
 
-#soundButton {
+#SOUND_BUTTON {
+  box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.12 );
   border: 1px solid var(--line);
-  border-radius: 50%;
   background: var(--chrome);
+  border-radius: 50%;
   color: var(--ink);
   font-size: 18px;
-  box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.12 );
 }
 
-#soundButton:hover {
+#SOUND_BUTTON:hover {
   background: var(--line);
 }
 
-#soundPanel {
+#SOUND_PANEL {
+  box-shadow: 0 8px 24px rgba( 0, 0, 0, 0.18 );
   border: 1px solid var(--line);
-  border-radius: 8px;
   background: var(--chrome);
+  border-radius: 8px;
   color: var(--ink);
   font-size: 13px;
-  box-shadow: 0 8px 24px rgba( 0, 0, 0, 0.18 );
 }
 
-#sheetInstruments {
-  font-size: 12px;
+#SHEET_INSTRUMENTS {
   font-style: italic;
+  font-size: 12px;
   opacity: 0.75;
 }
 
-#soundPanel select {
+#SOUND_PANEL select {
+  background: var(--editor-paper);
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: var(--editor-paper);
   color: var(--ink);
 }
 
-#soundSliders input {
+#SOUND_SLIDER_LIST input {
   accent-color: var(--accent);
 }
 
-#soundSliders span:last-child {
+#SOUND_SLIDER_LIST span:last-child {
   font: 11px ui-monospace, Menlo, monospace;
   opacity: 0.7;
 }
 
-#soundActions button {
+#SOUND_ACTIONS button {
   border: 1px solid var(--line);
-  border-radius: 6px;
   background: transparent;
+  border-radius: 6px;
   color: var(--ink);
   font-size: 12px;
 }
 
-#soundActions button:hover {
+#SOUND_ACTIONS button:hover {
   background: var(--line);
 }
 
-#transport {
+#TRANSPORT {
   border-top: 1px solid var(--line);
   background: var(--chrome);
 }
 
-#transport button {
-  border: 1px solid transparent;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ink);
+#TRANSPORT button {
   font: 16px system-ui, sans-serif;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 50%;
+  color: var(--ink);
 }
 
-#playButton.holding {
+#PLAY_BUTTON.holding {
+  animation: waiting 1.2s ease-in-out infinite;
   background: var(--accent);
   color: var(--chrome);
-  animation: waiting 1.2s ease-in-out infinite;
 }
 
 @keyframes waiting {
@@ -283,48 +283,48 @@ body.resizing #splitter {
   }
 }
 
-#transport button:hover {
+#TRANSPORT button:hover {
   background: var(--line);
 }
 
-#clock {
+#CLOCK {
   font: 13px ui-monospace, Menlo, monospace;
   font-variant-numeric: tabular-nums;
   opacity: 0.8;
 }
 
-#seeker {
+#SEEKER {
   accent-color: var(--accent);
 }
 
-#swingControl,
-#volumeControl {
+#SWING_CONTROL,
+#VOLUME_CONTROL {
   font: 12px system-ui, sans-serif;
   opacity: 0.85;
 }
 
-#swingSlider,
-#volumeSlider {
+#SWING_SLIDER,
+#VOLUME_SLIDER {
   accent-color: var(--accent);
 }
 
-#swingReadout,
-#volumeReadout {
+#SWING_READOUT,
+#VOLUME_READOUT {
   font: 11px ui-monospace, Menlo, monospace;
   opacity: 0.75;
 }
 
-#metronomeButton,
-#keyButton,
-#volumeButton,
-#swingButton {
+#METRONOME_BUTTON,
+#KEY_BUTTON,
+#VOLUME_BUTTON,
+#SWING_BUTTON {
   font-weight: bold;
   opacity: 0.55;
 }
 
-#transport #metronomeButton.on,
-#transport #keyButton.on,
-#transport #swingButton.on {
+#TRANSPORT #METRONOME_BUTTON.on,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on {
   border-color: var(--accent);
   background: var(--accent);
   color: var(--chrome);
@@ -332,44 +332,44 @@ body.resizing #splitter {
 }
 
 .popup {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--chrome);
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
-  color: var(--ink);
   font: 12px system-ui, sans-serif;
+  border: 1px solid var(--line);
+  background: var(--chrome);
+  border-radius: 8px;
+  color: var(--ink);
 }
 
-#score {
+#SCORE {
   background: var(--desk);
 }
 
 @media ( max-width: 700px ) {
-  #clock {
+  #CLOCK {
     font-size: 12px;
   }
 
 }
 
 input[type="range"] {
-  height: 22px;
-  appearance: none;
   background: transparent;
+  appearance: none;
+  height: 22px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
   background: var(--line);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb,
-#seekerThumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--accent);
+#SEEKERThumb {
   box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
+  background: var(--accent);
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -378,36 +378,36 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
   background: var(--line);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-progress {
-  height: 4px;
-  border-radius: 2px;
   background: var(--accent);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 16px;
+  box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
+  background: var(--accent);
+  border-radius: 50%;
   height: 16px;
   border: none;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
+  width: 16px;
 }
 
 @supports ( -moz-appearance: none ) {
   * {
-    scrollbar-width: thin;
     scrollbar-color: var(--line) transparent;
+    scrollbar-width: thin;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
   height: 10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -415,32 +415,32 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
+  background: var(--line) padding-box;
   border: 3px solid transparent;
   border-radius: 5px;
-  background: var(--line) padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent) padding-box;
 }
 
-#soundPanel {
-  cursor: grab;
+#SOUND_PANEL {
   touch-action: none;
   user-select: none;
+  cursor: grab;
 }
 
-#soundPanel input,
-#soundPanel select,
-#soundPanel button {
+#SOUND_PANEL input,
+#SOUND_PANEL select,
+#SOUND_PANEL button {
   cursor: pointer;
 }
 
-#transport #metronomeButton.downbeat {
+#TRANSPORT #METRONOME_BUTTON.downbeat {
   animation: downbeat 0.16s ease-out;
 }
 
-#transport #metronomeButton.beat {
+#TRANSPORT #METRONOME_BUTTON.beat {
   animation: beat 0.16s ease-out;
 }
 

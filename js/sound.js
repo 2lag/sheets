@@ -53,8 +53,8 @@ const SOUND_SLIDERS = [
 const WAVEFORMS = [ "sine", "triangle", "square", "sawtooth", "pluck" ];
 const SLIDE_SEMITONES = { fall: -7, rise: 7 };
 
-let soundSettings = loadSoundSettings();
-let audioMix = null;
+let SOUND_SETTINGS = loadSoundSettings();
+let AUDIO_MIX = null;
 
 function loadSoundSettings() {
   try {
@@ -68,12 +68,12 @@ function frequencyOf( midi ) {
   return 440 * Math.pow( 2, ( midi - 69 ) / 12 );
 }
 
-const roomEchoSamples = {};
+const ROOM_ECHO_SAMPLES = {};
 
 function roomEchoSamplesOf( length, channel ) {
   const key = `${ length } ${ channel }`;
-  roomEchoSamples[ key ] ??= Float32Array.from( { length }, ( _, index ) => ( Math.random() * 2 - 1 ) * Math.pow( 1 - index / length, 3 ) );
-  return roomEchoSamples[ key ];
+  ROOM_ECHO_SAMPLES[ key ] ??= Float32Array.from( { length }, ( _, index ) => ( Math.random() * 2 - 1 ) * Math.pow( 1 - index / length, 3 ) );
+  return ROOM_ECHO_SAMPLES[ key ];
 }
 
 function roomEchoOf( context ) {
@@ -91,13 +91,13 @@ function buildMix( context ) {
   room.buffer = roomEchoOf( context );
   room.connect( compressor );
   compressor.connect( master );
-  master.gain.value = masterGainOf( masterVolume );
+  master.gain.value = masterGainOf( MASTER_VOLUME );
   master.connect( context.destination );
   return { context, room, compressor, master, voices: [], noise: null, plucks: new Map() };
 }
 
 function soundOfVoice( voice ) {
-  return voice.instrument ? SOUND_PRESETS[ voice.instrument ] : soundSettings;
+  return voice.instrument ? SOUND_PRESETS[ voice.instrument ] : SOUND_SETTINGS;
 }
 
 function buildVoice( mix, instrument = null ) {
@@ -242,15 +242,15 @@ function addBreath( voice, midi, sound, time, until, envelope ) {
   noise.stop( until );
 }
 
-function addBite( context, midi, sound, time, attackEnd ) {
+function addBite( context, midi, sound, time, attack_end ) {
   const filter = context.createBiquadFilter();
   const base = frequencyOf( midi );
   const limit = context.sampleRate / 2 - 100;
   filter.type = "lowpass";
   filter.Q.value = 1 + sound.bite * 2;
   filter.frequency.setValueAtTime( Math.min( limit, base * 1.5 ), time );
-  filter.frequency.linearRampToValueAtTime( Math.min( limit, base * ( 1.5 + sound.bite * 14 ) ), attackEnd + 0.04 );
-  filter.frequency.setTargetAtTime( Math.min( limit, base * ( 1.5 + sound.bite * 5 ) ), attackEnd + 0.04, 0.25 );
+  filter.frequency.linearRampToValueAtTime( Math.min( limit, base * ( 1.5 + sound.bite * 14 ) ), attack_end + 0.04 );
+  filter.frequency.setTargetAtTime( Math.min( limit, base * ( 1.5 + sound.bite * 5 ) ), attack_end + 0.04, 0.25 );
   return filter;
 }
 
@@ -258,25 +258,25 @@ function scheduleNote( pitch, time, duration, voice, style = {} ) {
   const { context } = voice.mix;
   const sound = soundOfVoice( voice );
   const midi = midiOf( pitch );
-  const attackEnd = time + sound.attack;
+  const attack_end = time + sound.attack;
   const end = time + Math.max( duration, sound.attack );
   const until = end + sound.release * 1.5 + 0.05;
-  const decayTime = sound.decay * ( 1.4 - midi / 127 );
+  const decay_time = sound.decay * ( 1.4 - midi / 127 );
   const peak = style.loudness ?? 1;
   const sustain = style.held ? Math.max( sound.sustain, 0.6 ) : sound.sustain;
-  const isPlucked = sound.waveform === "pluck";
+  const is_plucked = sound.waveform === "pluck";
 
   const release = context.createGain();
   release.connect( voice.input );
 
   const envelope = context.createGain();
   envelope.gain.setValueAtTime( 0, time );
-  envelope.gain.linearRampToValueAtTime( peak, attackEnd );
-  if ( !isPlucked )
-    envelope.gain.setTargetAtTime( Math.max( sustain * peak, 0.0001 ), attackEnd, decayTime / 3 );
+  envelope.gain.linearRampToValueAtTime( peak, attack_end );
+  if ( !is_plucked )
+    envelope.gain.setTargetAtTime( Math.max( sustain * peak, 0.0001 ), attack_end, decay_time / 3 );
   envelope.gain.setTargetAtTime( 0, end, sound.release / 4 );
 
-  const shaped = sound.bite > 0 ? addBite( context, midi, sound, time, attackEnd ) : null;
+  const shaped = sound.bite > 0 ? addBite( context, midi, sound, time, attack_end ) : null;
   const tremolo = sound.tremolo > 0 ? context.createGain() : null;
   const chain = [ envelope, shaped, tremolo, release ].filter( Boolean );
   chain.reduce( ( from, to ) => from.connect( to ) );
@@ -298,12 +298,12 @@ function scheduleNote( pitch, time, duration, voice, style = {} ) {
     if ( sound.vibrato > 0 )
       wobble( context, 5.4, sound.vibrato * 35, time + 0.12, until, tuning );
     if ( style.slide )
-      slideTo( frequency, Math.pow( 2, SLIDE_SEMITONES[ style.slide ] / 12 ), Math.max( attackEnd, end - Math.min( 0.35, duration * 0.4 ) ), end );
+      slideTo( frequency, Math.pow( 2, SLIDE_SEMITONES[ style.slide ] / 12 ), Math.max( attack_end, end - Math.min( 0.35, duration * 0.4 ) ), end );
     source.start( time );
     source.stop( until );
   });
 
-  if ( sound.breath > 0 && !isPlucked )
+  if ( sound.breath > 0 && !is_plucked )
     addBreath( voice, midi, sound, time, until, envelope );
 
   return {
@@ -320,5 +320,5 @@ function previewSound() {
   chord.forEach( ( [ letter, octave ], index ) => {
     scheduleNote( { letter, alter: 0, octave }, start + index * 0.18, 1.2 - index * 0.18, voice );
   });
-  setTimeout( () => context.close(), ( 2.4 + soundSettings.release * 2 ) * 1000 );
+  setTimeout( () => context.close(), ( 2.4 + SOUND_SETTINGS.release * 2 ) * 1000 );
 }

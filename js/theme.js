@@ -5,18 +5,18 @@ function applyTheme( theme ) {
 }
 
 function applyEra( era ) {
-  eraStyle.href = `css/web${ era[ 0 ] }.css`;
-  eraButton.textContent = era;
+  ERA_STYLE.href = `css/web${ era[ 0 ] }.css`;
+  ERA_BUTTON.textContent = era;
 }
 
-themeButton.addEventListener( "click", () => {
+THEME_BUTTON.addEventListener( "click", () => {
   const theme = document.body.classList.contains( "dark" ) ? "day" : "night";
   localStorage.setItem( "theme", theme );
   applyTheme( theme );
 });
 
-eraButton.addEventListener( "click", () => {
-  const era = ERAS[ ( ERAS.indexOf( eraButton.textContent ) + 1 ) % ERAS.length ];
+ERA_BUTTON.addEventListener( "click", () => {
+  const era = ERAS[ ( ERAS.indexOf( ERA_BUTTON.textContent ) + 1 ) % ERAS.length ];
   localStorage.setItem( "era", era );
   applyEra( era );
 });

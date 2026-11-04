@@ -9,35 +9,35 @@
   <link rel="preload" href="fonts/Bravura.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
-  <link id="eraStyle" rel="stylesheet" href="css/web4.css" />
+  <link id="ERA_STYLE" rel="stylesheet" href="css/web4.css" />
   <link rel="stylesheet" href="css/print.css" />
 </head>
 <body>
-  <header id="header">
-    <div id="brand">sheets</div>
+  <header id="HEADER">
+    <div id="BRAND">sheets</div>
     <nav>
-      <button id="helpButton" title="syntax help">?</button>
-      <div id="exportItem">
-        <button id="exportButton" title="export">
-          <svg id="exportIcon" viewBox="0 0 24 24">
+      <button id="HELP_BUTTON" title="syntax help">?</button>
+      <div id="EXPORT_ITEM">
+        <button id="EXPORT_BUTTON" title="export">
+          <svg id="EXPORT_ICON" viewBox="0 0 24 24">
             <path d="M12 3.5v11M7 10l5 5 5-5M4.5 16.5v3h15v-3" />
           </svg>
         </button>
-        <div id="exportMenu">
-          <button id="exportLink">link</button>
-          <button id="exportStrudel">strudel.cc</button>
-          <button id="exportPdf">pdf</button>
+        <div id="EXPORT_MENU">
+          <button id="EXPORT_LINK">link</button>
+          <button id="EXPORT_STRUDEL">strudel.cc</button>
+          <button id="EXPORT_PDF">pdf</button>
         </div>
       </div>
-      <div id="lookItem">
-        <button id="lookButton" title="look">
+      <div id="LOOK_ITEM">
+        <button id="LOOK_BUTTON" title="look">
           <svg viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="8.5" />
             <path d="M12 3.5a8.5 8.5 0 0 0 0 17z" />
           </svg>
         </button>
-        <div id="lookMenu">
-          <button id="themeButton">
+        <div id="LOOK_MENU">
+          <button id="THEME_BUTTON">
             <svg class="sunIcon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4.2" />
               <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" />
@@ -46,16 +46,16 @@
               <path d="M20 14.6A8.4 8.4 0 0 1 9.4 4a8.4 8.4 0 1 0 10.6 10.6z" />
             </svg>
           </button>
-          <button id="eraButton">4.0</button>
+          <button id="ERA_BUTTON">4.0</button>
         </div>
       </div>
     </nav>
   </header>
-  <dialog id="help">
+  <dialog id="HELP">
     <h2>writing music</h2>
-    <label id="sampleRow">
+    <label id="SAMPLE_ROW">
       try a sample
-      <select id="samplePicker"></select>
+      <select id="SAMPLE_PICKER"></select>
     </label>
     <pre>
 title=Prelude               <i># shown above the music</i>
@@ -100,14 +100,14 @@ clef=b                      <i># following lines go to the bass staff</i>
       Add <code>s</code>, <code>b</code> or <code>n</code> to step outside the key for one note.
       Notes that cross a barline are split and tied for you.
     </p>
-    <button id="closeHelpButton">close</button>
+    <button id="CLOSE_HELP_BUTTON">close</button>
   </dialog>
 
-  <main id="workspace">
-    <section id="writing">
-      <div id="editorFrame">
-        <div id="highlights" aria-hidden="true"></div>
-        <textarea id="editor" spellcheck="false">title=Prelude
+  <main id="WORKSPACE">
+    <section id="WRITING">
+      <div id="EDITOR_FRAME">
+        <div id="HIGHLIGHTS" aria-hidden="true"></div>
+        <textarea id="EDITOR" spellcheck="false">title=Prelude
 author=you
 bpm=96
 ts=4,4
@@ -126,97 +126,97 @@ clef=b
 3g2. r4
         </textarea>
       </div>
-      <div id="noteHint"></div>
-      <div id="problemTip"></div>
+      <div id="NOTE_HINT"></div>
+      <div id="PROBLEM_TIP"></div>
     </section>
 
-    <div id="splitter"></div>
+    <div id="SPLITTER"></div>
 
-    <section id="output" tabindex="-1">
-      <button id="soundButton" title="sound">
-        <svg id="soundIcon" viewBox="0 0 24 24">
+    <section id="OUTPUT" tabindex="-1">
+      <button id="SOUND_BUTTON" title="sound">
+        <svg id="SOUND_ICON" viewBox="0 0 24 24">
           <path class="tracks" d="M6 4v16M12 4v16M18 4v16" />
           <rect x="3.5" y="13" width="5" height="3.2" rx="1.2" />
           <rect x="9.5" y="6.5" width="5" height="3.2" rx="1.2" />
           <rect x="15.5" y="11" width="5" height="3.2" rx="1.2" />
         </svg>
       </button>
-      <div id="soundPanel">
-        <p id="soundTitle">Sound Properties</p>
-        <p id="sheetInstruments"></p>
+      <div id="SOUND_PANEL">
+        <p id="SOUND_TITLE">Sound Properties</p>
+        <p id="SHEET_INSTRUMENTS"></p>
         <label>
           instrument
-          <select id="presetPicker"></select>
+          <select id="PRESET_PICKER"></select>
         </label>
         <label>
           waveform
-          <select id="waveformPicker"></select>
+          <select id="WAVEFORM_PICKER"></select>
         </label>
         <label>
           body
-          <select id="bodyPicker"></select>
+          <select id="BODY_PICKER"></select>
         </label>
-        <div id="soundSliders"></div>
-        <div id="soundActions">
-          <button id="previewButton">try it</button>
-          <button id="randomButton">random</button>
-          <button id="resetSoundButton">reset</button>
+        <div id="SOUND_SLIDER_LIST"></div>
+        <div id="SOUND_ACTIONS">
+          <button id="PREVIEW_BUTTON">try it</button>
+          <button id="RANDOM_BUTTON">random</button>
+          <button id="RESET_SOUND_BUTTON">reset</button>
         </div>
       </div>
 
-      <div id="score"></div>
+      <div id="SCORE"></div>
 
-      <div id="transport">
-        <button id="playButton">
+      <div id="TRANSPORT">
+        <button id="PLAY_BUTTON">
           <svg class="playIcon" viewBox="0 0 18 18">
             <path d="M5 3v12l10-6z" />
           </svg>
           <span class="pauseIcon"></span>
         </button>
-        <span id="clock">0:00 / 0:00</span>
-        <input id="seeker" type="range" max="1000" />
-        <span id="seekerThumb"></span>
-        <button id="metronomeButton" title="tempo counter">
-          <svg id="metronomeIcon" viewBox="0 0 24 24">
+        <span id="CLOCK">0:00 / 0:00</span>
+        <input id="SEEKER" type="range" max="1000" />
+        <span id="SEEKER_THUMB"></span>
+        <button id="METRONOME_BUTTON" title="tempo counter">
+          <svg id="METRONOME_ICON" viewBox="0 0 24 24">
             <path d="M7.6 20.5 10.2 3.5h3.6l2.6 17zM6 20.5h12M12 16.5l5.5-10" />
             <circle cx="15.4" cy="10.3" r="1.5" />
           </svg>
         </button>
-        <button id="keyButton" title="show every sharp and flat, as if in C">C</button>
+        <button id="KEY_BUTTON" title="show every sharp and flat, as if in C">C</button>
         <div class="popItem">
-          <button id="volumeButton">
-            <svg id="volumeIcon" viewBox="0 0 24 24">
+          <button id="VOLUME_BUTTON">
+            <svg id="VOLUME_ICON" viewBox="0 0 24 24">
               <path class="speaker" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
               <path class="waves" d="M15 9a4 4 0 0 1 0 6M17.5 6.5a7.5 7.5 0 0 1 0 11" />
               <path class="silenced" d="M15.5 9.5l5 5M20.5 9.5l-5 5" />
             </svg>
           </button>
-          <div id="volumePopup" class="popup">
-            <label id="volumeControl">
+          <div id="VOLUME_POPUP" class="popup">
+            <label id="VOLUME_CONTROL">
               <span>volume</span>
-              <input id="volumeSlider" type="range" />
-              <span id="volumeReadout">100%</span>
+              <input id="VOLUME_SLIDER" type="range" />
+              <span id="VOLUME_READOUT">100%</span>
             </label>
           </div>
         </div>
         <div class="popItem">
-          <button id="swingButton" title="swing">
-            <svg id="swingIcon" viewBox="0 0 24 24">
+          <button id="SWING_BUTTON" title="swing">
+            <svg id="SWING_ICON" viewBox="0 0 24 24">
               <path d="M4 9.5c3-5 10-6.5 15-2" />
               <path d="M16.5 5.2l2.6 2.4-3.3 1.1" />
               <rect x="3" y="13.5" width="10" height="4" rx="2" />
               <rect x="15" y="13.5" width="5.5" height="4" rx="2" />
             </svg>
           </button>
-          <div id="swingPopup" class="popup">
-            <label id="swingControl">
+          <div id="SWING_POPUP" class="popup">
+            <label id="SWING_CONTROL">
               <span>swing</span>
-              <input id="swingSlider" type="range" min="50" max="100" />
-              <span id="swingReadout">off</span>
+              <input id="SWING_SLIDER" type="range" min="50" max="100" />
+              <span id="SWING_READOUT">off</span>
             </label>
           </div>
         </div>
-        <button id="listenButton">
+        <button id="LISTEN_BUTTON">
           <svg class="enterIcon" viewBox="0 0 24 24">
             <path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7" />
           </svg>

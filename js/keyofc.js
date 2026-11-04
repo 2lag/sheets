@@ -1,16 +1,16 @@
-let showInC = localStorage.getItem( "showInC" ) === "on";
+let SHOW_IN_C = localStorage.getItem( "showInC" ) === "on";
 
 function showKeyButton() {
-  keyButton.classList.toggle( "on", showInC );
+  KEY_BUTTON.classList.toggle( "on", SHOW_IN_C );
 }
 
-keyButton.addEventListener( "click", () => {
-  showInC = !showInC;
-  localStorage.setItem( "showInC", showInC ? "on" : "off" );
+KEY_BUTTON.addEventListener( "click", () => {
+  SHOW_IN_C = !SHOW_IN_C;
+  localStorage.setItem( "showInC", SHOW_IN_C ? "on" : "off" );
   showKeyButton();
-  renderScore( sheet );
-  if ( !playing && playbackPosition > 0 )
-    placePlayhead( playbackPosition, false );
+  renderScore( SHEET );
+  if ( !PLAYING && PLAYBACK_POSITION > 0 )
+    placePlayhead( PLAYBACK_POSITION, false );
 });
 
 showKeyButton();

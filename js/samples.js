@@ -794,24 +794,24 @@ function isSampleOrEmpty( text ) {
 }
 
 function loadSample( name ) {
-  const replacing = isSampleOrEmpty( editor.value ) || confirm( `Replace your music with "${ name }"?` );
+  const replacing = isSampleOrEmpty( EDITOR.value ) || confirm( `Replace your music with "${ name }"?` );
   if ( !replacing )
     return;
   stopPlayback();
-  playbackPosition = 0;
-  editor.value = SAMPLES[ name ];
+  PLAYBACK_POSITION = 0;
+  EDITOR.value = SAMPLES[ name ];
   refreshScore();
-  score.scrollTop = 0;
-  help.close();
+  SCORE.scrollTop = 0;
+  HELP.close();
 }
 
-samplePicker.replaceChildren(
+SAMPLE_PICKER.replaceChildren(
   new Option( "choose a piece…", "" ),
   ...Object.keys( SAMPLES ).map( name => new Option( name, name ) )
 );
 
-samplePicker.addEventListener( "change", () => {
-  if ( samplePicker.value )
-    loadSample( samplePicker.value );
-  samplePicker.value = "";
+SAMPLE_PICKER.addEventListener( "change", () => {
+  if ( SAMPLE_PICKER.value )
+    loadSample( SAMPLE_PICKER.value );
+  SAMPLE_PICKER.value = "";
 });

@@ -1,12 +1,12 @@
-let playing = false;
-let holding = false;
-let audioContext = null;
-let highlightTimeouts = [];
-let heldNotes = [];
-let playbackPosition = 0;
-let playbackOrigin = null;
-let schedulerTimer = null;
-let activePlan = null;
+let PLAYING = false;
+let HOLDING = false;
+let AUDIO_CONTEXT = null;
+let HIGHLIGHT_TIMEOUTS = [];
+let HELD_NOTES = [];
+let PLAYBACK_POSITION = 0;
+let PLAYBACK_ORIGIN = null;
+let SCHEDULER_TIMER = null;
+let ACTIVE_PLAN = null;
 
 const LOOKAHEAD_SECONDS = 2;
 const HIDDEN_LOOKAHEAD_SECONDS = 45;
@@ -17,13 +17,13 @@ function secondsPerWholeNoteOf( sheet ) {
 }
 
 const ENDLESS_MINUTES = 30;
-const performances = new WeakMap();
+const PERFORMANCES = new WeakMap();
 
 function timedSegmentsOf( segments ) {
-  let performedStart = 0;
+  let performed_start = 0;
   return segments.map( segment => {
-    const timed = { ...segment, performedStart };
-    performedStart += segment.end - segment.start;
+    const timed = { ...segment, performedStart: performed_start };
+    performed_start += segment.end - segment.start;
     return timed;
   });
 }
@@ -33,8 +33,8 @@ function lengthOfSegments( segments ) {
 }
 
 function onePassOf( sheet ) {
-  const songLength = sheet.loop ? sheet.loop.end : Math.max( ...sheet.staves.map( staffLengthOf ) );
-  return performanceSegmentsOf( sheet.repeats || [], songLength );
+  const song_length = sheet.loop ? sheet.loop.end : Math.max( ...sheet.staves.map( staffLengthOf ) );
+  return performanceSegmentsOf( sheet.repeats || [], song_length );
 }
 
 function loopBodyOf( sheet ) {
@@ -48,9 +48,9 @@ function endlessPerformanceOf( sheet ) {
 }
 
 function performanceOf( sheet ) {
-  if ( !performances.has( sheet ) )
-    performances.set( sheet, timedSegmentsOf( sheet.loop ? endlessPerformanceOf( sheet ) : onePassOf( sheet ) ) );
-  return performances.get( sheet );
+  if ( !PERFORMANCES.has( sheet ) )
+    PERFORMANCES.set( sheet, timedSegmentsOf( sheet.loop ? endlessPerformanceOf( sheet ) : onePassOf( sheet ) ) );
+  return PERFORMANCES.get( sheet );
 }
 
 function onePassPerformanceOf( sheet ) {
@@ -66,15 +66,15 @@ function passLengthOf( sheet ) {
 }
 
 function shownPositionOf( position ) {
-  const pass = passLengthOf( sheet );
-  if ( !sheet.loop || position <= pass + EPSILON )
+  const pass = passLengthOf( SHEET );
+  if ( !SHEET.loop || position <= pass + EPSILON )
     return position;
-  const body = lengthOfSegments( loopBodyOf( sheet ) );
+  const body = lengthOfSegments( loopBodyOf( SHEET ) );
   return pass - body + ( position - pass ) % body;
 }
 
 function scorePositionOf( performed ) {
-  const performance = performanceOf( sheet );
+  const performance = performanceOf( SHEET );
   const segment = performance.findLast( candidate => candidate.performedStart <= performed + EPSILON ) || performance[ 0 ];
   if ( !segment )
     return performed;
@@ -98,7 +98,7 @@ function occurrencesOf( staff, performance ) {
 }
 
 function nextFermataAfter( from, performance ) {
-  const ends = sheet.staves.flatMap( staff => occurrencesOf( staff, performance )
+  const ends = SHEET.staves.flatMap( staff => occurrencesOf( staff, performance )
     .filter( item => item.event.articulations?.includes( "fermata" ) && item.end <= item.segment.end + EPSILON )
     .map( item => item.performedAt( item.end ) ) );
   return Math.min( Infinity, ...ends.filter( end => end > from + EPSILON ) );
@@ -137,112 +137,112 @@ function isContinuing( staff, index, pitch ) {
   return previous.tie && hasPitch( previous, pitch );
 }
 
-function highlight( event, isOn ) {
-  [ ...( event.marks || [] ), ...( event.textMarks || [] ) ].forEach( mark => mark.classList.toggle( "playing", isOn ) );
-  if ( isOn )
+function highlight( event, is_on ) {
+  [ ...( event.marks || [] ), ...( event.textMarks || [] ) ].forEach( mark => mark.classList.toggle( "playing", is_on ) );
+  if ( is_on )
     followInEditor( event );
 }
 
 const MOST_SWING = 0.985;
 
 function swingRatio() {
-  return Math.min( swingAmount, MOST_SWING );
+  return Math.min( SWING_AMOUNT, MOST_SWING );
 }
 
 function isSwung() {
-  return swingAmount > 0.5 && !isCompoundMeter( sheet.meter );
+  return SWING_AMOUNT > 0.5 && !isCompoundMeter( SHEET.meter );
 }
 
 function swungTimeOf( position ) {
   if ( !isSwung() )
     return position;
   const beat = 1 / 4;
-  const beatStart = Math.floor( position / beat + EPSILON ) * beat;
-  const within = ( position - beatStart ) / beat;
+  const beat_start = Math.floor( position / beat + EPSILON ) * beat;
+  const within = ( position - beat_start ) / beat;
   const performed = within <= 0.5
     ? within * 2 * swingRatio()
     : swingRatio() + ( within - 0.5 ) * 2 * ( 1 - swingRatio() );
-  return beatStart + performed * beat;
+  return beat_start + performed * beat;
 }
 
-function straightTimeOf( performedPosition ) {
+function straightTimeOf( performed_position ) {
   if ( !isSwung() )
-    return performedPosition;
+    return performed_position;
   const beat = 1 / 4;
-  const beatStart = Math.floor( performedPosition / beat + EPSILON ) * beat;
-  const within = ( performedPosition - beatStart ) / beat;
+  const beat_start = Math.floor( performed_position / beat + EPSILON ) * beat;
+  const within = ( performed_position - beat_start ) / beat;
   const written = within <= swingRatio()
     ? within / ( 2 * swingRatio() )
     : 0.5 + ( within - swingRatio() ) / ( 2 * ( 1 - swingRatio() ) );
-  return beatStart + written * beat;
+  return beat_start + written * beat;
 }
 
-function audioTimeAt( position, startTime, from ) {
-  return startTime + ( swungTimeOf( position ) - swungTimeOf( from ) ) * secondsPerWholeNoteOf( sheet );
+function audioTimeAt( position, start_time, from ) {
+  return start_time + ( swungTimeOf( position ) - swungTimeOf( from ) ) * secondsPerWholeNoteOf( SHEET );
 }
 
-function scheduleHighlight( event, startsAt, endsAt ) {
-  const delayUntil = time => Math.max( 0, time - audioContext.currentTime ) * 1000;
-  highlightTimeouts.push( setTimeout( () => highlight( event, true ), delayUntil( startsAt ) ) );
-  if ( endsAt !== Infinity )
-    highlightTimeouts.push( setTimeout( () => highlight( event, false ), delayUntil( endsAt ) ) );
+function scheduleHighlight( event, starts_at, ends_at ) {
+  const delayUntil = time => Math.max( 0, time - AUDIO_CONTEXT.currentTime ) * 1000;
+  HIGHLIGHT_TIMEOUTS.push( setTimeout( () => highlight( event, true ), delayUntil( starts_at ) ) );
+  if ( ends_at !== Infinity )
+    HIGHLIGHT_TIMEOUTS.push( setTimeout( () => highlight( event, false ), delayUntil( ends_at ) ) );
 }
 
-function scheduleGraces( graces, beginsAt, noteSeconds, voice ) {
-  const graceSeconds = Math.min( 0.06, noteSeconds / ( graces.length + 2 ) );
-  graces.forEach( ( pitch, index ) => scheduleNote( pitch, beginsAt + index * graceSeconds, graceSeconds, voice ) );
-  return graces.length * graceSeconds;
+function scheduleGraces( graces, begins_at, note_seconds, voice ) {
+  const grace_seconds = Math.min( 0.06, note_seconds / ( graces.length + 2 ) );
+  graces.forEach( ( pitch, index ) => scheduleNote( pitch, begins_at + index * grace_seconds, grace_seconds, voice ) );
+  return graces.length * grace_seconds;
 }
 
 function scheduleOccurrence( staff, item, plan ) {
   const { event, index, segment } = item;
   const audioTimeOf = position => audioTimeAt( position, plan.startTime, plan.from );
-  const performedStart = item.performedAt( Math.max( item.start, segment.start ) );
-  const performedEnd = item.performedAt( Math.min( item.end, segment.end ) );
-  if ( performedEnd <= plan.from + EPSILON || performedStart >= plan.until - EPSILON )
+  const performed_start = item.performedAt( Math.max( item.start, segment.start ) );
+  const performed_end = item.performedAt( Math.min( item.end, segment.end ) );
+  if ( performed_end <= plan.from + EPSILON || performed_start >= plan.until - EPSILON )
     return;
-  const beginsHere = item.start >= segment.start - EPSILON && performedStart >= plan.from - EPSILON;
-  const graceDelay = beginsHere && event.graces
-    ? scheduleGraces( event.graces, audioTimeOf( performedStart ), audioTimeOf( performedEnd ) - audioTimeOf( performedStart ), plan.voices.get( staff ) )
+  const begins_here = item.start >= segment.start - EPSILON && performed_start >= plan.from - EPSILON;
+  const grace_delay = begins_here && event.graces
+    ? scheduleGraces( event.graces, audioTimeOf( performed_start ), audioTimeOf( performed_end ) - audioTimeOf( performed_start ), plan.voices.get( staff ) )
     : 0;
-  const isStaccato = event.articulations?.includes( "staccato" );
+  const is_staccato = event.articulations?.includes( "staccato" );
   event.pitches
     .filter( pitch => !isContinuing( staff, index, pitch ) || item.start <= segment.start + EPSILON )
     .forEach( pitch => {
-      const chainEnd = Math.min( item.start + tiedDurationOf( staff, index, pitch ), segment.end );
-      const soundEnd = isStaccato ? item.start + ( chainEnd - item.start ) * 0.5 : chainEnd;
-      const soundStart = Math.max( performedStart, plan.from );
-      const performedSoundEnd = item.performedAt( soundEnd );
-      if ( performedSoundEnd <= plan.from + EPSILON )
+      const chain_end = Math.min( item.start + tiedDurationOf( staff, index, pitch ), segment.end );
+      const sound_end = is_staccato ? item.start + ( chain_end - item.start ) * 0.5 : chain_end;
+      const sound_start = Math.max( performed_start, plan.from );
+      const performed_sound_end = item.performedAt( sound_end );
+      if ( performed_sound_end <= plan.from + EPSILON )
         return;
-      const ringsThroughHold = plan.stopsForFermata && performedSoundEnd >= plan.until - EPSILON;
-      const startsAt = audioTimeOf( soundStart ) + graceDelay;
-      const seconds = ringsThroughHold ? 60 : audioTimeOf( performedSoundEnd ) - startsAt;
-      const note = scheduleNote( pitch, startsAt, seconds, plan.voices.get( staff ), { ...soundStyleOf( event ), held: ringsThroughHold } );
-      if ( ringsThroughHold )
-        heldNotes.push( note );
+      const rings_through_hold = plan.stopsForFermata && performed_sound_end >= plan.until - EPSILON;
+      const starts_at = audioTimeOf( sound_start ) + grace_delay;
+      const seconds = rings_through_hold ? 60 : audioTimeOf( performed_sound_end ) - starts_at;
+      const note = scheduleNote( pitch, starts_at, seconds, plan.voices.get( staff ), { ...soundStyleOf( event ), held: rings_through_hold } );
+      if ( rings_through_hold )
+        HELD_NOTES.push( note );
     });
-  const highlightEnd = plan.stopsForFermata && performedEnd >= plan.until - EPSILON ? Infinity : audioTimeOf( performedEnd );
-  scheduleHighlight( event, audioTimeOf( Math.max( performedStart, plan.from ) ), highlightEnd );
+  const highlight_end = plan.stopsForFermata && performed_end >= plan.until - EPSILON ? Infinity : audioTimeOf( performed_end );
+  scheduleHighlight( event, audioTimeOf( Math.max( performed_start, plan.from ) ), highlight_end );
 }
 
 function startTimeOf( item, plan ) {
-  const performedStart = item.performedAt( Math.max( item.start, item.segment.start ) );
-  return audioTimeAt( Math.max( performedStart, plan.from ), plan.startTime, plan.from );
+  const performed_start = item.performedAt( Math.max( item.start, item.segment.start ) );
+  return audioTimeAt( Math.max( performed_start, plan.from ), plan.startTime, plan.from );
 }
 
 function noteQueueOf( plan ) {
-  return sheet.staves
+  return SHEET.staves
     .flatMap( staff => occurrencesOf( staff, plan.performance ).map( item => ( { staff, item, startsAt: startTimeOf( item, plan ) } ) ) )
     .sort( ( a, b ) => a.startsAt - b.startsAt );
 }
 
 function scheduleAhead( plan ) {
-  const now = audioContext.currentTime;
+  const now = AUDIO_CONTEXT.currentTime;
   const horizon = now + ( document.hidden ? HIDDEN_LOOKAHEAD_SECONDS : LOOKAHEAD_SECONDS );
   while ( plan.next < plan.queue.length && plan.queue[ plan.next ].startsAt <= horizon ) {
-    const { staff, item, startsAt } = plan.queue[ plan.next ];
-    if ( startsAt >= now - LATE_SECONDS && !staff.muted )
+    const { staff, item, startsAt: starts_at } = plan.queue[ plan.next ];
+    if ( starts_at >= now - LATE_SECONDS && !staff.muted )
       scheduleOccurrence( staff, item, plan );
     plan.next++;
   }
@@ -250,107 +250,107 @@ function scheduleAhead( plan ) {
 }
 
 document.addEventListener( "visibilitychange", () => {
-  if ( playing && activePlan )
-    scheduleAhead( activePlan );
+  if ( PLAYING && ACTIVE_PLAN )
+    scheduleAhead( ACTIVE_PLAN );
 });
 
 function currentPosition() {
-  if ( !playing )
-    return playbackPosition;
-  const secondsPlayed = Math.max( 0, audioContext.currentTime - playbackOrigin.time );
-  const position = straightTimeOf( swungTimeOf( playbackOrigin.position ) + secondsPlayed / secondsPerWholeNoteOf( sheet ) );
-  return Math.min( position, playbackOrigin.until );
+  if ( !PLAYING )
+    return PLAYBACK_POSITION;
+  const seconds_played = Math.max( 0, AUDIO_CONTEXT.currentTime - PLAYBACK_ORIGIN.time );
+  const position = straightTimeOf( swungTimeOf( PLAYBACK_ORIGIN.position ) + seconds_played / secondsPerWholeNoteOf( SHEET ) );
+  return Math.min( position, PLAYBACK_ORIGIN.until );
 }
 
 function startPlayback() {
-  const performance = performanceOf( sheet );
-  const songLength = totalDurationOf( sheet );
-  if ( playbackPosition >= songLength - EPSILON )
-    playbackPosition = 0;
-  playing = true;
-  playButton.classList.add( "pausable" );
-  playButton.classList.remove( "holding" );
-  audioContext = new AudioContext();
-  audioMix = buildMix( audioContext );
-  const voices = new Map( sheet.staves.map( staff => [ staff, buildVoice( audioMix, staff.instrument ) ] ) );
+  const performance = performanceOf( SHEET );
+  const song_length = totalDurationOf( SHEET );
+  if ( PLAYBACK_POSITION >= song_length - EPSILON )
+    PLAYBACK_POSITION = 0;
+  PLAYING = true;
+  PLAY_BUTTON.classList.add( "pausable" );
+  PLAY_BUTTON.classList.remove( "holding" );
+  AUDIO_CONTEXT = new AudioContext();
+  AUDIO_MIX = buildMix( AUDIO_CONTEXT );
+  const voices = new Map( SHEET.staves.map( staff => [ staff, buildVoice( AUDIO_MIX, staff.instrument ) ] ) );
 
-  const startTime = audioContext.currentTime + 0.05;
-  const fermataAt = nextFermataAfter( playbackPosition, performance );
-  const until = Math.min( fermataAt, songLength );
-  const stopsForFermata = fermataAt <= songLength + EPSILON;
-  const plan = { performance, songLength, startTime, from: playbackPosition, until, stopsForFermata, voices };
-  playbackOrigin = { time: startTime, position: playbackPosition, until };
+  const start_time = AUDIO_CONTEXT.currentTime + 0.05;
+  const fermata_at = nextFermataAfter( PLAYBACK_POSITION, performance );
+  const until = Math.min( fermata_at, song_length );
+  const stops_for_fermata = fermata_at <= song_length + EPSILON;
+  const plan = { performance, songLength: song_length, startTime: start_time, from: PLAYBACK_POSITION, until, stopsForFermata: stops_for_fermata, voices };
+  PLAYBACK_ORIGIN = { time: start_time, position: PLAYBACK_POSITION, until };
 
-  plan.metronome = metronomeOf( startTime, audioMix.compressor, playbackPosition, until );
+  plan.metronome = metronomeOf( start_time, AUDIO_MIX.compressor, PLAYBACK_POSITION, until );
   plan.queue = noteQueueOf( plan );
   plan.next = 0;
-  activePlan = plan;
+  ACTIVE_PLAN = plan;
   scheduleAhead( plan );
-  schedulerTimer = setInterval( () => scheduleAhead( plan ), 500 );
+  SCHEDULER_TIMER = setInterval( () => scheduleAhead( plan ), 500 );
   startPlayhead();
 
-  const secondsLeft = audioTimeAt( until, 0, playbackPosition );
-  highlightTimeouts.push( setTimeout( stopsForFermata ? () => holdFermata( until ) : finishPlayback, ( secondsLeft + ( stopsForFermata ? 0 : 0.1 ) ) * 1000 ) );
+  const seconds_left = audioTimeAt( until, 0, PLAYBACK_POSITION );
+  HIGHLIGHT_TIMEOUTS.push( setTimeout( stops_for_fermata ? () => holdFermata( until ) : finishPlayback, ( seconds_left + ( stops_for_fermata ? 0 : 0.1 ) ) * 1000 ) );
 }
 
 function holdFermata( position ) {
-  playing = false;
-  holding = true;
-  playbackPosition = position;
-  playButton.classList.remove( "pausable" );
-  playButton.classList.add( "holding" );
+  PLAYING = false;
+  HOLDING = true;
+  PLAYBACK_POSITION = position;
+  PLAY_BUTTON.classList.remove( "pausable" );
+  PLAY_BUTTON.classList.add( "holding" );
   showPosition( position );
   placePlayhead( position );
 }
 
 function continueAfterFermata() {
-  const heldContext = audioContext;
-  clearInterval( schedulerTimer );
-  heldNotes.forEach( note => note.letGo() );
-  heldNotes = [];
-  highlightTimeouts.forEach( clearTimeout );
-  highlightTimeouts = [];
-  sheet.staves.forEach( staff => staff.events.forEach( event => highlight( event, false ) ) );
-  setTimeout( () => heldContext.close(), 400 );
-  audioContext = null;
-  holding = false;
-  if ( playbackPosition >= totalDurationOf( sheet ) - EPSILON )
+  const held_context = AUDIO_CONTEXT;
+  clearInterval( SCHEDULER_TIMER );
+  HELD_NOTES.forEach( note => note.letGo() );
+  HELD_NOTES = [];
+  HIGHLIGHT_TIMEOUTS.forEach( clearTimeout );
+  HIGHLIGHT_TIMEOUTS = [];
+  SHEET.staves.forEach( staff => staff.events.forEach( event => highlight( event, false ) ) );
+  setTimeout( () => held_context.close(), 400 );
+  AUDIO_CONTEXT = null;
+  HOLDING = false;
+  if ( PLAYBACK_POSITION >= totalDurationOf( SHEET ) - EPSILON )
     finishPlayback();
   else
     startPlayback();
 }
 
 function pausePlayback() {
-  playbackPosition = currentPosition();
+  PLAYBACK_POSITION = currentPosition();
   stopPlayback();
-  showPosition( playbackPosition );
-  placePlayhead( playbackPosition );
+  showPosition( PLAYBACK_POSITION );
+  placePlayhead( PLAYBACK_POSITION );
 }
 
 function finishPlayback() {
   stopPlayback();
-  playbackPosition = 0;
+  PLAYBACK_POSITION = 0;
   showPosition( 0 );
 }
 
 function stopPlayback() {
-  playing = false;
-  holding = false;
-  heldNotes = [];
-  playButton.classList.remove( "pausable" );
-  playButton.classList.remove( "holding" );
+  PLAYING = false;
+  HOLDING = false;
+  HELD_NOTES = [];
+  PLAY_BUTTON.classList.remove( "pausable" );
+  PLAY_BUTTON.classList.remove( "holding" );
 
-  clearInterval( schedulerTimer );
-  highlightTimeouts.forEach( clearTimeout );
-  highlightTimeouts = [];
-  sheet.staves.forEach( staff => staff.events.forEach( event => highlight( event, false ) ) );
+  clearInterval( SCHEDULER_TIMER );
+  HIGHLIGHT_TIMEOUTS.forEach( clearTimeout );
+  HIGHLIGHT_TIMEOUTS = [];
+  SHEET.staves.forEach( staff => staff.events.forEach( event => highlight( event, false ) ) );
   resetMetronome();
   stopPlayhead();
 
-  if ( audioContext ) {
-    fadeOutAndClose( audioContext, audioMix );
-    audioContext = null;
-    audioMix = null;
+  if ( AUDIO_CONTEXT ) {
+    fadeOutAndClose( AUDIO_CONTEXT, AUDIO_MIX );
+    AUDIO_CONTEXT = null;
+    AUDIO_MIX = null;
   }
 }
 
@@ -359,10 +359,10 @@ function fadeOutAndClose( context, mix ) {
   setTimeout( () => context.close(), 150 );
 }
 
-playButton.addEventListener( "click", () => {
-  if ( holding )
+PLAY_BUTTON.addEventListener( "click", () => {
+  if ( HOLDING )
     continueAfterFermata();
-  else if ( playing )
+  else if ( PLAYING )
     pausePlayback();
   else
     startPlayback();
@@ -370,13 +370,13 @@ playButton.addEventListener( "click", () => {
 
 function spaceTogglesPlayback( target ) {
   const typing = [ "SELECT", "TEXTAREA" ].includes( target.tagName );
-  return output.contains( target ) && !soundPanel.contains( target ) && !typing;
+  return OUTPUT.contains( target ) && !SOUND_PANEL.contains( target ) && !typing;
 }
 
 document.addEventListener( "keydown", event => {
   if ( event.code !== "Space" || !spaceTogglesPlayback( document.activeElement ) )
     return;
   event.preventDefault();
-  playButton.click();
+  PLAY_BUTTON.click();
 });
 

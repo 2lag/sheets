@@ -34,26 +34,26 @@ nav {
 }
 
 nav > button,
-#exportButton,
-#lookButton {
+#EXPORT_BUTTON,
+#LOOK_BUTTON {
   cursor: pointer;
   height: 36px;
   width: 40px;
 }
 
-#exportItem,
-#lookItem {
+#EXPORT_ITEM,
+#LOOK_ITEM {
   position: relative;
 }
 
-#lookButton svg {
+#LOOK_BUTTON svg {
   display: block;
   margin: auto;
   height: 20px;
   width: 20px;
 }
 
-#lookMenu {
+#LOOK_MENU {
   position: absolute;
   display: none;
   padding: 4px;
@@ -63,19 +63,19 @@ nav > button,
   gap: 4px;
 }
 
-#lookMenu.open {
+#LOOK_MENU.open {
   flex-direction: column;
   display: flex;
 }
 
-#lookMenu button {
+#LOOK_MENU button {
   min-width: 44px;
   padding: 0 10px;
   cursor: pointer;
   height: 36px;
 }
 
-#exportMenu {
+#EXPORT_MENU {
   transform: translateX( -50% );
   flex-direction: column;
   position: absolute;
@@ -87,267 +87,267 @@ nav > button,
   top: 42px;
 }
 
-#exportMenu.open {
+#EXPORT_MENU.open {
   display: flex;
 }
 
-#exportMenu button {
+#EXPORT_MENU button {
   padding: 8px 12px;
   text-align: left;
   cursor: pointer;
 }
 
-#help {
+#HELP {
   max-width: min( 860px, calc( 100vw - 24px ) );
   padding: 20px 26px;
 }
 
-#sampleRow {
-  display: flex;
+#SAMPLE_ROW {
   align-items: center;
-  gap: 10px;
   margin-bottom: 14px;
   padding: 10px 12px;
+  display: flex;
+  gap: 10px;
 }
 
-#samplePicker {
-  flex: 1;
+#SAMPLE_PICKER {
   padding: 4px 6px;
+  flex: 1;
 }
 
-#help h2 {
+#HELP h2 {
   margin: 0 0 12px;
 }
 
-#help pre {
-  overflow-x: auto;
+#HELP pre {
   padding: 10px 12px;
+  overflow-x: auto;
 }
 
-#help td code {
+#HELP td code {
   white-space: nowrap;
 }
 
-#help td {
+#HELP td {
   padding: 3px 14px 3px 0;
   vertical-align: top;
 }
 
-#help #closeHelpButton {
+#HELP #CLOSE_HELP_BUTTON {
   padding: 6px 16px;
   margin-left: auto;
   cursor: pointer;
   display: block;
 }
 
-#workspace {
+#WORKSPACE {
   display: flex;
-  flex: 1;
   min-height: 0;
+  flex: 1;
 }
 
-#writing {
-  display: flex;
+#WRITING {
   flex-direction: column;
-  width: 38%;
   min-width: 200px;
+  display: flex;
+  width: 38%;
 }
 
-#editorFrame {
+#EDITOR_FRAME {
   position: relative;
   flex: 1;
 }
 
-#editor,
-#highlights {
+#EDITOR,
+#HIGHLIGHTS {
+  font: 14px/1.9 ui-monospace, "JetBrains Mono", Menlo, monospace;
   -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+  scrollbar-gutter: stable;
   text-size-adjust: 100%;
+  white-space: pre-wrap;
   position: absolute;
-  inset: 0;
-  margin: 0;
   padding: 14px 16px;
   overflow: auto;
-  scrollbar-gutter: stable;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  font: 14px/1.9 ui-monospace, "JetBrains Mono", Menlo, monospace;
   tab-size: 2;
+  margin: 0;
+  inset: 0;
 }
 
-#highlights {
+#HIGHLIGHTS {
   pointer-events: none;
 }
 
-#highlights .barMarker {
+#HIGHLIGHTS .barMarker {
   position: relative;
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .barMarker::before {
   position: absolute;
-  top: 0.35em;
-  left: -0.5ch;
   height: 1.3em;
+  left: -0.5ch;
+  top: 0.35em;
 }
 
-#highlights .barMarker::after {
+#HIGHLIGHTS .barMarker::after {
+  font: bold 10px/1 system-ui, sans-serif;
+  transform: translateX( -50% );
   position: absolute;
   top: -0.45em;
   left: -0.5ch;
-  transform: translateX( -50% );
-  font: bold 10px/1 system-ui, sans-serif;
 }
 
-#editor {
+#EDITOR {
   outline: none;
   resize: none;
 }
 
-#noteHint {
-  min-height: 27px;
-  padding: 5px 16px;
-  overflow: hidden;
-  white-space: nowrap;
+#NOTE_HINT {
   text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px 16px;
+  min-height: 27px;
+  overflow: hidden;
 }
 
-#problemTip {
-  position: fixed;
-  z-index: 20;
-  display: none;
+#PROBLEM_TIP {
+  pointer-events: none;
   max-width: 320px;
   padding: 5px 9px;
-  pointer-events: none;
+  position: fixed;
+  display: none;
+  z-index: 20;
 }
 
-#problemTip.shown {
+#PROBLEM_TIP.shown {
   display: block;
 }
 
-#splitter {
-  width: 6px;
+#SPLITTER {
   cursor: ew-resize;
+  width: 6px;
 }
 
 body.resizing {
   cursor: ew-resize;
 }
 
-#output {
+#OUTPUT {
+  flex-direction: column;
   position: relative;
   display: flex;
-  flex: 1;
-  flex-direction: column;
   min-width: 0;
+  flex: 1;
 }
 
-#soundButton {
+#SOUND_BUTTON {
   position: absolute;
-  top: 14px;
-  right: 30px;
-  z-index: 6;
-  width: 42px;
-  height: 42px;
   cursor: pointer;
+  height: 42px;
+  right: 30px;
+  width: 42px;
+  z-index: 6;
+  top: 14px;
 }
 
-#soundPanel {
+#SOUND_PANEL {
+  flex-direction: column;
   position: absolute;
-  top: 64px;
+  padding: 14px 16px;
+  display: none;
+  width: 300px;
   right: 30px;
   z-index: 6;
-  display: none;
-  flex-direction: column;
+  top: 64px;
   gap: 8px;
-  width: 300px;
-  padding: 14px 16px;
 }
 
-#soundPanel.open {
+#SOUND_PANEL.open {
   display: flex;
 }
 
-#soundPanel.moved {
+#SOUND_PANEL.moved {
   position: fixed;
   right: auto;
   z-index: 30;
 }
 
-#soundTitle {
-  cursor: grab;
+#SOUND_TITLE {
   touch-action: none;
   user-select: none;
+  cursor: grab;
 }
 
 body.dragging,
 body.dragging * {
-  cursor: grabbing;
   user-select: none;
+  cursor: grabbing;
 }
 
-#sheetInstruments {
+#SHEET_INSTRUMENTS {
   margin: 0;
 }
 
-#sheetInstruments:empty {
+#SHEET_INSTRUMENTS:empty {
   display: none;
 }
 
-#soundPanel > label {
-  display: flex;
+#SOUND_PANEL > label {
   justify-content: space-between;
   align-items: center;
+  display: flex;
 }
 
-#soundPanel select {
-  width: 160px;
+#SOUND_PANEL select {
   padding: 3px 6px;
+  width: 160px;
 }
 
-#soundSliders label {
-  display: grid;
+#SOUND_SLIDER_LIST label {
   grid-template-columns: 70px minmax( 0, 1fr ) 58px;
   align-items: center;
+  display: grid;
   gap: 8px;
 }
 
-#soundSliders input {
-  width: 100%;
+#SOUND_SLIDER_LIST input {
   min-width: 0;
+  width: 100%;
   margin: 0;
 }
 
-#soundSliders span:last-child {
+#SOUND_SLIDER_LIST span:last-child {
   text-align: right;
 }
 
-#soundActions {
+#SOUND_ACTIONS {
+  margin-top: 4px;
   display: flex;
   gap: 6px;
-  margin-top: 4px;
 }
 
-#soundActions button {
-  flex: 1;
-  padding: 6px 4px;
+#SOUND_ACTIONS button {
   white-space: nowrap;
+  padding: 6px 4px;
   cursor: pointer;
+  flex: 1;
 }
 
-#transport {
-  display: flex;
+#TRANSPORT {
   align-items: center;
-  gap: 12px;
   padding: 8px 16px;
+  display: flex;
+  gap: 12px;
 }
 
-#transport button {
-  flex: none;
-  width: 36px;
-  height: 36px;
+#TRANSPORT button {
   cursor: pointer;
+  height: 36px;
+  width: 36px;
+  flex: none;
 }
 
-#clock {
+#CLOCK {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -356,10 +356,10 @@ body.dragging * {
   flex: none;
 }
 
-#seeker {
-  flex: 1;
+#SEEKER {
   min-width: 60px;
   cursor: pointer;
+  flex: 1;
 }
 
 .popItem {
@@ -368,127 +368,127 @@ body.dragging * {
 }
 
 .popup {
-  position: absolute;
-  right: 0;
   bottom: calc( 100% + 10px );
-  z-index: 10;
-  display: none;
-  padding: 10px 12px;
   white-space: nowrap;
+  position: absolute;
+  padding: 10px 12px;
+  display: none;
+  z-index: 10;
+  right: 0;
 }
 
 .popup.open {
   display: flex;
 }
 
-#swingControl,
-#volumeControl {
-  display: flex;
+#SWING_CONTROL,
+#VOLUME_CONTROL {
   align-items: center;
+  display: flex;
   gap: 8px;
 }
 
-#swingSlider,
-#volumeSlider {
-  width: 140px;
+#SWING_SLIDER,
+#VOLUME_SLIDER {
   cursor: pointer;
+  width: 140px;
 }
 
-#swingReadout,
-#volumeReadout {
-  min-width: 36px;
+#SWING_READOUT,
+#VOLUME_READOUT {
   text-align: right;
+  min-width: 36px;
 }
 
-#volumeIcon,
-#swingIcon {
-  display: block;
-  width: 22px;
-  height: 22px;
-  margin: auto;
-  fill: none;
+#VOLUME_ICON,
+#SWING_ICON {
+  stroke-linejoin: round;
+  stroke-linecap: round;
   stroke: currentColor;
   stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  display: block;
+  height: 22px;
+  margin: auto;
+  width: 22px;
+  fill: none;
 }
 
-#volumeIcon .speaker {
+#VOLUME_ICON .speaker {
   fill: currentColor;
 }
 
-#swingIcon rect {
+#SWING_ICON rect {
   fill: currentColor;
   stroke: none;
 }
 
-#volumeIcon .silenced,
-#volumeButton.silent .waves {
+#VOLUME_ICON .silenced,
+#VOLUME_BUTTON.silent .waves {
   display: none;
 }
 
-#volumeButton.silent .silenced {
+#VOLUME_BUTTON.silent .silenced {
   display: inline;
 }
 
-#metronomeIcon {
+#METRONOME_ICON {
   display: block;
-  width: 22px;
   height: 22px;
   margin: auto;
+  width: 22px;
 }
 
-#transport #listenButton {
+#TRANSPORT #LISTEN_BUTTON {
   display: none;
 }
 
-#score {
-  flex: 1;
+#SCORE {
   overflow: auto;
   padding: 24px;
+  flex: 1;
 }
 
 @media ( max-width: 700px ) {
-  #workspace {
+  #WORKSPACE {
     flex-direction: column;
   }
 
-  #writing {
-    flex: none;
+  #WRITING {
     width: auto !important;
     height: 38%;
+    flex: none;
   }
 
-  #output {
+  #OUTPUT {
     min-height: 0;
   }
 
-  #splitter {
+  #SPLITTER {
     display: none;
   }
 
-  #transport {
+  #TRANSPORT {
+    padding: 6px 10px;
     flex-wrap: wrap;
     gap: 4px 6px;
-    padding: 6px 10px;
   }
 
-  #seeker {
-    order: -1;
+  #SEEKER {
     flex-basis: 100%;
     margin: 4px 0;
+    order: -1;
   }
 
-  #transport button {
-    width: 34px;
+  #TRANSPORT button {
     height: 34px;
+    width: 34px;
   }
 
-  #clock {
+  #CLOCK {
     min-width: 0;
   }
 
-  #transport #playButton .pauseIcon {
+  #TRANSPORT #PLAY_BUTTON .pauseIcon {
     left: 0;
   }
 
@@ -497,68 +497,68 @@ body.dragging * {
   }
 
   .popup {
-    left: 10px;
-    right: 10px;
     bottom: calc( 100% + 8px );
+    right: 10px;
+    left: 10px;
   }
 
-  #swingControl,
-  #volumeControl {
+  #SWING_CONTROL,
+  #VOLUME_CONTROL {
     flex: 1;
   }
 
-  #swingSlider,
-  #volumeSlider {
-    flex: 1;
+  #SWING_SLIDER,
+  #VOLUME_SLIDER {
     width: auto;
+    flex: 1;
   }
 
-  #transport #listenButton {
+  #TRANSPORT #LISTEN_BUTTON {
+    justify-content: center;
+    align-items: center;
     margin-left: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 0;
   }
 
-  #listenButton svg {
-    width: 20px;
+  #LISTEN_BUTTON svg {
     height: 20px;
+    width: 20px;
   }
 
-  #listenButton .leaveIcon,
-  body.listening #listenButton .enterIcon {
+  #LISTEN_BUTTON .leaveIcon,
+  body.listening #LISTEN_BUTTON .enterIcon {
     display: none;
   }
 
-  body.listening #listenButton .leaveIcon {
+  body.listening #LISTEN_BUTTON .leaveIcon {
     display: block;
   }
 
   body.listening header,
-  body.listening #writing {
+  body.listening #WRITING {
     display: none;
   }
 }
 
-#highlights {
+#HIGHLIGHTS {
   color: transparent;
 }
 
-#highlights mark {
+#HIGHLIGHTS mark {
   color: transparent;
 }
 
-#editor {
-  border: none;
+#EDITOR {
   background: transparent;
+  border: none;
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .barMarker::before {
   content: "";
 }
 
-#highlights .barMarker::after {
+#HIGHLIGHTS .barMarker::after {
   content: attr( data-measure );
 }
 
@@ -566,128 +566,128 @@ body.resizing {
   user-select: none;
 }
 
-#lookButton svg {
-  fill: none;
+#LOOK_BUTTON svg {
   stroke: currentColor;
   stroke-width: 1.8;
+  fill: none;
 }
 
-#lookButton path {
+#LOOK_BUTTON path {
   fill: currentColor;
 }
 
-#metronomeIcon {
-  fill: none;
+#METRONOME_ICON {
+  stroke-linejoin: round;
+  stroke-linecap: round;
   stroke: currentColor;
   stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: none;
 }
 
-#metronomeIcon circle {
+#METRONOME_ICON circle {
   fill: currentColor;
 }
 
 @media ( max-width: 700px ) {
-  #listenButton svg {
-    fill: none;
+  #LISTEN_BUTTON svg {
+    stroke-linejoin: round;
+    stroke-linecap: round;
     stroke: currentColor;
     stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    fill: none;
   }
 }
 
-#playButton svg {
+#PLAY_BUTTON svg {
+  fill: currentColor;
   display: block;
-  width: 18px;
   height: 18px;
   margin: auto;
-  fill: currentColor;
+  width: 18px;
 }
 
-#playButton .pauseIcon {
+#PLAY_BUTTON .pauseIcon {
   border-left: 4px solid currentColor;
   position: relative;
   margin: auto;
-  left: 1px;
   height: 14px;
   width: 12px;
+  left: 1px;
 }
 
-#playButton .pauseIcon::after {
-  border-left: 4px solid transparent;
+#PLAY_BUTTON .pauseIcon::after {
   border-right: 4px solid currentColor;
+  border-left: 4px solid transparent;
   display: block;
   height: 14px;
   content: "";
   width: 0;
 }
 
-#playButton .pauseIcon,
-#playButton.pausable .playIcon {
+#PLAY_BUTTON .pauseIcon,
+#PLAY_BUTTON.pausable .playIcon {
   display: none;
 }
 
-#playButton.pausable .pauseIcon {
+#PLAY_BUTTON.pausable .pauseIcon {
   display: block;
 }
 
-#transport {
+#TRANSPORT {
   position: relative;
 }
 
-#seekerThumb {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--thumb);
-  pointer-events: none;
+#SEEKERThumb {
   will-change: transform;
+  pointer-events: none;
+  width: var(--thumb);
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
-#seeker::-webkit-slider-thumb {
+#SEEKER::-webkit-slider-thumb {
   opacity: 0;
 }
 
-#seeker::-moz-range-thumb {
+#SEEKER::-moz-range-thumb {
   opacity: 0;
 }
 
-#soundIcon {
+#SOUND_ICON {
+  fill: currentColor;
   display: block;
-  width: 22px;
   height: 22px;
   margin: auto;
-  fill: currentColor;
+  width: 22px;
 }
 
-#soundIcon .tracks {
-  fill: none;
+#SOUND_ICON .tracks {
+  stroke-linecap: round;
   stroke: currentColor;
   stroke-width: 1.8;
-  stroke-linecap: round;
+  fill: none;
 }
 
-#soundTitle {
+#SOUND_TITLE {
   display: none;
   margin: 0;
 }
 
-#brand::before,
-#help h2::before,
-#soundTitle::before {
-  display: inline-block;
-  width: 1.15em;
-  height: 1.15em;
-  margin-right: 0.4em;
-  vertical-align: -0.22em;
-  background: currentColor;
+#BRAND::before,
+#HELP h2::before,
+#SOUND_TITLE::before {
   -webkit-mask: var(--note-icon) center / contain no-repeat;
   mask: var(--note-icon) center / contain no-repeat;
+  background: currentColor;
+  vertical-align: -0.22em;
+  display: inline-block;
+  margin-right: 0.4em;
+  height: 1.15em;
+  width: 1.15em;
 }
 
-#themeButton svg {
+#THEME_BUTTON svg {
   stroke-linecap: round;
   stroke: currentColor;
   stroke-width: 2;
@@ -697,26 +697,26 @@ body.resizing {
   width: 20px;
 }
 
-#themeButton .sunIcon circle,
-#themeButton .moonIcon {
+#THEME_BUTTON .sunIcon circle,
+#THEME_BUTTON .moonIcon {
   fill: currentColor;
 }
 
-#themeButton .sunIcon path {
+#THEME_BUTTON .sunIcon path {
   fill: none;
 }
 
-#themeButton .moonIcon {
+#THEME_BUTTON .moonIcon {
   stroke-linejoin: round;
   stroke-width: 1;
 }
 
-body.dark #themeButton .sunIcon,
-#themeButton .moonIcon {
+body.dark #THEME_BUTTON .sunIcon,
+#THEME_BUTTON .moonIcon {
   display: none;
 }
 
-body.dark #themeButton .moonIcon {
+body.dark #THEME_BUTTON .moonIcon {
   display: block;
 }
 
@@ -726,11 +726,11 @@ body.dark #themeButton .moonIcon {
   min-width: 0;
 }
 
-#soundPanel .dropdown {
+#SOUND_PANEL .dropdown {
   width: 160px;
 }
 
-#sampleRow .dropdown {
+#SAMPLE_ROW .dropdown {
   flex: 1;
 }
 
@@ -747,8 +747,8 @@ body.dark #themeButton .moonIcon {
 .dropdownList {
   flex-direction: column;
   position: absolute;
-  overflow-y: auto;
   max-height: 260px;
+  overflow-y: auto;
   display: none;
   z-index: 40;
   right: 0;
@@ -765,7 +765,7 @@ body.dark #themeButton .moonIcon {
   cursor: pointer;
 }
 
-#exportIcon {
+#EXPORT_ICON {
   stroke-linejoin: round;
   stroke-linecap: round;
   stroke: currentColor;
@@ -777,15 +777,15 @@ body.dark #themeButton .moonIcon {
   fill: none;
 }
 
-#exportMenu,
-#lookMenu {
+#EXPORT_MENU,
+#LOOK_MENU {
   position: fixed;
   transform: none;
   left: auto;
   right: 0;
 }
 
-#output:focus {
+#OUTPUT:focus {
   outline: none;
 }
 

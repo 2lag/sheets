@@ -1,38 +1,38 @@
 @page {
-  size: A4;
   margin: 0;
+  size: A4;
 }
 
 @media print {
   header,
-  #writing,
-  #splitter,
-  #soundButton,
-  #soundPanel,
-  #transport,
+  #WRITING,
+  #SPLITTER,
+  #SOUND_BUTTON,
+  #SOUND_PANEL,
+  #TRANSPORT,
   .playhead {
     display: none;
   }
 
   body,
-  #workspace,
-  #output,
-  #score {
+  #WORKSPACE,
+  #OUTPUT,
+  #SCORE {
+    overflow: visible;
+    background: none;
     display: block;
     height: auto;
-    overflow: visible;
     padding: 0;
-    background: none;
   }
 
   .page {
-    width: 210mm;
-    height: 297mm;
-    max-width: none;
-    margin: 0;
+    break-after: page;
     box-shadow: none;
     background: #fff;
+    max-width: none;
+    height: 297mm;
+    width: 210mm;
     color: #000;
-    break-after: page;
+    margin: 0;
   }
 }

@@ -1,45 +1,45 @@
 const GRABBABLE_EXCEPT = [ "INPUT", "SELECT", "OPTION", "BUTTON", "TEXTAREA" ];
-let dragOffset = null;
+let DRAG_OFFSET = null;
 
 function hasTitleBar() {
-  return getComputedStyle( soundTitle ).display !== "none";
+  return getComputedStyle( SOUND_TITLE ).display !== "none";
 }
 
 function canGrab( target ) {
   if ( hasTitleBar() )
-    return soundTitle.contains( target );
+    return SOUND_TITLE.contains( target );
   return !GRABBABLE_EXCEPT.includes( target.tagName );
 }
 
 function placeSoundPanel( left, top ) {
-  const box = soundPanel.getBoundingClientRect();
-  const keptLeft = Math.min( Math.max( 0, left ), innerWidth - box.width );
-  const keptTop = Math.min( Math.max( 0, top ), innerHeight - Math.min( box.height, 48 ) );
-  soundPanel.classList.add( "moved" );
-  Object.assign( soundPanel.style, { left: `${ keptLeft }px`, top: `${ keptTop }px` } );
+  const box = SOUND_PANEL.getBoundingClientRect();
+  const kept_left = Math.min( Math.max( 0, left ), innerWidth - box.width );
+  const kept_top = Math.min( Math.max( 0, top ), innerHeight - Math.min( box.height, 48 ) );
+  SOUND_PANEL.classList.add( "moved" );
+  Object.assign( SOUND_PANEL.style, { left: `${ kept_left }px`, top: `${ kept_top }px` } );
 }
 
-soundPanel.addEventListener( "pointerdown", event => {
+SOUND_PANEL.addEventListener( "pointerdown", event => {
   if ( !canGrab( event.target ) )
     return;
   event.preventDefault();
-  const box = soundPanel.getBoundingClientRect();
-  dragOffset = { x: event.clientX - box.left, y: event.clientY - box.top };
-  soundPanel.setPointerCapture( event.pointerId );
+  const box = SOUND_PANEL.getBoundingClientRect();
+  DRAG_OFFSET = { x: event.clientX - box.left, y: event.clientY - box.top };
+  SOUND_PANEL.setPointerCapture( event.pointerId );
   document.body.classList.add( "dragging" );
 });
 
-soundPanel.addEventListener( "pointermove", event => {
-  if ( dragOffset )
-    placeSoundPanel( event.clientX - dragOffset.x, event.clientY - dragOffset.y );
+SOUND_PANEL.addEventListener( "pointermove", event => {
+  if ( DRAG_OFFSET )
+    placeSoundPanel( event.clientX - DRAG_OFFSET.x, event.clientY - DRAG_OFFSET.y );
 });
 
-soundPanel.addEventListener( "pointerup", () => {
-  dragOffset = null;
+SOUND_PANEL.addEventListener( "pointerup", () => {
+  DRAG_OFFSET = null;
   document.body.classList.remove( "dragging" );
 });
 
 addEventListener( "resize", () => {
-  if ( soundPanel.classList.contains( "moved" ) )
-    placeSoundPanel( parseFloat( soundPanel.style.left ), parseFloat( soundPanel.style.top ) );
+  if ( SOUND_PANEL.classList.contains( "moved" ) )
+    placeSoundPanel( parseFloat( SOUND_PANEL.style.left ), parseFloat( SOUND_PANEL.style.top ) );
 });

@@ -1,6 +1,6 @@
-const tickingIcon = metronomeIcon;
-let metronomeOn = localStorage.getItem( "metronome" ) === "on";
-let clickVolume = null;
+const TICKING_ICON = METRONOME_ICON;
+let METRONOME_ON = localStorage.getItem( "metronome" ) === "on";
+let CLICK_VOLUME = null;
 
 const CLICKS = {
   downbeat: { pitch: 1760, loudness: 0.6 },
@@ -17,70 +17,70 @@ function countedBeatOf( meter ) {
 }
 
 function scheduleClick( time, kind ) {
-  const click = audioContext.createOscillator();
-  const envelope = audioContext.createGain();
+  const click = AUDIO_CONTEXT.createOscillator();
+  const envelope = AUDIO_CONTEXT.createGain();
   click.frequency.value = CLICKS[ kind ].pitch;
   envelope.gain.setValueAtTime( 0.0001, time );
   envelope.gain.exponentialRampToValueAtTime( CLICKS[ kind ].loudness, time + 0.002 );
   envelope.gain.exponentialRampToValueAtTime( 0.0001, time + 0.05 );
   click.connect( envelope );
-  envelope.connect( clickVolume );
+  envelope.connect( CLICK_VOLUME );
   click.start( time );
   click.stop( time + 0.06 );
 }
 
 function showBeat( count ) {
-  if ( !metronomeOn )
+  if ( !METRONOME_ON )
     return;
-  metronomeButton.textContent = count;
-  metronomeButton.classList.remove( "beat", "downbeat" );
-  void metronomeButton.offsetWidth;
-  metronomeButton.classList.add( count === 1 ? "downbeat" : "beat" );
+  METRONOME_BUTTON.textContent = count;
+  METRONOME_BUTTON.classList.remove( "beat", "downbeat" );
+  void METRONOME_BUTTON.offsetWidth;
+  METRONOME_BUTTON.classList.add( count === 1 ? "downbeat" : "beat" );
 }
 
 function resetMetronome() {
-  metronomeButton.replaceChildren( tickingIcon );
-  metronomeButton.classList.toggle( "on", metronomeOn );
+  METRONOME_BUTTON.replaceChildren( TICKING_ICON );
+  METRONOME_BUTTON.classList.toggle( "on", METRONOME_ON );
 }
 
-function metronomeOf( startTime, output, from, until ) {
-  clickVolume = audioContext.createGain();
-  clickVolume.gain.value = metronomeOn ? 1 : 0;
-  clickVolume.connect( output );
-  const beatLength = countedBeatOf( sheet.meter );
-  const beatsPerMeasure = Math.max( 1, Math.round( measureLengthOf( sheet.meter ) / beatLength ) );
-  const end = Math.min( until, totalDurationOf( sheet ) );
-  const lastBeat = Math.ceil( end / beatLength - EPSILON );
-  const audioTimeOf = position => audioTimeAt( position, startTime, from );
-  const subdivided = isCompoundMeter( sheet.meter );
-  let beat = Math.floor( from / beatLength + EPSILON );
+function metronomeOf( start_time, output, from, until ) {
+  CLICK_VOLUME = AUDIO_CONTEXT.createGain();
+  CLICK_VOLUME.gain.value = METRONOME_ON ? 1 : 0;
+  CLICK_VOLUME.connect( output );
+  const beat_length = countedBeatOf( SHEET.meter );
+  const beats_per_measure = Math.max( 1, Math.round( measureLengthOf( SHEET.meter ) / beat_length ) );
+  const end = Math.min( until, totalDurationOf( SHEET ) );
+  const last_beat = Math.ceil( end / beat_length - EPSILON );
+  const audioTimeOf = position => audioTimeAt( position, start_time, from );
+  const subdivided = isCompoundMeter( SHEET.meter );
+  let beat = Math.floor( from / beat_length + EPSILON );
   const clickBeat = () => {
-    const position = beat * beatLength;
+    const position = beat * beat_length;
     if ( position >= from - EPSILON ) {
-      const count = Math.round( scorePositionOf( position ) / beatLength ) % beatsPerMeasure + 1;
-      const clickTime = audioTimeOf( position );
-      scheduleClick( clickTime, count === 1 ? "downbeat" : "beat" );
-      highlightTimeouts.push( setTimeout( () => showBeat( count ), ( clickTime - audioContext.currentTime ) * 1000 ) );
+      const count = Math.round( scorePositionOf( position ) / beat_length ) % beats_per_measure + 1;
+      const click_time = audioTimeOf( position );
+      scheduleClick( click_time, count === 1 ? "downbeat" : "beat" );
+      HIGHLIGHT_TIMEOUTS.push( setTimeout( () => showBeat( count ), ( click_time - AUDIO_CONTEXT.currentTime ) * 1000 ) );
     }
     if ( subdivided )
       [ 1, 2 ]
-        .map( step => position + step * beatLength / 3 )
+        .map( step => position + step * beat_length / 3 )
         .filter( tick => tick >= from - EPSILON && tick < end - EPSILON )
         .forEach( tick => scheduleClick( audioTimeOf( tick ), "subdivision" ) );
   };
   return horizon => {
-    while ( beat < lastBeat && audioTimeOf( beat * beatLength ) <= horizon ) {
+    while ( beat < last_beat && audioTimeOf( beat * beat_length ) <= horizon ) {
       clickBeat();
       beat++;
     }
   };
 }
 
-metronomeButton.addEventListener( "click", () => {
-  metronomeOn = !metronomeOn;
-  localStorage.setItem( "metronome", metronomeOn ? "on" : "off" );
-  if ( clickVolume )
-    clickVolume.gain.value = metronomeOn ? 1 : 0;
+METRONOME_BUTTON.addEventListener( "click", () => {
+  METRONOME_ON = !METRONOME_ON;
+  localStorage.setItem( "metronome", METRONOME_ON ? "on" : "off" );
+  if ( CLICK_VOLUME )
+    CLICK_VOLUME.gain.value = METRONOME_ON ? 1 : 0;
   resetMetronome();
 });
 

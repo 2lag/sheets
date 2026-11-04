@@ -1,6 +1,6 @@
-const sliderInputs = {};
-const sliderReadouts = {};
-let pendingRestart = null;
+const SLIDER_INPUTS = {};
+const SLIDER_READOUTS = {};
+let PENDING_RESTART = null;
 
 function decimalsOf( step ) {
   return ( String( step ).split( "." )[ 1 ] || "" ).length;
@@ -22,27 +22,27 @@ function sliderRowOf( slider ) {
   name.textContent = slider.name;
   Object.assign( input, { type: "range", min: slider.min, max: slider.max, step: slider.step } );
   input.addEventListener( "input", () => changeSound( { [ slider.name ]: Number( input.value ) } ) );
-  sliderInputs[ slider.name ] = input;
-  sliderReadouts[ slider.name ] = readout;
+  SLIDER_INPUTS[ slider.name ] = input;
+  SLIDER_READOUTS[ slider.name ] = readout;
   row.append( name, input, readout );
   return row;
 }
 
 function showSoundSettings() {
-  presetPicker.value = soundSettings.preset;
-  waveformPicker.value = soundSettings.waveform;
-  bodyPicker.value = soundSettings.body;
+  PRESET_PICKER.value = SOUND_SETTINGS.preset;
+  WAVEFORM_PICKER.value = SOUND_SETTINGS.waveform;
+  BODY_PICKER.value = SOUND_SETTINGS.body;
   refreshDropdowns();
   SOUND_SLIDERS.forEach( slider => {
-    sliderInputs[ slider.name ].value = soundSettings[ slider.name ];
-    sliderReadouts[ slider.name ].textContent = readoutOf( slider, soundSettings[ slider.name ] );
+    SLIDER_INPUTS[ slider.name ].value = SOUND_SETTINGS[ slider.name ];
+    SLIDER_READOUTS[ slider.name ].textContent = readoutOf( slider, SOUND_SETTINGS[ slider.name ] );
   });
 }
 
 function restartPlaybackSoon() {
-  clearTimeout( pendingRestart );
-  pendingRestart = setTimeout( () => {
-    if ( !playing )
+  clearTimeout( PENDING_RESTART );
+  PENDING_RESTART = setTimeout( () => {
+    if ( !PLAYING )
       return;
     pausePlayback();
     startPlayback();
@@ -52,12 +52,12 @@ function restartPlaybackSoon() {
 const LIVE_SETTINGS = [ "volume", "brightness", "room" ];
 
 function changeSound( changes, preset = "custom" ) {
-  const changesNotes = Object.keys( changes ).some( name => !LIVE_SETTINGS.includes( name ) && changes[ name ] !== soundSettings[ name ] );
-  soundSettings = { ...soundSettings, ...changes, preset };
-  localStorage.setItem( "sound", JSON.stringify( soundSettings ) );
+  const changes_notes = Object.keys( changes ).some( name => !LIVE_SETTINGS.includes( name ) && changes[ name ] !== SOUND_SETTINGS[ name ] );
+  SOUND_SETTINGS = { ...SOUND_SETTINGS, ...changes, preset };
+  localStorage.setItem( "sound", JSON.stringify( SOUND_SETTINGS ) );
   showSoundSettings();
-  applyLiveSettings( audioMix );
-  if ( changesNotes )
+  applyLiveSettings( AUDIO_MIX );
+  if ( changes_notes )
     restartPlaybackSoon();
 }
 
@@ -66,62 +66,62 @@ function randomPickOf( choices ) {
 }
 
 function randomSound() {
-  const randomSliders = Object.fromEntries( SOUND_SLIDERS.map( slider => {
+  const random_sliders = Object.fromEntries( SOUND_SLIDERS.map( slider => {
     const value = slider.min + Math.random() * ( slider.max - slider.min );
     return [ slider.name, snappedToStep( value, slider ) ];
   }));
   const waveform = randomPickOf( WAVEFORMS );
   const body = randomPickOf( Object.keys( BODIES ) );
   const volume = snappedToStep( 0.4 + Math.random() * 0.4, SOUND_SLIDERS[ 0 ] );
-  changeSound( { ...randomSliders, waveform, body, volume } );
+  changeSound( { ...random_sliders, waveform, body, volume } );
   previewSound();
 }
 
 function showSheetInstruments() {
-  const heard = sheet.staves.filter( staff => !staff.muted );
+  const heard = SHEET.staves.filter( staff => !staff.muted );
   const chosen = heard.filter( staff => staff.instrument );
-  const muted = sheet.staves.filter( staff => staff.muted ).map( staff => `the ${ staff.clef } staff is muted` );
+  const muted = SHEET.staves.filter( staff => staff.muted ).map( staff => `the ${ staff.clef } staff is muted` );
   const rest = chosen.length === heard.length ? "" : "; this menu plays the rest";
   const picks = chosen.length ? [ `this sheet picks ${ chosen.map( staff => `${ staff.instrument } (${ staff.clef })` ).join( " and " ) }${ rest }` ] : [];
-  sheetInstruments.textContent = [ ...picks, ...muted ].join( ". " );
+  SHEET_INSTRUMENTS.textContent = [ ...picks, ...muted ].join( ". " );
 }
 
 function buildSoundPanel() {
-  presetPicker.replaceChildren( ...[ ...Object.keys( SOUND_PRESETS ), "custom" ].map( name => new Option( name, name ) ) );
-  waveformPicker.replaceChildren( ...WAVEFORMS.map( waveform => new Option( waveform, waveform ) ) );
-  bodyPicker.replaceChildren( ...Object.keys( BODIES ).map( body => new Option( body, body ) ) );
-  soundSliders.replaceChildren( ...SOUND_SLIDERS.map( sliderRowOf ) );
+  PRESET_PICKER.replaceChildren( ...[ ...Object.keys( SOUND_PRESETS ), "custom" ].map( name => new Option( name, name ) ) );
+  WAVEFORM_PICKER.replaceChildren( ...WAVEFORMS.map( waveform => new Option( waveform, waveform ) ) );
+  BODY_PICKER.replaceChildren( ...Object.keys( BODIES ).map( body => new Option( body, body ) ) );
+  SOUND_SLIDER_LIST.replaceChildren( ...SOUND_SLIDERS.map( sliderRowOf ) );
   showSoundSettings();
 }
 
-soundButton.addEventListener( "click", event => {
+SOUND_BUTTON.addEventListener( "click", event => {
   event.stopPropagation();
   closeExportMenu();
   closeLookMenu();
   closePopups();
-  soundPanel.classList.toggle( "open" );
+  SOUND_PANEL.classList.toggle( "open" );
 });
 
-let pressedInsideSoundPanel = false;
+let PRESSED_INSIDE_SOUND_PANEL = false;
 
 document.addEventListener( "pointerdown", event => {
-  pressedInsideSoundPanel = soundPanel.contains( event.target );
+  PRESSED_INSIDE_SOUND_PANEL = SOUND_PANEL.contains( event.target );
 });
 
 document.addEventListener( "click", event => {
-  if ( !soundPanel.contains( event.target ) && !pressedInsideSoundPanel )
-    soundPanel.classList.remove( "open" );
+  if ( !SOUND_PANEL.contains( event.target ) && !PRESSED_INSIDE_SOUND_PANEL )
+    SOUND_PANEL.classList.remove( "open" );
 });
 
-presetPicker.addEventListener( "change", () => {
-  if ( presetPicker.value in SOUND_PRESETS )
-    changeSound( SOUND_PRESETS[ presetPicker.value ], presetPicker.value );
+PRESET_PICKER.addEventListener( "change", () => {
+  if ( PRESET_PICKER.value in SOUND_PRESETS )
+    changeSound( SOUND_PRESETS[ PRESET_PICKER.value ], PRESET_PICKER.value );
 });
 
-waveformPicker.addEventListener( "change", () => changeSound( { waveform: waveformPicker.value } ) );
-bodyPicker.addEventListener( "change", () => changeSound( { body: bodyPicker.value } ) );
-previewButton.addEventListener( "click", previewSound );
-randomButton.addEventListener( "click", randomSound );
-resetSoundButton.addEventListener( "click", () => changeSound( SOUND_PRESETS.piano, "piano" ) );
+WAVEFORM_PICKER.addEventListener( "change", () => changeSound( { waveform: WAVEFORM_PICKER.value } ) );
+BODY_PICKER.addEventListener( "change", () => changeSound( { body: BODY_PICKER.value } ) );
+PREVIEW_BUTTON.addEventListener( "click", previewSound );
+RANDOM_BUTTON.addEventListener( "click", randomSound );
+RESET_SOUND_BUTTON.addEventListener( "click", () => changeSound( SOUND_PRESETS.piano, "piano" ) );
 
 buildSoundPanel();

@@ -1,22 +1,22 @@
-const storedVolume = localStorage.getItem( "volume" );
-let masterVolume = storedVolume === null ? 1 : Number( storedVolume );
+const STORED_VOLUME = localStorage.getItem( "volume" );
+let MASTER_VOLUME = STORED_VOLUME === null ? 1 : Number( STORED_VOLUME );
 
 function masterGainOf( volume ) {
   return volume * volume;
 }
 
 function showVolume() {
-  volumeSlider.value = Math.round( masterVolume * 100 );
-  volumeReadout.textContent = `${ volumeSlider.value }%`;
-  volumeButton.classList.toggle( "silent", masterVolume === 0 );
+  VOLUME_SLIDER.value = Math.round( MASTER_VOLUME * 100 );
+  VOLUME_READOUT.textContent = `${ VOLUME_SLIDER.value }%`;
+  VOLUME_BUTTON.classList.toggle( "silent", MASTER_VOLUME === 0 );
 }
 
-volumeSlider.addEventListener( "input", () => {
-  masterVolume = volumeSlider.value / 100;
-  localStorage.setItem( "volume", masterVolume );
+VOLUME_SLIDER.addEventListener( "input", () => {
+  MASTER_VOLUME = VOLUME_SLIDER.value / 100;
+  localStorage.setItem( "volume", MASTER_VOLUME );
   showVolume();
-  if ( audioMix )
-    audioMix.master.gain.setTargetAtTime( masterGainOf( masterVolume ), audioMix.context.currentTime, 0.03 );
+  if ( AUDIO_MIX )
+    AUDIO_MIX.master.gain.setTargetAtTime( masterGainOf( MASTER_VOLUME ), AUDIO_MIX.context.currentTime, 0.03 );
 });
 
 showVolume();

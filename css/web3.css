@@ -1,48 +1,48 @@
 :root {
-  --thumb: 20px;
-  --sheet-highlight: #005fb8;
-  --mica: #f3f3f3;
-  --card: #fbfbfb;
-  --field: #ffffff;
-  --stroke: rgba( 0, 0, 0, 0.0803 );
+  --bloom: radial-gradient( circle at 72% 32%, #a9d2ff 0, transparent 42% ), radial-gradient( circle at 25% 78%, #4f8fe8 0, transparent 50% ), radial-gradient( circle at 95% 95%, #c9b8ff 0, transparent 40% ), #dce9f8;
+  --dialog-shadow: 0 32px 64px rgba( 0, 0, 0, 0.19 ), 0 2px 21px rgba( 0, 0, 0, 0.15 );
+  --small: 12px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --ui: 14px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --flyout-shadow: 0 8px 16px rgba( 0, 0, 0, 0.14 );
   --stroke-strong: rgba( 0, 0, 0, 0.16 );
-  --ink: #1a1a1a;
-  --muted: #5d5d5d;
+  --acrylic: rgba( 252, 252, 252, 0.85 );
+  --stroke: rgba( 0, 0, 0, 0.0803 );
   --hover: rgba( 0, 0, 0, 0.0373 );
-  --accent: #b85fb8;
+  --scroll: rgba( 0, 0, 0, 0.45 );
+  --track: rgba( 0, 0, 0, 0.45 );
+  --sheet-highlight: #005fb8;
   --accent-hover: #bf6ebf;
   --on-accent: #ffffff;
-  --acrylic: rgba( 252, 252, 252, 0.85 );
-  --flyout-shadow: 0 8px 16px rgba( 0, 0, 0, 0.14 );
-  --dialog-shadow: 0 32px 64px rgba( 0, 0, 0, 0.19 ), 0 2px 21px rgba( 0, 0, 0, 0.15 );
-  --track: rgba( 0, 0, 0, 0.45 );
-  --scroll: rgba( 0, 0, 0, 0.45 );
   --problem: #c42b1c;
-  --bloom: radial-gradient( circle at 72% 32%, #a9d2ff 0, transparent 42% ), radial-gradient( circle at 25% 78%, #4f8fe8 0, transparent 50% ), radial-gradient( circle at 95% 95%, #c9b8ff 0, transparent 40% ), #dce9f8;
-  --ui: 14px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
-  --small: 12px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
-  --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --accent: #b85fb8;
+  --field: #ffffff;
+  --muted: #5d5d5d;
+  --mica: #f3f3f3;
+  --card: #fbfbfb;
+  --ink: #1a1a1a;
+  --thumb: 20px;
 }
 
 body.dark {
-  --mica: #202020;
-  --card: #2b2b2b;
-  --field: #1c1c1c;
-  --stroke: rgba( 255, 255, 255, 0.0698 );
-  --stroke-strong: rgba( 255, 255, 255, 0.093 );
-  --ink: #ffffff;
-  --muted: #c5c5c5;
-  --hover: rgba( 255, 255, 255, 0.0605 );
-  --accent: #ffcdff;
-  --accent-hover: #e6bae6;
-  --on-accent: #000000;
-  --acrylic: rgba( 44, 44, 44, 0.88 );
-  --flyout-shadow: 0 8px 16px rgba( 0, 0, 0, 0.26 );
+  --bloom: radial-gradient( circle at 72% 32%, #1d4f91 0, transparent 45% ), radial-gradient( circle at 25% 78%, #0f2f66 0, transparent 50% ), radial-gradient( circle at 95% 95%, #3a2a6b 0, transparent 40% ), #0b1424;
   --dialog-shadow: 0 32px 64px rgba( 0, 0, 0, 0.37 ), 0 2px 21px rgba( 0, 0, 0, 0.37 );
+  --flyout-shadow: 0 8px 16px rgba( 0, 0, 0, 0.26 );
+  --stroke-strong: rgba( 255, 255, 255, 0.093 );
+  --stroke: rgba( 255, 255, 255, 0.0698 );
+  --hover: rgba( 255, 255, 255, 0.0605 );
   --track: rgba( 255, 255, 255, 0.54 );
   --scroll: rgba( 255, 255, 255, 0.5 );
+  --acrylic: rgba( 44, 44, 44, 0.88 );
+  --accent-hover: #e6bae6;
+  --on-accent: #000000;
   --problem: #ff99a4;
-  --bloom: radial-gradient( circle at 72% 32%, #1d4f91 0, transparent 45% ), radial-gradient( circle at 25% 78%, #0f2f66 0, transparent 50% ), radial-gradient( circle at 95% 95%, #3a2a6b 0, transparent 40% ), #0b1424;
+  --accent: #ffcdff;
+  --field: #1c1c1c;
+  --muted: #c5c5c5;
+  --mica: #202020;
+  --card: #2b2b2b;
+  --ink: #ffffff;
 }
 
 body {
@@ -55,25 +55,25 @@ header {
   padding: 0 0 0 14px;
 }
 
-#brand {
+#BRAND {
   font: var(--small);
 }
 
-#brand::before {
-  content: "";
+#BRAND::before {
   color: var(--accent);
+  content: "";
 }
 
-#soundTitle {
-  display: block;
-  margin-bottom: 2px;
+#SOUND_TITLE {
   font: 600 12px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  margin-bottom: 2px;
+  display: block;
 }
 
-#soundTitle::before,
-#help h2::before {
-  content: "";
+#SOUND_TITLE::before,
+#HELP h2::before {
   color: var(--accent);
+  content: "";
 }
 
 nav {
@@ -81,303 +81,307 @@ nav {
 }
 
 nav > button,
-#exportButton,
-#lookButton {
-  width: 46px;
-  height: 36px;
-  border: none;
-  border-radius: 0;
+#EXPORT_BUTTON,
+#LOOK_BUTTON {
+  font: 15px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   background: transparent;
   color: var(--ink);
-  font: 15px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  border-radius: 0;
+  height: 36px;
+  border: none;
+  width: 46px;
 }
 
 nav > button:hover,
-#exportButton:hover,
-#lookButton:hover,
-#exportItem:has( #exportMenu.open ) #exportButton,
-#lookItem:has( #lookMenu.open ) #lookButton {
+#EXPORT_BUTTON:hover,
+#LOOK_BUTTON:hover,
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
+#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON {
   background: var(--hover);
 }
 
-#lookButton svg,
-#exportIcon {
-  width: 16px;
+#LOOK_BUTTON svg,
+#EXPORT_ICON {
   height: 16px;
+  width: 16px;
 }
 
-#lookMenu button,
-#soundActions button,
-#closeHelpButton,
-#soundButton,
-#transport button {
+#LOOK_MENU button,
+#SOUND_ACTIONS button,
+#CLOSE_HELP_BUTTON,
+#SOUND_BUTTON,
+#TRANSPORT button {
   border: 1px solid var(--stroke);
-  border-bottom-color: var(--stroke-strong);
-  border-radius: 4px;
   background: var(--card);
+  border-radius: 4px;
   color: var(--ink);
   font: var(--ui);
+
+  border-bottom-color: var(--stroke-strong);
 }
 
-#lookMenu button:hover,
-#soundActions button:hover,
-#closeHelpButton:hover,
-#soundButton:hover,
-#transport button:hover {
+#LOOK_MENU button:hover,
+#SOUND_ACTIONS button:hover,
+#CLOSE_HELP_BUTTON:hover,
+#SOUND_BUTTON:hover,
+#TRANSPORT button:hover {
   background: color-mix( in srgb, var(--card) 92%, var(--ink) );
 }
 
-#lookMenu button:active,
-#soundActions button:active,
-#closeHelpButton:active,
-#soundButton:active,
-#transport button:active {
+#LOOK_MENU button:active,
+#SOUND_ACTIONS button:active,
+#CLOSE_HELP_BUTTON:active,
+#SOUND_BUTTON:active,
+#TRANSPORT button:active {
   color: var(--muted);
 }
 
-#exportMenu,
-#lookMenu {
-  top: 40px;
-  padding: 4px;
-  border: 1px solid var(--stroke);
-  border-radius: 8px;
-  background: var(--acrylic);
+#EXPORT_MENU,
+#LOOK_MENU {
   backdrop-filter: blur( 30px ) saturate( 125% );
   box-shadow: var(--flyout-shadow);
+  border: 1px solid var(--stroke);
+  background: var(--acrylic);
+  border-radius: 8px;
+  padding: 4px;
+  top: 40px;
 }
 
-#exportMenu {
+#EXPORT_MENU {
+  transform: none;
   left: auto;
   right: 0;
-  transform: none;
 }
 
-#exportMenu button {
-  padding: 7px 12px;
-  border: none;
-  border-radius: 4px;
+#EXPORT_MENU button {
   background: transparent;
+  border-radius: 4px;
+  padding: 7px 12px;
   color: var(--ink);
   font: var(--ui);
+  border: none;
 }
 
-#exportMenu button:hover {
+#EXPORT_MENU button:hover {
   background: var(--hover);
 }
 
-#lookMenu button {
+#LOOK_MENU button {
   border-color: transparent;
   background: transparent;
   font-size: 16px;
 }
 
-#eraButton {
+#ERA_BUTTON {
   font: 600 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
 }
 
-#help {
-  padding: 24px;
-  border: 1px solid var(--stroke);
-  border-radius: 8px;
-  background: var(--mica);
+#HELP {
   box-shadow: var(--dialog-shadow);
+  border: 1px solid var(--stroke);
+  background: var(--mica);
+  border-radius: 8px;
   color: var(--ink);
   font: var(--ui);
+  padding: 24px;
+
   line-height: 1.5;
 }
 
-#help::backdrop {
+#HELP::backdrop {
   background: rgba( 0, 0, 0, 0.3 );
 }
 
-#help h2 {
-  margin-bottom: 16px;
+#HELP h2 {
   font: 600 20px "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  margin-bottom: 16px;
 }
 
-#sampleRow {
+#SAMPLE_ROW {
   border: 1px solid var(--stroke);
+  background: var(--card);
   border-radius: 8px;
-  background: var(--card);
 }
 
-#samplePicker,
-#soundPanel select {
+#SAMPLE_PICKER,
+#SOUND_PANEL select {
   border: 1px solid var(--stroke);
-  border-bottom-color: var(--stroke-strong);
-  border-radius: 4px;
   background: var(--card);
+  border-radius: 4px;
   color: var(--ink);
   font: var(--ui);
+
+  border-bottom-color: var(--stroke-strong);
 }
 
-#help pre,
-#help code {
+#HELP pre,
+#HELP code {
   font: 13px var(--mono);
 }
 
-#help pre {
+#HELP pre {
   border: 1px solid var(--stroke);
-  border-radius: 8px;
   background: var(--card);
+  border-radius: 8px;
 }
 
-#help i {
+#HELP i {
   color: var(--muted);
 }
 
-#closeHelpButton {
-  min-width: 96px;
+#CLOSE_HELP_BUTTON {
   border-color: transparent;
   background: var(--accent);
   color: var(--on-accent);
+  min-width: 96px;
 }
 
-#closeHelpButton:hover {
+#CLOSE_HELP_BUTTON:hover {
   background: var(--accent-hover);
 }
 
-#writing {
+#WRITING {
   padding: 0 0 0 8px;
 }
 
-#editorFrame {
+#EDITOR_FRAME {
   border: 1px solid var(--stroke);
   border-radius: 8px 8px 0 0;
   background: var(--field);
   overflow: hidden;
 }
 
-#editor,
-#highlights {
+#EDITOR,
+#HIGHLIGHTS {
   font-family: var(--mono);
 }
 
-#editor {
-  color: var(--ink);
+#EDITOR {
   caret-color: var(--accent);
+  color: var(--ink);
 }
 
-#editor::selection {
+#EDITOR::selection {
   background: var(--accent);
   color: var(--on-accent);
 }
 
-#highlights mark {
-  border-radius: 2px;
+#HIGHLIGHTS mark {
   background: color-mix( in srgb, var(--problem) 14%, transparent );
   text-decoration: underline wavy var(--problem);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
+  border-radius: 2px;
 }
 
-#highlights .playing {
-  border-radius: 3px;
+#HIGHLIGHTS .playing {
   background: color-mix( in srgb, var(--accent) 28%, transparent );
+  border-radius: 3px;
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .barMarker::before {
   border-left: 1.5px solid color-mix( in srgb, var(--accent) 60%, transparent );
 }
 
-#highlights .barMarker::after {
-  color: var(--accent);
+#HIGHLIGHTS .barMarker::after {
   font: 600 10px "Segoe UI", system-ui, sans-serif;
+  color: var(--accent);
 }
 
-#noteHint {
-  margin-bottom: 8px;
+#NOTE_HINT {
   border: 1px solid var(--stroke);
-  border-top: none;
   border-radius: 0 0 8px 8px;
   background: var(--card);
   color: var(--muted);
+  margin-bottom: 8px;
   font: var(--small);
+  border-top: none;
 }
 
-#problemTip {
-  border: 1px solid var(--stroke);
-  border-left: 3px solid var(--problem);
-  border-radius: 4px;
-  background: var(--acrylic);
-  backdrop-filter: blur( 30px );
+#PROBLEM_TIP {
   box-shadow: var(--flyout-shadow);
-  color: var(--ink);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur( 30px );
+  background: var(--acrylic);
+  border-radius: 4px;
   font: var(--small);
+  color: var(--ink);
+
+  border-left: 3px solid var(--problem);
 }
 
-#splitter {
-  width: 8px;
+#SPLITTER {
   background: transparent;
+  width: 8px;
 }
 
-#splitter:hover,
-body.resizing #splitter {
+#SPLITTER:hover,
+body.resizing #SPLITTER {
   background: linear-gradient( 90deg, transparent 3px, var(--accent) 3px 5px, transparent 5px );
 }
 
-#output {
-  margin: 0 8px 8px 0;
+#OUTPUT {
   border: 1px solid var(--stroke);
+  margin: 0 8px 8px 0;
   border-radius: 8px;
   overflow: hidden;
 }
 
-#soundButton {
-  border-radius: 50%;
-  background: var(--acrylic);
-  backdrop-filter: blur( 30px );
+#SOUND_BUTTON {
   box-shadow: var(--flyout-shadow);
+  backdrop-filter: blur( 30px );
+  background: var(--acrylic);
+  border-radius: 50%;
   font-size: 17px;
 }
 
-#soundPanel {
-  border: 1px solid var(--stroke);
-  border-radius: 8px;
-  background: var(--acrylic);
+#SOUND_PANEL {
+  font: 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   backdrop-filter: blur( 30px ) saturate( 125% );
   box-shadow: var(--flyout-shadow);
+  border: 1px solid var(--stroke);
+  background: var(--acrylic);
+  border-radius: 8px;
   color: var(--ink);
-  font: 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
 }
 
-#sheetInstruments {
+#SHEET_INSTRUMENTS {
   color: var(--muted);
   font-size: 12px;
 }
 
-#soundSliders span:last-child,
-#clock,
-#swingReadout,
-#volumeReadout {
-  color: var(--muted);
+#SOUND_SLIDER_LIST span:last-child,
+#CLOCK,
+#SWING_READOUT,
+#VOLUME_READOUT {
   font: 12px var(--mono);
+  color: var(--muted);
 }
 
-#soundActions button {
+#SOUND_ACTIONS button {
   font-size: 13px;
 }
 
-#transport {
+#TRANSPORT {
   border-top: 1px solid var(--stroke);
   background: var(--card);
 }
 
-#transport button {
+#TRANSPORT button {
   border-radius: 50%;
 }
 
-#transport #playButton {
+#TRANSPORT #PLAY_BUTTON {
   border-color: transparent;
   background: var(--accent);
   color: var(--on-accent);
 }
 
-#transport #playButton:hover {
+#TRANSPORT #PLAY_BUTTON:hover {
   background: var(--accent-hover);
 }
 
-#playButton.holding {
+#PLAY_BUTTON.holding {
   animation: breathe 1.4s ease-in-out infinite;
 }
 
@@ -387,78 +391,78 @@ body.resizing #splitter {
   }
 }
 
-#transport #metronomeButton.on,
-#transport #keyButton.on,
-#transport #swingButton.on {
+#TRANSPORT #METRONOME_BUTTON.on,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on {
   border-color: transparent;
   background: var(--accent);
   color: var(--on-accent);
 }
 
-#swingControl,
-#volumeControl {
-  color: var(--muted);
+#SWING_CONTROL,
+#VOLUME_CONTROL {
   font: 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  color: var(--muted);
 }
 
 .popup {
-  border: 1px solid var(--stroke);
-  border-radius: 8px;
-  background: var(--acrylic);
+  font: 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   backdrop-filter: blur( 30px ) saturate( 125% );
   box-shadow: var(--flyout-shadow);
+  border: 1px solid var(--stroke);
+  background: var(--acrylic);
+  border-radius: 8px;
   color: var(--ink);
-  font: 13px "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
 }
 
-#score {
+#SCORE {
   background: var(--bloom);
 }
 
 .page {
-  border-radius: 4px;
   box-shadow: 0 8px 24px rgba( 0, 0, 0, 0.18 );
+  border-radius: 4px;
 }
 
-#seekerThumb {
-  height: 20px;
-  border: 5px solid var(--card);
-  border-radius: 50%;
-  background: var(--accent);
+#SEEKERThumb {
   box-shadow: 0 0 0 1px var(--stroke-strong);
+  border: 5px solid var(--card);
   transition: border-width 0.1s;
+  background: var(--accent);
+  border-radius: 50%;
+  height: 20px;
 }
 
-#seeker:hover + #seekerThumb {
+#SEEKER:hover + #SEEKERThumb {
   border-width: 4px;
 }
 
-#seeker:active + #seekerThumb {
+#SEEKER:active + #SEEKERThumb {
   border-width: 6px;
 }
 
 input[type="range"] {
-  height: 22px;
-  appearance: none;
   background: transparent;
+  appearance: none;
+  height: 22px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
   background: var(--track);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  width: 20px;
-  height: 20px;
+  box-shadow: 0 0 0 1px var(--stroke-strong);
+  border: 5px solid var(--card);
+  transition: border-width 0.1s;
+  background: var(--accent);
+  border-radius: 50%;
   margin-top: -8px;
   appearance: none;
-  border: 5px solid var(--card);
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 1px var(--stroke-strong);
-  transition: border-width 0.1s;
+  height: 20px;
+  width: 20px;
 }
 
 input[type="range"]:hover::-webkit-slider-thumb {
@@ -470,36 +474,36 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 input[type="range"]::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
   background: var(--track);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-progress {
-  height: 4px;
-  border-radius: 2px;
   background: var(--accent);
+  border-radius: 2px;
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
-  border: 5px solid var(--card);
-  border-radius: 50%;
-  background: var(--accent);
   box-shadow: 0 0 0 1px var(--stroke-strong);
+  border: 5px solid var(--card);
+  background: var(--accent);
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
 }
 
 @supports ( -moz-appearance: none ) {
   * {
-    scrollbar-width: thin;
     scrollbar-color: var(--scroll) transparent;
+    scrollbar-width: thin;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
   height: 12px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -507,9 +511,9 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
+  background: var(--scroll) padding-box;
   border: 4px solid transparent;
   border-radius: 6px;
-  background: var(--scroll) padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -517,20 +521,20 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @media ( max-width: 700px ) {
-  #writing {
+  #WRITING {
     padding: 0 8px;
   }
 
-  #output {
+  #OUTPUT {
     margin: 0 8px 8px;
   }
 }
 
-#transport #metronomeButton.downbeat {
+#TRANSPORT #METRONOME_BUTTON.downbeat {
   animation: downbeat 0.16s ease-out;
 }
 
-#transport #metronomeButton.beat {
+#TRANSPORT #METRONOME_BUTTON.beat {
   animation: beat 0.16s ease-out;
 }
 
@@ -593,9 +597,9 @@ select:has( + .dropdown ) {
 }
 
 .dropdownOption {
-  position: relative;
-  background: transparent;
   padding: 6px 10px 6px 14px;
+  background: transparent;
+  position: relative;
   border-radius: 4px;
   color: var(--ink);
   font: var(--ui);
@@ -612,8 +616,8 @@ select:has( + .dropdown ) {
   position: absolute;
   border-radius: 2px;
   margin-top: -8px;
-  content: "";
   height: 16px;
+  content: "";
   width: 3px;
   left: 3px;
   top: 50%;

@@ -1,4 +1,4 @@
-const POPUPS = [ volumePopup, swingPopup ];
+const POPUPS = [ VOLUME_POPUP, SWING_POPUP ];
 
 function closePopups() {
   POPUPS.forEach( popup => popup.classList.remove( "open" ) );
@@ -7,20 +7,20 @@ function closePopups() {
 function togglePopup( popup ) {
   const opening = !popup.classList.contains( "open" );
   closePopups();
-  soundPanel.classList.remove( "open" );
+  SOUND_PANEL.classList.remove( "open" );
   closeExportMenu();
   closeLookMenu();
   popup.classList.toggle( "open", opening );
 }
 
-volumeButton.addEventListener( "click", event => {
+VOLUME_BUTTON.addEventListener( "click", event => {
   event.stopPropagation();
-  togglePopup( volumePopup );
+  togglePopup( VOLUME_POPUP );
 });
 
-swingButton.addEventListener( "click", event => {
+SWING_BUTTON.addEventListener( "click", event => {
   event.stopPropagation();
-  togglePopup( swingPopup );
+  togglePopup( SWING_POPUP );
 });
 
 document.addEventListener( "click", event => {

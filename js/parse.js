@@ -82,8 +82,8 @@ function parseLength( text ) {
 
 function parseRest( text ) {
   const length = text.startsWith( "r" ) ? parseLength( text.slice( 1 ) ) : null;
-  const onlyFermata = length && ( length.articulations || [] ).every( articulation => articulation === "fermata" );
-  if ( !length || length.tie || length.slur || length.fall || length.rise || !onlyFermata )
+  const only_fermata = length && ( length.articulations || [] ).every( articulation => articulation === "fermata" );
+  if ( !length || length.tie || length.slur || length.fall || length.rise || !only_fermata )
     return null;
   return { rest: true, pitches: [], ...length };
 }
@@ -133,13 +133,13 @@ function attachGraces( event, staff, report ) {
   staff.waitingGraces = [];
 }
 
-function parseEvent( token, column, lineNumber, staff, report ) {
+function parseEvent( token, column, line_number, staff, report ) {
   const grace = parseGrace( token );
   if ( grace ) {
-    staff.waitingGraces.push( { pitch: grace, line: lineNumber, column, token } );
+    staff.waitingGraces.push( { pitch: grace, line: line_number, column, token } );
     return null;
   }
-  const reportHere = ( where, what, reason ) => report( lineNumber, where, what, reason );
+  const reportHere = ( where, what, reason ) => report( line_number, where, what, reason );
   if ( token.startsWith( "[" ) )
     return withSourceOf( parseChord( token, column, reportHere ), column, token );
   return withSourceOf( parseRest( token ) || parseNote( token ), column, token ) || reportHere( column, token, "not a note, rest, chord or grace note" );
@@ -159,21 +159,21 @@ function largestPowerOfTwoBelow( count ) {
   return Math.pow( 2, Math.floor( Math.log2( count ) ) );
 }
 
-function parseTuplet( token, column, lineNumber, staff, report ) {
+function parseTuplet( token, column, line_number, staff, report ) {
   if ( !token.endsWith( "}" ) )
-    return report( lineNumber, column, token, "triplet is missing }" );
+    return report( line_number, column, token, "triplet is missing }" );
   const events = [ ...token.slice( 1, -1 ).matchAll( /\[[^\]]*\]?\S*|\S+/g ) ]
-    .map( piece => withGracesAttached( parseEvent( piece[ 0 ], column + 1 + piece.index, lineNumber, staff, report ), staff, report ) )
+    .map( piece => withGracesAttached( parseEvent( piece[ 0 ], column + 1 + piece.index, line_number, staff, report ), staff, report ) )
     .filter( Boolean );
   if ( !events.length )
-    return report( lineNumber, column, token, "empty triplet" );
+    return report( line_number, column, token, "empty triplet" );
   const shortest = Math.min( ...events.map( writtenLengthOf ) );
   const count = Math.round( events.reduce( ( total, event ) => total + writtenLengthOf( event ), 0 ) / shortest );
   const normal = largestPowerOfTwoBelow( count );
   if ( count === normal )
-    return report( lineNumber, column, token, `these already fit evenly; a tuplet needs a count like 3 or 5 (this is ${ count })` );
+    return report( line_number, column, token, `these already fit evenly; a tuplet needs a count like 3 or 5 (this is ${ count })` );
   const tuplet = { count, normal };
-  staff.tuplets.push( { start: staff.position, length: events.reduce( ( total, event ) => total + writtenLengthOf( event ), 0 ) * normal / count, line: lineNumber, column, token } );
+  staff.tuplets.push( { start: staff.position, length: events.reduce( ( total, event ) => total + writtenLengthOf( event ), 0 ) * normal / count, line: line_number, column, token } );
   return events.map( event => ( { ...event, tuplet, tupletRatio: normal / count } ) );
 }
 
@@ -187,10 +187,10 @@ function repeatSignOf( token, staff ) {
   return { kind: "end", level };
 }
 
-function addEvent( event, lineNumber, staff, pass ) {
+function addEvent( event, line_number, staff, pass ) {
   attachGraces( event, staff, pass.report );
   const copy = pass.countSource ? { countSource: pass.countSource } : {};
-  staff.events.push( { ...event, line: lineNumber, ...copy } );
+  staff.events.push( { ...event, line: line_number, ...copy } );
   staff.position += lengthOf( event );
 }
 
@@ -215,15 +215,15 @@ function playToken( { token, column, line }, staff, pass ) {
 
 const SILENT = { report: () => null };
 
-function playTimes( times, countSource, pass, playOnce ) {
+function playTimes( times, count_source, pass, play_once ) {
   if ( times < 2 )
-    pass.report( countSource.line, countSource.column, countSource.token, "repeat at least twice, like x2" );
+    pass.report( count_source.line, count_source.column, count_source.token, "repeat at least twice, like x2" );
   if ( times > MOST_COPIES ) {
-    pass.report( countSource.line, countSource.column, countSource.token, `that's a lot; x${ MOST_COPIES } at most, or use ||| |||| to loop forever` );
+    pass.report( count_source.line, count_source.column, count_source.token, `that's a lot; x${ MOST_COPIES } at most, or use ||| |||| to loop forever` );
     times = 1;
   }
   for ( let copy = 0; copy < Math.max( 1, times ); copy++ )
-    playOnce( copy === 0 ? pass : { ...SILENT, countSource: pass.countSource || countSource }, copy );
+    play_once( copy === 0 ? pass : { ...SILENT, countSource: pass.countSource || count_source }, copy );
 }
 
 function playCounted( record, staff, pass ) {
@@ -231,12 +231,12 @@ function playCounted( record, staff, pass ) {
   if ( !counted )
     return playToken( record, staff, pass );
   const [ , written, countToken, times ] = counted;
-  const countSource = { line: record.line, column: record.column + written.length, token: countToken };
+  const count_source = { line: record.line, column: record.column + written.length, token: countToken };
   const graces = [ ...staff.waitingGraces ];
-  playTimes( Number( times ), countSource, pass, ( copyPass, copy ) => {
+  playTimes( Number( times ), count_source, pass, ( copy_pass, copy ) => {
     if ( copy > 0 )
       staff.waitingGraces = [ ...graces ];
-    playToken( { ...record, token: written }, staff, copyPass );
+    playToken( { ...record, token: written }, staff, copy_pass );
   });
 }
 
@@ -248,8 +248,8 @@ function playGroup( records, staff, pass ) {
     pass.report( closing.line, closing.column, closing.token, "a group needs a count right after it, like )x2" );
     return playRecords( inside, staff, pass );
   }
-  const countSource = { line: closing.line, column: closing.column + 1, token: closing.token.slice( 1 ) };
-  playTimes( Number( counted[ 1 ] ), countSource, pass, copyPass => playRecords( inside, staff, copyPass ) );
+  const count_source = { line: closing.line, column: closing.column + 1, token: closing.token.slice( 1 ) };
+  playTimes( Number( counted[ 1 ] ), count_source, pass, copy_pass => playRecords( inside, staff, copy_pass ) );
 }
 
 function feedRecord( group, record, staff, pass ) {
@@ -277,13 +277,13 @@ function playRecords( records, staff, pass ) {
   records.forEach( record => feedRecord( group, record, staff, pass ) );
 }
 
-function parseMusicLine( lineText, lineNumber, staff, report ) {
-  for ( const match of lineText.matchAll( /\(|\)[^\s()]*|\{[^}]*\}?[^\s()]*|\[[^\]]*\]?[^\s()]*|[^\s()]+/g ) )
-    feedRecord( staff.group, { token: match[ 0 ], column: match.index, line: lineNumber }, staff, { report } );
+function parseMusicLine( line_text, line_number, staff, report ) {
+  for ( const match of line_text.matchAll( /\(|\)[^\s()]*|\{[^}]*\}?[^\s()]*|\[[^\]]*\]?[^\s()]*|[^\s()]+/g ) )
+    feedRecord( staff.group, { token: match[ 0 ], column: match.index, line: line_number }, staff, { report } );
 }
 
-function isOnBarline( position, measureLength ) {
-  const measures = position / measureLength;
+function isOnBarline( position, measure_length ) {
+  const measures = position / measure_length;
   return Math.abs( measures - Math.round( measures ) ) < 1e-6;
 }
 
@@ -291,7 +291,7 @@ function sharesAPitch( event, next ) {
   return !event.rest && !next.rest && event.pitches.some( pitch => next.pitches.some( other => other.letter === pitch.letter && other.octave === pitch.octave ) );
 }
 
-function finishStaff( staff, measureLength, report ) {
+function finishStaff( staff, measure_length, report ) {
   if ( staff.group.depth > 0 ) {
     const [ opening, ...inside ] = staff.group.records;
     report( opening.line, opening.column, opening.token, "this ( is never closed; end it with )x2" );
@@ -299,16 +299,16 @@ function finishStaff( staff, measureLength, report ) {
   }
   staff.waitingGraces.forEach( grace => report( grace.line, grace.column, grace.token, "a grace note needs a note after it" ) );
   [ ...staff.repeats, ...staff.loops ]
-    .filter( sign => !isOnBarline( sign.position, measureLength ) )
+    .filter( sign => !isOnBarline( sign.position, measure_length ) )
     .forEach( sign => report( sign.line, sign.column, sign.token, "repeat signs go on a barline, between measures" ) );
-  staff.loopSigns = staff.loops.filter( sign => isOnBarline( sign.position, measureLength ) );
+  staff.loopSigns = staff.loops.filter( sign => isOnBarline( sign.position, measure_length ) );
   staff.events
     .filter( ( event, index ) => event.tie && !event.countSource && staff.events[ index + 1 ] && !sharesAPitch( event, staff.events[ index + 1 ] ) )
     .forEach( event => report( event.line, event.column, event.token, "a tie (~) joins two of the same note; for different notes use a slur (-)" ) );
   staff.tuplets
-    .filter( span => Math.floor( span.start / measureLength + 1e-6 ) !== Math.floor( ( span.start + span.length ) / measureLength - 1e-6 ) )
+    .filter( span => Math.floor( span.start / measure_length + 1e-6 ) !== Math.floor( ( span.start + span.length ) / measure_length - 1e-6 ) )
     .forEach( span => report( span.line, span.column, span.token, "a triplet can't cross a barline" ) );
-  const repeats = staff.repeats.filter( sign => isOnBarline( sign.position, measureLength ) ).map( ( { kind, level, position } ) => ( { kind, level, position } ) );
+  const repeats = staff.repeats.filter( sign => isOnBarline( sign.position, measure_length ) ).map( ( { kind, level, position } ) => ( { kind, level, position } ) );
   [ "waitingGraces", "position", "repeats", "loops", "openRepeats", "tuplets", "group" ].forEach( name => delete staff[ name ] );
   return repeats;
 }
@@ -330,8 +330,8 @@ function loopOf( staves, report ) {
   return { start, end: end.position };
 }
 
-function mergedRepeatsOf( repeatsOfEachStaff ) {
-  const unique = new Map( repeatsOfEachStaff.flat().map( sign => [ `${ sign.kind } ${ sign.level } ${ sign.position.toFixed( 6 ) }`, sign ] ) );
+function mergedRepeatsOf( repeats_of_each_staff ) {
+  const unique = new Map( repeats_of_each_staff.flat().map( sign => [ `${ sign.kind } ${ sign.level } ${ sign.position.toFixed( 6 ) }`, sign ] ) );
   return [ ...unique.values() ].sort( ( a, b ) => a.position - b.position );
 }
 
@@ -383,29 +383,29 @@ function parseSheet( text ) {
     sheet.problems.push( { line, column, token, reason } );
     return null;
   };
-  let currentStaff = staves.treble;
-  let waitingInstrument = null;
+  let current_staff = staves.treble;
+  let waiting_instrument = null;
 
-  text.split( "\n" ).forEach( ( rawLine, index ) => {
-    const lineNumber = index + 1;
-    const lineText = rawLine.split( "#" )[ 0 ];
-    const setting = lineText.match( /^(\s*)(\w+)(\s*=\s*)(.*?)\s*$/ );
+  text.split( "\n" ).forEach( ( raw_line, index ) => {
+    const line_number = index + 1;
+    const line_text = raw_line.split( "#" )[ 0 ];
+    const setting = line_text.match( /^(\s*)(\w+)(\s*=\s*)(.*?)\s*$/ );
     if ( !setting ) {
-      if ( waitingInstrument && lineText.trim() ) {
-        currentStaff.instrument = waitingInstrument;
-        waitingInstrument = null;
+      if ( waiting_instrument && line_text.trim() ) {
+        current_staff.instrument = waiting_instrument;
+        waiting_instrument = null;
       }
-      parseMusicLine( lineText.toLowerCase(), lineNumber, currentStaff, report );
+      parseMusicLine( line_text.toLowerCase(), line_number, current_staff, report );
       return;
     }
     const [ , indent, rawName, equals, rawValue ] = setting;
     const name = rawName.toLowerCase();
     const value = name === "title" || name === "author" ? rawValue : rawValue.toLowerCase();
-    const problem = ( reason, isAboutName ) => isAboutName
-      ? report( lineNumber, indent.length, rawName, reason )
-      : report( lineNumber, indent.length + rawName.length + equals.length, rawValue || "=", reason );
+    const problem = ( reason, is_about_name ) => is_about_name
+      ? report( line_number, indent.length, rawName, reason )
+      : report( line_number, indent.length + rawName.length + equals.length, rawValue || "=", reason );
     if ( name === "instrument" ) {
-      waitingInstrument = instrumentNamed( value.replace( /\s+/g, " " ), problem ) ?? waitingInstrument;
+      waiting_instrument = instrumentNamed( value.replace( /\s+/g, " " ), problem ) ?? waiting_instrument;
       return;
     }
     if ( name !== "clef" && name !== "mclef" ) {
@@ -414,18 +414,18 @@ function parseSheet( text ) {
     }
     if ( !Object.hasOwn( CLEF_NAMES, value ) )
       return problem( "clef is t (treble) or b (bass)" );
-    currentStaff = staves[ CLEF_NAMES[ value ] ];
+    current_staff = staves[ CLEF_NAMES[ value ] ];
     if ( name === "mclef" )
-      currentStaff.muted = true;
+      current_staff.muted = true;
   });
 
-  if ( waitingInstrument )
-    currentStaff.instrument = waitingInstrument;
-  const measureLength = measureLengthOf( sheet.meter );
-  sheet.repeats = mergedRepeatsOf( [ staves.treble, staves.bass ].map( staff => finishStaff( staff, measureLength, report ) ) );
+  if ( waiting_instrument )
+    current_staff.instrument = waiting_instrument;
+  const measure_length = measureLengthOf( sheet.meter );
+  sheet.repeats = mergedRepeatsOf( [ staves.treble, staves.bass ].map( staff => finishStaff( staff, measure_length, report ) ) );
   sheet.loop = loopOf( [ staves.treble, staves.bass ], report );
   applyKeyToNotes( [ staves.treble, staves.bass ], sheet.key.fifths );
-  const usedStaves = [ staves.treble, staves.bass ].filter( staff => staff.events.length > 0 );
-  sheet.staves = usedStaves.length ? usedStaves : [ staves.treble ];
+  const used_staves = [ staves.treble, staves.bass ].filter( staff => staff.events.length > 0 );
+  sheet.staves = used_staves.length ? used_staves : [ staves.treble ];
   return sheet;
 }

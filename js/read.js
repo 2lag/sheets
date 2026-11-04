@@ -50,7 +50,7 @@ async function sheetFromLink() {
 async function loadSheet() {
   const text = await sheetFromLink() ?? localStorage.getItem( "sheet" );
   if ( text )
-    editor.value = text;
+    EDITOR.value = text;
 }
 
 async function shareLinkOf( text ) {
@@ -81,7 +81,7 @@ async function copyText( text ) {
   }
 }
 
-let latestRemembered = 0;
+let LATEST_REMEMBERED = 0;
 
 function saveLocally( text ) {
   try {
@@ -94,10 +94,10 @@ function saveLocally( text ) {
 
 async function rememberSheet( text ) {
   saveLocally( text );
-  const attempt = ++latestRemembered;
+  const attempt = ++LATEST_REMEMBERED;
   const link = await shareLinkOf( text );
-  if ( attempt === latestRemembered )
+  if ( attempt === LATEST_REMEMBERED )
     history.replaceState( null, "", link );
 }
 
-const sheetLoaded = loadSheet();
+const SHEET_LOADED = loadSheet();

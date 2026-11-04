@@ -50,7 +50,7 @@ function describeEvent( event, clef ) {
 }
 
 function cursorPlace() {
-  const before = editor.value.slice( 0, editor.selectionStart ).split( "\n" );
+  const before = EDITOR.value.slice( 0, EDITOR.selectionStart ).split( "\n" );
   return { line: before.length, column: before.at( -1 ).length };
 }
 
@@ -59,11 +59,11 @@ function touches( source, place ) {
 }
 
 function hintAt( place ) {
-  for ( const staff of sheet.staves ) {
+  for ( const staff of SHEET.staves ) {
     for ( const event of staff.events ) {
-      const graceIndex = ( event.graceSources || [] ).findIndex( source => touches( source, place ) );
-      if ( graceIndex >= 0 )
-        return `${ describePitch( event.graces[ graceIndex ], staff.clef ) } · grace note`;
+      const grace_index = ( event.graceSources || [] ).findIndex( source => touches( source, place ) );
+      if ( grace_index >= 0 )
+        return `${ describePitch( event.graces[ grace_index ], staff.clef ) } · grace note`;
       if ( event.token && touches( event, place ) )
         return describeEvent( event, staff.clef );
     }
@@ -72,7 +72,7 @@ function hintAt( place ) {
 }
 
 function showNoteHint() {
-  noteHint.textContent = hintAt( cursorPlace() );
+  NOTE_HINT.textContent = hintAt( cursorPlace() );
 }
 
-[ "keyup", "pointerup", "focus" ].forEach( name => editor.addEventListener( name, showNoteHint ) );
+[ "keyup", "pointerup", "focus" ].forEach( name => EDITOR.addEventListener( name, showNoteHint ) );

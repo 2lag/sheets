@@ -71,7 +71,7 @@ function buildDropdown( select ) {
 }
 
 document.addEventListener( "DOMContentLoaded", () => {
-  [ samplePicker, presetPicker, waveformPicker, bodyPicker ].forEach( buildDropdown );
+  [ SAMPLE_PICKER, PRESET_PICKER, WAVEFORM_PICKER, BODY_PICKER ].forEach( buildDropdown );
 });
 
 document.addEventListener( "click", closeDropdowns );

@@ -1,52 +1,52 @@
-let resumeAfterSeeking = false;
+let RESUME_AFTER_SEEKING = false;
 
 function placeSeekerThumb() {
-  const track = seeker.getBoundingClientRect();
-  const bar = transport.getBoundingClientRect();
-  const thumb = seekerThumb.getBoundingClientRect();
+  const track = SEEKER.getBoundingClientRect();
+  const bar = TRANSPORT.getBoundingClientRect();
+  const thumb = SEEKER_THUMB.getBoundingClientRect();
   const travel = track.width - thumb.width;
-  const left = track.left - bar.left + travel * seeker.value / seeker.max;
+  const left = track.left - bar.left + travel * SEEKER.value / SEEKER.max;
   const top = track.top - bar.top + ( track.height - thumb.height ) / 2;
   const snap = pixels => Math.round( pixels * devicePixelRatio ) / devicePixelRatio;
-  seekerThumb.style.transform = `translate( ${ snap( left ) }px, ${ snap( top ) }px )`;
+  SEEKER_THUMB.style.transform = `translate( ${ snap( left ) }px, ${ snap( top ) }px )`;
 }
 
 function clockTimeOf( seconds ) {
-  const wholeSeconds = Math.floor( seconds );
-  return `${ Math.floor( wholeSeconds / 60 ) }:${ String( wholeSeconds % 60 ).padStart( 2, "0" ) }`;
+  const whole_seconds = Math.floor( seconds );
+  return `${ Math.floor( whole_seconds / 60 ) }:${ String( whole_seconds % 60 ).padStart( 2, "0" ) }`;
 }
 
 function showPosition( position ) {
-  const passLength = passLengthOf( sheet );
+  const pass_length = passLengthOf( SHEET );
   const shown = shownPositionOf( position );
-  const secondsPerWholeNote = secondsPerWholeNoteOf( sheet );
-  const total = sheet.loop ? "∞" : clockTimeOf( passLength * secondsPerWholeNote );
-  seeker.value = passLength ? shown / passLength * seeker.max : 0;
-  clock.textContent = `${ clockTimeOf( shown * secondsPerWholeNote ) } / ${ total }`;
+  const seconds_per_whole_note = secondsPerWholeNoteOf( SHEET );
+  const total = SHEET.loop ? "∞" : clockTimeOf( pass_length * seconds_per_whole_note );
+  SEEKER.value = pass_length ? shown / pass_length * SEEKER.max : 0;
+  CLOCK.textContent = `${ clockTimeOf( shown * seconds_per_whole_note ) } / ${ total }`;
   placeSeekerThumb();
 }
 
 function positionOfSeeker() {
-  return seeker.value / seeker.max * passLengthOf( sheet );
+  return SEEKER.value / SEEKER.max * passLengthOf( SHEET );
 }
 
-seeker.addEventListener( "input", () => {
-  if ( holding )
+SEEKER.addEventListener( "input", () => {
+  if ( HOLDING )
     stopPlayback();
-  if ( playing ) {
-    resumeAfterSeeking = true;
+  if ( PLAYING ) {
+    RESUME_AFTER_SEEKING = true;
     stopPlayback();
   }
-  playbackPosition = positionOfSeeker();
-  placePlayhead( playbackPosition );
-  showPosition( playbackPosition );
+  PLAYBACK_POSITION = positionOfSeeker();
+  placePlayhead( PLAYBACK_POSITION );
+  showPosition( PLAYBACK_POSITION );
 });
 
-seeker.addEventListener( "change", () => {
-  if ( resumeAfterSeeking )
+SEEKER.addEventListener( "change", () => {
+  if ( RESUME_AFTER_SEEKING )
     startPlayback();
-  resumeAfterSeeking = false;
+  RESUME_AFTER_SEEKING = false;
 });
 
-new ResizeObserver( placeSeekerThumb ).observe( transport );
-eraStyle.addEventListener( "load", placeSeekerThumb );
+new ResizeObserver( placeSeekerThumb ).observe( TRANSPORT );
+ERA_STYLE.addEventListener( "load", placeSeekerThumb );

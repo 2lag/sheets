@@ -1,25 +1,25 @@
-let sheet = parseSheet( "" );
-let pendingRender = null;
-let problemMarks = [];
+let SHEET = parseSheet( "" );
+let PENDING_RENDER = null;
+let PROBLEM_MARKS = [];
 
-function columnOf( problem, lineText ) {
+function columnOf( problem, line_text ) {
   if ( Number.isInteger( problem.column ) )
     return problem.column;
-  return Math.max( 0, lineText.indexOf( problem.token ) );
+  return Math.max( 0, line_text.indexOf( problem.token ) );
 }
 
-function problemRangeOf( problem, lineText ) {
-  const start = columnOf( problem, lineText );
+function problemRangeOf( problem, line_text ) {
+  const start = columnOf( problem, line_text );
   const mark = document.createElement( "mark" );
   mark.dataset.reason = `${ problem.token }: ${ problem.reason }`;
-  problemMarks.push( mark );
+  PROBLEM_MARKS.push( mark );
   return { start, end: Math.max( start + 1, start + String( problem.token ).length ), element: mark };
 }
 
-function noteRangesOn( lineNumber, events ) {
+function noteRangesOn( line_number, events ) {
   const ranges = new Map();
   events.forEach( event => sourcesOf( event )
-    .filter( source => source.line === lineNumber && source.token )
+    .filter( source => source.line === line_number && source.token )
     .forEach( source => {
       if ( !ranges.has( source.column ) )
         ranges.set( source.column, { start: source.column, end: source.column + source.token.length, element: document.createElement( "span" ) } );
@@ -32,7 +32,7 @@ function sourcesOf( event ) {
   return [ event, ...( event.graceSources || [] ) ];
 }
 
-function markedLine( lineText, ranges ) {
+function markedLine( line_text, ranges ) {
   const pieces = [];
   let written = 0;
   ranges
@@ -41,80 +41,80 @@ function markedLine( lineText, ranges ) {
       if ( start < written )
         return;
       if ( end > start )
-        element.textContent = lineText.slice( start, end ) || " ";
-      pieces.push( lineText.slice( written, start ), element );
+        element.textContent = line_text.slice( start, end ) || " ";
+      pieces.push( line_text.slice( written, start ), element );
       written = end;
     });
-  pieces.push( lineText.slice( written ) );
+  pieces.push( line_text.slice( written ) );
   return pieces;
 }
 
 function showMarks( problems, parsed ) {
-  problemMarks = [];
+  PROBLEM_MARKS = [];
   const events = parsed.staves.flatMap( staff => staff.events );
   events.forEach( event => event.textMarks = [] );
-  const measureStarts = measureStartsOf( parsed );
-  const lines = editor.value.split( "\n" );
-  const pieces = lines.flatMap( ( lineText, index ) => {
-    const problemRanges = problems.filter( problem => problem.line === index + 1 ).map( problem => problemRangeOf( problem, lineText ) );
-    const ranges = [ ...barRangesOn( index + 1, lineText, measureStarts ), ...problemRanges, ...noteRangesOn( index + 1, events ) ];
-    return [ ...markedLine( lineText, ranges ), "\n" ];
+  const measure_starts = measureStartsOf( parsed );
+  const lines = EDITOR.value.split( "\n" );
+  const pieces = lines.flatMap( ( line_text, index ) => {
+    const problem_ranges = problems.filter( problem => problem.line === index + 1 ).map( problem => problemRangeOf( problem, line_text ) );
+    const ranges = [ ...barRangesOn( index + 1, line_text, measure_starts ), ...problem_ranges, ...noteRangesOn( index + 1, events ) ];
+    return [ ...markedLine( line_text, ranges ), "\n" ];
   });
-  highlights.replaceChildren( ...pieces, " " );
+  HIGHLIGHTS.replaceChildren( ...pieces, " " );
   followEditorScroll();
 }
 
 function followEditorScroll() {
-  highlights.scrollTop = editor.scrollTop;
-  highlights.scrollLeft = editor.scrollLeft;
+  HIGHLIGHTS.scrollTop = EDITOR.scrollTop;
+  HIGHLIGHTS.scrollLeft = EDITOR.scrollLeft;
 }
 
 function markUnder( x, y ) {
-  return problemMarks.find( mark => [ ...mark.getClientRects() ].some( box =>
+  return PROBLEM_MARKS.find( mark => [ ...mark.getClientRects() ].some( box =>
     x >= box.left && x <= box.right && y >= box.top && y <= box.bottom
   ));
 }
 
 function showProblemTip( event ) {
   const mark = markUnder( event.clientX, event.clientY );
-  problemTip.classList.toggle( "shown", Boolean( mark ) );
+  PROBLEM_TIP.classList.toggle( "shown", Boolean( mark ) );
   if ( !mark )
     return;
-  problemTip.textContent = mark.dataset.reason;
-  problemTip.style.left = event.clientX + 12 + "px";
-  problemTip.style.top = event.clientY + 16 + "px";
+  PROBLEM_TIP.textContent = mark.dataset.reason;
+  PROBLEM_TIP.style.left = event.clientX + 12 + "px";
+  PROBLEM_TIP.style.top = event.clientY + 16 + "px";
 }
 
 function hideProblemTip() {
-  problemTip.classList.remove( "shown" );
+  PROBLEM_TIP.classList.remove( "shown" );
 }
 
 function refreshScore() {
   stopPlayback();
-  sheet = parseSheet( editor.value );
-  renderScore( sheet );
-  playbackPosition = Math.min( playbackPosition, totalDurationOf( sheet ) );
-  showPosition( playbackPosition );
-  if ( playbackPosition > 0 )
-    placePlayhead( playbackPosition, false );
-  showMarks( sheet.problems, sheet );
-  rememberSheet( editor.value );
+  SHEET = parseSheet( EDITOR.value );
+  renderScore( SHEET );
+  PLAYBACK_POSITION = Math.min( PLAYBACK_POSITION, totalDurationOf( SHEET ) );
+  showPosition( PLAYBACK_POSITION );
+  if ( PLAYBACK_POSITION > 0 )
+    placePlayhead( PLAYBACK_POSITION, false );
+  showMarks( SHEET.problems, SHEET );
+  rememberSheet( EDITOR.value );
   showNoteHint();
   showSheetInstruments();
 }
 
 function refreshSoon() {
-  clearTimeout( pendingRender );
-  pendingRender = setTimeout( () => {
+  clearTimeout( PENDING_RENDER );
+  PENDING_RENDER = setTimeout( () => {
     refreshScore();
     showEditedNote();
   }, 150 );
 }
 
 function resizePanels( event ) {
-  const bounds = workspace.getBoundingClientRect();
+  const bounds = WORKSPACE.getBoundingClientRect();
   const percent = ( event.clientX - bounds.left ) / bounds.width * 100;
-  writing.style.width = Math.min( 80, Math.max( 15, percent ) ) + "%";
+  WRITING.style.width = Math.min( 80, Math.max( 15, percent ) ) + "%";
 }
 
 function stopResizing() {
@@ -123,66 +123,66 @@ function stopResizing() {
 }
 
 function closeExportMenu() {
-  exportMenu.classList.remove( "open" );
+  EXPORT_MENU.classList.remove( "open" );
 }
 
 function placeMenu( menu ) {
-  menu.style.top = `${ header.getBoundingClientRect().bottom }px`;
+  menu.style.top = `${ HEADER.getBoundingClientRect().bottom }px`;
 }
 
-new ResizeObserver( () => [ exportMenu, lookMenu ].forEach( placeMenu ) ).observe( header );
+new ResizeObserver( () => [ EXPORT_MENU, LOOK_MENU ].forEach( placeMenu ) ).observe( HEADER );
 
 function closeLookMenu() {
-  lookMenu.classList.remove( "open" );
+  LOOK_MENU.classList.remove( "open" );
 }
 
-splitter.addEventListener( "pointerdown", event => {
+SPLITTER.addEventListener( "pointerdown", event => {
   event.preventDefault();
   document.body.classList.add( "resizing" );
   document.addEventListener( "pointermove", resizePanels );
   document.addEventListener( "pointerup", stopResizing, { once: true } );
 });
 
-exportButton.addEventListener( "click", event => {
+EXPORT_BUTTON.addEventListener( "click", event => {
   event.stopPropagation();
-  soundPanel.classList.remove( "open" );
+  SOUND_PANEL.classList.remove( "open" );
   closeLookMenu();
   closePopups();
-  placeMenu( exportMenu );
-  exportMenu.classList.toggle( "open" );
+  placeMenu( EXPORT_MENU );
+  EXPORT_MENU.classList.toggle( "open" );
 });
 
-lookButton.addEventListener( "click", event => {
+LOOK_BUTTON.addEventListener( "click", event => {
   event.stopPropagation();
-  soundPanel.classList.remove( "open" );
+  SOUND_PANEL.classList.remove( "open" );
   closeExportMenu();
   closePopups();
-  placeMenu( lookMenu );
-  lookMenu.classList.toggle( "open" );
+  placeMenu( LOOK_MENU );
+  LOOK_MENU.classList.toggle( "open" );
 });
 
 document.addEventListener( "click", event => {
-  if ( !exportMenu.contains( event.target ) )
+  if ( !EXPORT_MENU.contains( event.target ) )
     closeExportMenu();
-  if ( !lookMenu.contains( event.target ) )
+  if ( !LOOK_MENU.contains( event.target ) )
     closeLookMenu();
 });
 
-helpButton.addEventListener( "click", () => help.showModal() );
-closeHelpButton.addEventListener( "click", () => help.close() );
+HELP_BUTTON.addEventListener( "click", () => HELP.showModal() );
+CLOSE_HELP_BUTTON.addEventListener( "click", () => HELP.close() );
 
-help.addEventListener( "click", event => {
-  const box = help.getBoundingClientRect();
-  const clickedOutside = event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
-  if ( event.target === help && clickedOutside )
-    help.close();
+HELP.addEventListener( "click", event => {
+  const box = HELP.getBoundingClientRect();
+  const clicked_outside = event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
+  if ( event.target === HELP && clicked_outside )
+    HELP.close();
 });
 
-editor.addEventListener( "input", () => {
-  showMarks( [], parseSheet( editor.value ) );
+EDITOR.addEventListener( "input", () => {
+  showMarks( [], parseSheet( EDITOR.value ) );
   refreshSoon();
 });
-editor.addEventListener( "scroll", followEditorScroll );
-editor.addEventListener( "mousemove", showProblemTip );
-editor.addEventListener( "mouseleave", hideProblemTip );
-Promise.allSettled( [ document.fonts.load( "28px Bravura" ), sheetLoaded ] ).then( refreshScore );
+EDITOR.addEventListener( "scroll", followEditorScroll );
+EDITOR.addEventListener( "mousemove", showProblemTip );
+EDITOR.addEventListener( "mouseleave", hideProblemTip );
+Promise.allSettled( [ document.fonts.load( "28px Bravura" ), SHEET_LOADED ] ).then( refreshScore );

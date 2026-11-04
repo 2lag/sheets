@@ -1,51 +1,51 @@
 :root {
-  --thumb: 11px;
-  --face: #c0c0c0;
-  --light: #ffffff;
-  --soft-light: #dfdfdf;
-  --shadow: #808080;
-  --dark: #000000;
-  --ink: #000000;
-  --muted: #808080;
-  --title-from: #000080;
-  --title-to: #1084d0;
-  --title-ink: #ffffff;
-  --select: #000080;
-  --select-ink: #ffffff;
-  --desk: #008080;
-  --field: #ffffff;
-  --field-ink: #000000;
-  --marker: #b8d8ff;
-  --problem: #ff0000;
-  --tip: #ffffe1;
-  --link: #0000ff;
-  --ui: 12px Tahoma, "Microsoft Sans Serif", "MS Sans Serif", Arial, sans-serif;
-  --raised: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
   --pressed: inset -1px -1px var(--light), inset 1px 1px var(--dark), inset -2px -2px var(--soft-light), inset 2px 2px var(--shadow);
+  --raised: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
   --sunken: inset -1px -1px var(--light), inset 1px 1px var(--shadow), inset -2px -2px var(--soft-light), inset 2px 2px var(--dark);
   --window: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
+  --ui: 12px Tahoma, "Microsoft Sans Serif", "MS Sans Serif", Arial, sans-serif;
+  --soft-light: #dfdfdf;
+  --title-from: #000080;
+  --select-ink: #ffffff;
+  --title-ink: #ffffff;
+  --field-ink: #000000;
+  --title-to: #1084d0;
+  --problem: #ff0000;
+  --shadow: #808080;
+  --select: #000080;
+  --marker: #b8d8ff;
+  --light: #ffffff;
+  --muted: #808080;
+  --field: #ffffff;
+  --face: #c0c0c0;
+  --dark: #000000;
+  --desk: #008080;
+  --link: #0000ff;
+  --ink: #000000;
+  --tip: #ffffe1;
+  --thumb: 11px;
 }
 
 body.dark {
-  --face: #2f2b45;
-  --light: #6c6596;
   --soft-light: #4a446c;
-  --shadow: #17142a;
-  --dark: #05040c;
-  --ink: #ece8ff;
-  --muted: #a39dc8;
   --title-from: #1b0b4f;
-  --title-to: #8a3fb8;
-  --title-ink: #ffffff;
-  --select: #6c3fa8;
   --select-ink: #ffffff;
-  --desk: #070a24;
-  --field: #15131f;
+  --title-ink: #ffffff;
   --field-ink: #ece8ff;
-  --marker: #44306e;
+  --title-to: #8a3fb8;
   --problem: #ff7b9c;
-  --tip: #262240;
+  --shadow: #17142a;
+  --select: #6c3fa8;
+  --marker: #44306e;
+  --light: #6c6596;
+  --muted: #a39dc8;
+  --field: #15131f;
+  --face: #2f2b45;
+  --dark: #05040c;
+  --desk: #070a24;
   --link: #c3b4ff;
+  --ink: #ece8ff;
+  --tip: #262240;
 }
 
 body {
@@ -55,17 +55,17 @@ body {
 }
 
 header {
-  margin: 3px 3px 0;
-  padding: 3px 3px 3px 6px;
   background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  padding: 3px 3px 3px 6px;
   color: var(--title-ink);
+  margin: 3px 3px 0;
 }
 
-#brand {
+#BRAND {
   font: bold 13px Tahoma, "Microsoft Sans Serif", Arial, sans-serif;
 }
 
-#brand::before {
+#BRAND::before {
   content: "";
 }
 
@@ -74,307 +74,308 @@ nav {
 }
 
 nav > button,
-#exportButton,
-#lookButton {
-  width: 24px;
-  height: 22px;
-  padding: 0;
-  font-size: 13px;
+#EXPORT_BUTTON,
+#LOOK_BUTTON {
   font-weight: bold;
+  font-size: 13px;
+  height: 22px;
+  width: 24px;
+  padding: 0;
 }
 
-#lookButton svg,
-#exportIcon {
-  width: 13px;
+#LOOK_BUTTON svg,
+#EXPORT_ICON {
   height: 13px;
+  width: 13px;
 }
 
 nav > button,
-#exportButton,
-#lookButton,
-#lookMenu button,
-#soundActions button,
-#closeHelpButton,
-#soundButton,
-#transport button {
-  border: none;
-  border-radius: 0;
-  background: var(--face);
-  box-shadow: var(--raised);
-  color: var(--ink);
+#EXPORT_BUTTON,
+#LOOK_BUTTON,
+#LOOK_MENU button,
+#SOUND_ACTIONS button,
+#CLOSE_HELP_BUTTON,
+#SOUND_BUTTON,
+#TRANSPORT button {
   font-family: Tahoma, "Microsoft Sans Serif", Arial, sans-serif;
+  box-shadow: var(--raised);
+  background: var(--face);
+  color: var(--ink);
+  border-radius: 0;
+  border: none;
 }
 
 nav > button:active,
-#exportButton:active,
-#lookButton:active,
-#lookMenu button:active,
-#soundActions button:active,
-#closeHelpButton:active,
-#soundButton:active,
-#transport button:active,
-#exportItem:has( #exportMenu.open ) #exportButton,
-#lookItem:has( #lookMenu.open ) #lookButton,
-#transport #metronomeButton.on,
-#transport #keyButton.on,
-#transport #swingButton.on {
+#EXPORT_BUTTON:active,
+#LOOK_BUTTON:active,
+#LOOK_MENU button:active,
+#SOUND_ACTIONS button:active,
+#CLOSE_HELP_BUTTON:active,
+#SOUND_BUTTON:active,
+#TRANSPORT button:active,
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
+#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON,
+#TRANSPORT #METRONOME_BUTTON.on,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on {
   box-shadow: var(--pressed);
 }
 
-#transport #metronomeButton.on,
-#transport #keyButton.on,
-#transport #swingButton.on {
+#TRANSPORT #METRONOME_BUTTON.on,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on {
   background: repeating-conic-gradient( var(--face) 0 25%, var(--light) 0 50% ) 0 0 / 2px 2px;
 }
 
-#exportMenu,
-#lookMenu {
-  top: 28px;
-  padding: 3px;
-  background: var(--face);
+#EXPORT_MENU,
+#LOOK_MENU {
   box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var(--face);
+  padding: 3px;
+  top: 28px;
 }
 
-#exportMenu {
+#EXPORT_MENU {
+  transform: none;
   left: auto;
   right: 0;
-  transform: none;
 }
 
-#exportMenu button {
-  padding: 4px 20px;
-  border: none;
+#EXPORT_MENU button {
   background: transparent;
+  padding: 4px 20px;
   color: var(--ink);
   font: var(--ui);
+  border: none;
 }
 
-#exportMenu button:hover {
+#EXPORT_MENU button:hover {
   background: var(--select);
   color: var(--select-ink);
 }
 
-#lookMenu button {
-  height: 26px;
+#LOOK_MENU button {
   font-size: 15px;
+  height: 26px;
 }
 
-#eraButton {
+#ERA_BUTTON {
   font: bold 12px Tahoma, Arial, sans-serif;
 }
 
-#help {
-  padding: 3px 3px 12px;
-  border: none;
-  border-radius: 0;
-  background: var(--face);
+#HELP {
   box-shadow: var(--window);
+  background: var(--face);
+  padding: 3px 3px 12px;
   color: var(--ink);
+  border-radius: 0;
   font: var(--ui);
+  border: none;
+
   line-height: 1.5;
 }
 
-#help > *:not( h2 ) {
-  margin-left: 12px;
+#HELP > *:not( h2 ) {
   margin-right: 12px;
+  margin-left: 12px;
 }
 
-#help::backdrop {
+#HELP::backdrop {
   background: transparent;
 }
 
-#help h2 {
+#HELP h2 {
+  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  font: bold 13px Tahoma, Arial, sans-serif;
+  color: var(--title-ink);
   margin: 0 0 12px;
   padding: 3px 6px;
-  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
-  color: var(--title-ink);
-  font: bold 13px Tahoma, Arial, sans-serif;
 }
 
-#help h2::before {
+#HELP h2::before {
   content: "";
 }
 
-#sampleRow {
-  border: none;
+#SAMPLE_ROW {
   box-shadow: var(--sunken), inset 0 0 0 3px var(--face);
   border-radius: 0;
-}
-
-#samplePicker,
-#soundPanel select {
   border: none;
-  border-radius: 0;
-  background: var(--field);
-  box-shadow: var(--sunken);
-  color: var(--field-ink);
-  font: var(--ui);
 }
 
-#help pre,
-#help code {
+#SAMPLE_PICKER,
+#SOUND_PANEL select {
+  box-shadow: var(--sunken);
+  background: var(--field);
+  color: var(--field-ink);
+  border-radius: 0;
+  font: var(--ui);
+  border: none;
+}
+
+#HELP pre,
+#HELP code {
   font: 12px "Courier New", Courier, monospace;
 }
 
-#help pre {
-  background: var(--field);
+#HELP pre {
   box-shadow: var(--sunken);
+  background: var(--field);
   color: var(--field-ink);
 }
 
-#help table {
+#HELP table {
   margin-top: 8px;
 }
 
-#help i {
+#HELP i {
   color: var(--muted);
 }
 
-#closeHelpButton {
-  min-width: 75px;
+#CLOSE_HELP_BUTTON {
   padding: 4px 12px;
+  min-width: 75px;
 }
 
-#writing {
+#WRITING {
   padding: 3px;
 }
 
-#editorFrame {
-  background: var(--field);
+#EDITOR_FRAME {
   box-shadow: var(--sunken);
+  background: var(--field);
 }
 
-#editor,
-#highlights {
-  inset: 2px;
+#EDITOR,
+#HIGHLIGHTS {
   font-family: "Courier New", Courier, monospace;
+  inset: 2px;
 }
 
-#editor {
-  color: var(--field-ink);
+#EDITOR {
   caret-color: var(--field-ink);
+  color: var(--field-ink);
 }
 
-#editor::selection {
+#EDITOR::selection {
   background: var(--select);
   color: var(--select-ink);
 }
 
-#highlights mark {
-  background: transparent;
+#HIGHLIGHTS mark {
   text-decoration: underline wavy var(--problem);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
+  background: transparent;
 }
 
-#highlights .playing {
+#HIGHLIGHTS .playing {
   background: var(--marker);
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .barMarker::before {
   border-left: 1px dotted var(--link);
 }
 
-#highlights .barMarker::after {
-  color: var(--link);
+#HIGHLIGHTS .barMarker::after {
   font: bold 10px Tahoma, Arial, sans-serif;
+  color: var(--link);
 }
 
-#noteHint {
-  margin-top: 3px;
+#NOTE_HINT {
+  box-shadow: inset -1px -1px var(--light), inset 1px 1px var(--shadow);
+  background: var(--face);
+  color: var(--ink);
   padding: 3px 6px;
   min-height: 22px;
-  background: var(--face);
-  box-shadow: inset -1px -1px var(--light), inset 1px 1px var(--shadow);
-  color: var(--ink);
+  margin-top: 3px;
   font: var(--ui);
 }
 
-#problemTip {
+#PROBLEM_TIP {
   border: 1px solid var(--dark);
   background: var(--tip);
   color: var(--ink);
   font: var(--ui);
 }
 
-#splitter {
-  width: 4px;
+#SPLITTER {
   background: var(--face);
+  width: 4px;
 }
 
-#output {
+#OUTPUT {
   margin: 3px 3px 0 0;
 }
 
-#soundButton {
+#SOUND_BUTTON {
   font-size: 18px;
 }
 
-#soundPanel {
-  padding: 3px 3px 10px;
-  background: var(--face);
+#SOUND_PANEL {
   box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var(--face);
+  padding: 3px 3px 10px;
   color: var(--ink);
   font: var(--ui);
 }
 
-#soundTitle::before {
+#SOUND_TITLE::before {
   content: "";
 }
 
-#soundTitle {
-  display: block;
+#SOUND_TITLE {
+  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  font: bold 12px Tahoma, Arial, sans-serif;
+  color: var(--title-ink);
   margin-bottom: 4px;
   padding: 3px 6px;
-  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
-  color: var(--title-ink);
-  font: bold 12px Tahoma, Arial, sans-serif;
+  display: block;
 }
 
-#soundPanel > :not( #soundSliders, #soundTitle ),
-#soundSliders {
-  margin-left: 8px;
+#SOUND_PANEL > :not( #SOUND_SLIDER_LIST, #SOUND_TITLE ),
+#SOUND_SLIDER_LIST {
   margin-right: 8px;
+  margin-left: 8px;
 }
 
-#sheetInstruments {
+#SHEET_INSTRUMENTS {
   color: var(--muted);
 }
 
-#soundSliders span:last-child,
-#clock,
-#swingReadout,
-#volumeReadout {
+#SOUND_SLIDER_LIST span:last-child,
+#CLOCK,
+#SWING_READOUT,
+#VOLUME_READOUT {
   font: 11px "Courier New", Courier, monospace;
 }
 
-#transport {
+#TRANSPORT {
+  box-shadow: var(--raised);
+  background: var(--face);
   margin: 0 3px 3px;
   padding: 4px 6px;
-  background: var(--face);
-  box-shadow: var(--raised);
 }
 
-#transport button {
-  width: 30px;
-  height: 26px;
+#TRANSPORT button {
   font-size: 14px;
+  height: 26px;
+  width: 30px;
 }
 
-#clock {
+#CLOCK {
   box-shadow: var(--sunken);
   background: var(--field);
-  padding: 5px 8px 4px;
   color: var(--field-ink);
+  padding: 5px 8px 4px;
   line-height: 1;
 }
 
-#swingControl,
-#volumeControl {
+#SWING_CONTROL,
+#VOLUME_CONTROL {
   font: var(--ui);
 }
 
-#playButton.holding {
+#PLAY_BUTTON.holding {
   animation: blink 1s steps( 1 ) infinite;
 }
 
@@ -385,18 +386,18 @@ nav > button:active,
 }
 
 .popup {
-  background: var(--face);
   box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var(--face);
   color: var(--ink);
   font: var(--ui);
 }
 
-#score {
-  background: var(--desk);
+#SCORE {
   box-shadow: var(--sunken);
+  background: var(--desk);
 }
 
-body.dark #score {
+body.dark #SCORE {
   background:
     radial-gradient( 1.5px 1.5px at 23px 41px, #ffffff 50%, transparent 51% ),
     radial-gradient( 1.5px 1.5px at 97px 13px, #d6d0ff 50%, transparent 51% ),
@@ -417,46 +418,46 @@ body.dark #score {
   box-shadow: 3px 3px 0 rgba( 0, 0, 0, 0.5 );
 }
 
-#seekerThumb {
-  height: 20px;
-  background: var(--face);
+#SEEKERThumb {
   box-shadow: var(--raised);
+  background: var(--face);
+  height: 20px;
 }
 
 input[type="range"] {
-  height: 22px;
-  appearance: none;
   background: transparent;
+  appearance: none;
+  height: 22px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  background: var(--field);
   box-shadow: var(--sunken);
+  background: var(--field);
+  height: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  width: 11px;
-  height: 20px;
+  box-shadow: var(--raised);
+  background: var(--face);
   margin-top: -8px;
   appearance: none;
-  background: var(--face);
-  box-shadow: var(--raised);
+  height: 20px;
+  width: 11px;
 }
 
 input[type="range"]::-moz-range-track {
-  height: 4px;
-  background: var(--field);
   box-shadow: var(--sunken);
+  background: var(--field);
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 11px;
+  box-shadow: var(--raised);
+  background: var(--face);
+  border-radius: 0;
   height: 20px;
   border: none;
-  border-radius: 0;
-  background: var(--face);
-  box-shadow: var(--raised);
+  width: 11px;
 }
 
 @supports ( -moz-appearance: none ) {
@@ -466,8 +467,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar {
-  width: 16px;
   height: 16px;
+  width: 16px;
 }
 
 ::-webkit-scrollbar-track {
@@ -475,32 +476,32 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--face);
   box-shadow: var(--raised);
+  background: var(--face);
 }
 
 ::-webkit-scrollbar-button:single-button {
-  height: 16px;
-  background: var(--face);
   box-shadow: var(--raised);
+  background: var(--face);
+  height: 16px;
 }
 
 @media ( max-width: 700px ) {
   nav > button,
-  #exportButton,
-  #lookButton {
-    width: 32px;
+  #EXPORT_BUTTON,
+  #LOOK_BUTTON {
     height: 28px;
+    width: 32px;
   }
 
-  #exportMenu,
-  #lookMenu {
+  #EXPORT_MENU,
+  #LOOK_MENU {
     top: 34px;
   }
 
-  #transport button {
-    width: 34px;
+  #TRANSPORT button {
     height: 32px;
+    width: 34px;
   }
 }
 
@@ -528,8 +529,8 @@ select:has( + .dropdown ) {
   position: absolute;
   bottom: 2px;
   content: "";
-  right: 2px;
   width: 16px;
+  right: 2px;
   top: 2px;
 }
 

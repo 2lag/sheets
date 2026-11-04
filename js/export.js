@@ -24,7 +24,7 @@ const STRUDEL_SOUNDS = {
 };
 
 function strudelSoundOf( staff ) {
-  return STRUDEL_SOUNDS[ staff.instrument || soundSettings.preset ] || "piano";
+  return STRUDEL_SOUNDS[ staff.instrument || SOUND_SETTINGS.preset ] || "piano";
 }
 
 function strudelNameOf( pitch ) {
@@ -44,7 +44,7 @@ function strudelWeightOf( length ) {
 
 function fermataHoldsOf( performance ) {
   const holds = new Map();
-  sheet.staves.forEach( staff => occurrencesOf( staff, performance )
+  SHEET.staves.forEach( staff => occurrencesOf( staff, performance )
     .filter( item => item.event.articulations?.includes( "fermata" ) && item.end <= item.segment.end + EPSILON )
     .forEach( item => {
       const at = item.performedAt( item.end ).toFixed( 6 );
@@ -75,8 +75,8 @@ function soundingStepsOf( staff, performance, holds ) {
       tie: event.tie
     };
     const previous = steps.at( -1 );
-    const continuesTie = previous && previous.tie && !step.rest && samePitches( previous.pitches, step.pitches );
-    if ( !continuesTie ) {
+    const continues_tie = previous && previous.tie && !step.rest && samePitches( previous.pitches, step.pitches );
+    if ( !continues_tie ) {
       steps.push( step );
       return;
     }
@@ -94,9 +94,9 @@ function strudelPiecesOf( step ) {
   const articulations = step.event.articulations || [];
   const velocity = articulations.includes( "accent" ) ? 1 : PLAIN_VELOCITY;
   const graces = step.event.graces || [];
-  const graceLength = Math.min( GRACE_LENGTH, length / ( graces.length + 2 ) );
-  const pieces = graces.map( pitch => ( { sound: strudelNameOf( pitch ), length: graceLength, velocity: 0.6 } ) );
-  const remaining = length - graces.length * graceLength;
+  const grace_length = Math.min( GRACE_LENGTH, length / ( graces.length + 2 ) );
+  const pieces = graces.map( pitch => ( { sound: strudelNameOf( pitch ), length: grace_length, velocity: 0.6 } ) );
+  const remaining = length - graces.length * grace_length;
   const slide = step.lastEvent.fall ? -7 : step.lastEvent.rise ? 7 : 0;
   const chord = strudelChordOf( step.pitches );
   if ( articulations.includes( "staccato" ) )
@@ -106,49 +106,49 @@ function strudelPiecesOf( step ) {
   return [ ...pieces, { sound: chord, length: remaining, velocity } ];
 }
 
-function strudelLineOf( staff, performance, holds, totalLength ) {
+function strudelLineOf( staff, performance, holds, total_length ) {
   const pieces = soundingStepsOf( staff, performance, holds ).flatMap( strudelPiecesOf );
-  const silence = totalLength - pieces.reduce( ( total, piece ) => total + piece.length, 0 );
+  const silence = total_length - pieces.reduce( ( total, piece ) => total + piece.length, 0 );
   if ( silence > EPSILON )
     pieces.push( { sound: "~", length: silence, velocity: PLAIN_VELOCITY } );
   const notes = pieces.map( piece => piece.sound + strudelWeightOf( piece.length ) ).join( " " );
   const velocities = pieces.map( piece => Number( piece.velocity.toFixed( 2 ) ) + strudelWeightOf( piece.length ) ).join( " " );
-  const hasAccents = pieces.some( piece => piece.velocity !== PLAIN_VELOCITY );
+  const has_accents = pieces.some( piece => piece.velocity !== PLAIN_VELOCITY );
   const swing = isSwung() ? `.swingBy(${ Number( ( 2 * ( swingRatio() - 0.5 ) ).toFixed( 3 ) ) }, 4)` : "";
-  const velocity = hasAccents ? `.velocity("[${ velocities }]")` : "";
-  return `  note("[${ notes }]")${ velocity }.s("${ strudelSoundOf( staff ) }").slow(${ Number( totalLength.toFixed( 4 ) ) })${ swing }`;
+  const velocity = has_accents ? `.velocity("[${ velocities }]")` : "";
+  return `  note("[${ notes }]")${ velocity }.s("${ strudelSoundOf( staff ) }").slow(${ Number( total_length.toFixed( 4 ) ) })${ swing }`;
 }
 
 function strudelCodeOf( sheet ) {
   const performance = onePassPerformanceOf( sheet );
   const holds = fermataHoldsOf( performance );
-  const totalLength = Math.max( 1, heldTimeOf( passLengthOf( sheet ), holds ) );
-  const lines = sheet.staves.filter( staff => !staff.muted ).map( staff => strudelLineOf( staff, performance, holds, totalLength ) );
+  const total_length = Math.max( 1, heldTimeOf( passLengthOf( sheet ), holds ) );
+  const lines = sheet.staves.filter( staff => !staff.muted ).map( staff => strudelLineOf( staff, performance, holds, total_length ) );
   if ( !lines.length )
     return `setcpm(${ sheet.bpm }/4)\nsilence`;
   return [ `setcpm(${ sheet.bpm }/4)`, "stack(", lines.join( ",\n" ), ")" ].join( "\n" );
 }
 
-exportStrudel.addEventListener( "click", () => {
-  const code = strudelCodeOf( sheet );
+EXPORT_STRUDEL.addEventListener( "click", () => {
+  const code = strudelCodeOf( SHEET );
   copyText( code );
   window.open( "https://strudel.cc/#" + encodeURIComponent( base64Encode( code ) ), "_blank" );
   closeExportMenu();
 });
 
-exportPdf.addEventListener( "click", () => {
+EXPORT_PDF.addEventListener( "click", () => {
   closeExportMenu();
   window.print();
 });
 
-exportLink.addEventListener( "click", async event => {
+EXPORT_LINK.addEventListener( "click", async event => {
   event.stopPropagation();
-  const link = ( await shareLinkOf( editor.value ) ).href;
+  const link = ( await shareLinkOf( EDITOR.value ) ).href;
   if ( !await copyText( link ) )
     prompt( "copy this link", link );
-  exportLink.textContent = "link copied ✓";
+  EXPORT_LINK.textContent = "link copied ✓";
   setTimeout( () => {
-    exportLink.textContent = "link";
+    EXPORT_LINK.textContent = "link";
     closeExportMenu();
   }, 1200 );
 });

@@ -2,14 +2,14 @@ function repeatPairsOf( repeats, from, to, level ) {
   const signs = repeats
     .filter( sign => sign.level === level && sign.position >= from - 1e-6 && sign.position <= to + 1e-6 )
     .sort( ( a, b ) => a.position - b.position || ( a.kind === "end" ? -1 : 1 ) );
-  const openStarts = [];
+  const open_starts = [];
   const pairs = [];
   signs.forEach( sign => {
     if ( sign.kind === "start" ) {
-      openStarts.push( sign.position );
+      open_starts.push( sign.position );
       return;
     }
-    const start = openStarts.length ? openStarts.pop() : from;
+    const start = open_starts.length ? open_starts.pop() : from;
     pairs.push( { start, end: sign.position } );
   });
   return pairs.sort( ( a, b ) => a.start - b.start );
@@ -46,6 +46,6 @@ function joinedSegments( segments ) {
   }, [] );
 }
 
-function performanceSegmentsOf( repeats, songLength ) {
-  return joinedSegments( unfold( repeats, 0, songLength, 1 ) );
+function performanceSegmentsOf( repeats, song_length ) {
+  return joinedSegments( unfold( repeats, 0, song_length, 1 ) );
 }

@@ -1,57 +1,57 @@
 :root {
-  --thumb: 11px;
-  --face: #ece9d8;
-  --ink: #000000;
-  --muted: #6d6d6d;
-  --frame: #0831d9;
   --title: linear-gradient( #0997ff 0%, #0053ee 9%, #0050ee 45%, #0066ff 88%, #005bff 94%, #003dd7 100% );
-  --title-ink: #ffffff;
+  --glow: inset 0 -1px #f9b337, inset 0 1px #fee8b2, inset 1px 0 #fbd88e, inset -1px 0 #fbd88e;
   --title-button: linear-gradient( 135deg, #6fa6fe 0%, #3b7cf2 45%, #2663de 100% );
   --button: linear-gradient( #ffffff 0%, #f4f3ee 60%, #ecebe6 86%, #d6d0c5 100% );
-  --button-pressed: linear-gradient( #e5e4de 0%, #e3e2da 80%, #f2f1ec 100% );
-  --button-edge: #003c74;
-  --glow: inset 0 -1px #f9b337, inset 0 1px #fee8b2, inset 1px 0 #fbd88e, inset -1px 0 #fbd88e;
-  --field: #ffffff;
-  --field-ink: #000000;
-  --field-edge: #7f9db9;
-  --select: #316ac5;
-  --select-ink: #ffffff;
-  --accent: #316ac5;
   --go: linear-gradient( #6ec26b 0%, #3c9a39 45%, #2f8a2c 55%, #48a645 100% );
-  --go-edge: #1e6b1b;
-  --marker: #c1d2ee;
-  --problem: #e00000;
-  --tip: #ffffe1;
+  --button-pressed: linear-gradient( #e5e4de 0%, #e3e2da 80%, #f2f1ec 100% );
   --scroll: linear-gradient( 90deg, #cad8fb, #b7cbf5 50%, #a9c1f2 );
-  --scroll-track: #f4f3ee;
   --ui: 12px Tahoma, Verdana, "Segoe UI", sans-serif;
+  --scroll-track: #f4f3ee;
+  --button-edge: #003c74;
+  --field-edge: #7f9db9;
+  --select-ink: #ffffff;
+  --title-ink: #ffffff;
+  --field-ink: #000000;
+  --go-edge: #1e6b1b;
+  --problem: #e00000;
+  --select: #316ac5;
+  --accent: #316ac5;
+  --marker: #c1d2ee;
+  --muted: #6d6d6d;
+  --frame: #0831d9;
+  --field: #ffffff;
+  --face: #ece9d8;
+  --ink: #000000;
+  --tip: #ffffe1;
+  --thumb: 11px;
 }
 
 body.dark {
-  --face: #1c2230;
-  --ink: #e8eef8;
-  --muted: #8f9bb3;
-  --frame: #05070c;
+  --glow: inset 0 -1px #4aa3ff, inset 0 1px #9fd0ff, inset 1px 0 #6cb6ff, inset -1px 0 #6cb6ff;
   --title: linear-gradient( #6b7a96 0%, #2a3346 7%, #151b28 45%, #0b0f17 85%, #1d2a44 100% );
-  --title-ink: #ffffff;
   --title-button: linear-gradient( 135deg, #5d6b85 0%, #2b3447 50%, #121722 100% );
   --button: linear-gradient( #3d4860 0%, #2c3548 55%, #232a3a 86%, #1b2130 100% );
-  --button-pressed: linear-gradient( #141924 0%, #1b2130 80%, #252d3f 100% );
-  --button-edge: #05070c;
-  --glow: inset 0 -1px #4aa3ff, inset 0 1px #9fd0ff, inset 1px 0 #6cb6ff, inset -1px 0 #6cb6ff;
-  --field: #11151e;
-  --field-ink: #e8eef8;
-  --field-edge: #3a4660;
-  --select: #2f6fd6;
-  --select-ink: #ffffff;
-  --accent: #6cb6ff;
   --go: linear-gradient( #6ec26b 0%, #3c9a39 45%, #2f8a2c 55%, #48a645 100% );
-  --go-edge: #0f3d0d;
-  --marker: #24406e;
-  --problem: #ff7b7b;
-  --tip: #1f2636;
+  --button-pressed: linear-gradient( #141924 0%, #1b2130 80%, #252d3f 100% );
   --scroll: linear-gradient( 90deg, #3d4860, #2f3850 50%, #283046 );
   --scroll-track: #141924;
+  --button-edge: #05070c;
+  --field-edge: #3a4660;
+  --select-ink: #ffffff;
+  --title-ink: #ffffff;
+  --field-ink: #e8eef8;
+  --go-edge: #0f3d0d;
+  --problem: #ff7b7b;
+  --select: #2f6fd6;
+  --accent: #6cb6ff;
+  --marker: #24406e;
+  --muted: #8f9bb3;
+  --frame: #05070c;
+  --field: #11151e;
+  --face: #1c2230;
+  --ink: #e8eef8;
+  --tip: #1f2636;
 }
 
 body {
@@ -61,18 +61,18 @@ body {
 }
 
 header {
+  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.35 );
   padding: 4px 6px 4px 10px;
   background: var(--title);
-  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.35 );
   color: var(--title-ink);
 }
 
-#brand {
+#BRAND {
   font: bold 14px "Trebuchet MS", Tahoma, sans-serif;
   text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
 }
 
-#brand::before {
+#BRAND::before {
   content: "";
 }
 
@@ -81,329 +81,330 @@ nav {
 }
 
 nav > button,
-#exportButton,
-#lookButton {
-  width: 24px;
-  height: 22px;
-  padding: 0;
+#EXPORT_BUTTON,
+#LOOK_BUTTON {
+  box-shadow: inset 0 0 2px rgba( 255, 255, 255, 0.5 );
+  font: bold 13px Tahoma, sans-serif;
+  background: var(--title-button);
   border: 1px solid #ffffff;
   border-radius: 3px;
-  background: var(--title-button);
-  box-shadow: inset 0 0 2px rgba( 255, 255, 255, 0.5 );
   color: #ffffff;
-  font: bold 13px Tahoma, sans-serif;
+  height: 22px;
+  width: 24px;
+  padding: 0;
 }
 
 nav > button:hover,
-#exportButton:hover,
-#lookButton:hover,
-#exportItem:has( #exportMenu.open ) #exportButton,
-#lookItem:has( #lookMenu.open ) #lookButton {
+#EXPORT_BUTTON:hover,
+#LOOK_BUTTON:hover,
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
+#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON {
   filter: brightness( 1.2 );
 }
 
-#lookButton svg,
-#exportIcon {
-  width: 13px;
+#LOOK_BUTTON svg,
+#EXPORT_ICON {
   height: 13px;
+  width: 13px;
 }
 
-#lookMenu button,
-#soundActions button,
-#closeHelpButton,
-#soundButton,
-#transport button {
+#LOOK_MENU button,
+#SOUND_ACTIONS button,
+#CLOSE_HELP_BUTTON,
+#SOUND_BUTTON,
+#TRANSPORT button {
   border: 1px solid var(--button-edge);
-  border-radius: 3px;
   background: var(--button);
+  border-radius: 3px;
   color: var(--ink);
   font: var(--ui);
 }
 
-#lookMenu button:hover,
-#soundActions button:hover,
-#closeHelpButton:hover,
-#soundButton:hover,
-#transport button:hover {
+#LOOK_MENU button:hover,
+#SOUND_ACTIONS button:hover,
+#CLOSE_HELP_BUTTON:hover,
+#SOUND_BUTTON:hover,
+#TRANSPORT button:hover {
   box-shadow: var(--glow);
 }
 
-#lookMenu button:active,
-#soundActions button:active,
-#closeHelpButton:active,
-#soundButton:active,
-#transport button:active {
+#LOOK_MENU button:active,
+#SOUND_ACTIONS button:active,
+#CLOSE_HELP_BUTTON:active,
+#SOUND_BUTTON:active,
+#TRANSPORT button:active {
   background: var(--button-pressed);
 }
 
-#exportMenu,
-#lookMenu {
-  top: 28px;
-  padding: 2px;
+#EXPORT_MENU,
+#LOOK_MENU {
+  box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.35 );
   border: 1px solid #aca899;
   background: var(--field);
-  box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.35 );
+  padding: 2px;
+  top: 28px;
 }
 
-#exportMenu {
+#EXPORT_MENU {
+  transform: none;
   left: auto;
   right: 0;
-  transform: none;
 }
 
-#exportMenu button {
-  padding: 4px 22px;
-  border: none;
+#EXPORT_MENU button {
   background: transparent;
   color: var(--field-ink);
+  padding: 4px 22px;
   font: var(--ui);
+  border: none;
 }
 
-#exportMenu button:hover {
+#EXPORT_MENU button:hover {
   background: var(--select);
   color: var(--select-ink);
 }
 
-#lookMenu button {
-  height: 26px;
+#LOOK_MENU button {
   font-size: 15px;
+  height: 26px;
 }
 
-#eraButton {
+#ERA_BUTTON {
   font: bold 12px Tahoma, sans-serif;
 }
 
-#help {
-  padding: 0 0 12px;
+#HELP {
+  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
   border: 3px solid var(--frame);
-  border-top: none;
   border-radius: 8px 8px 0 0;
   background: var(--face);
-  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
+  padding: 0 0 12px;
   color: var(--ink);
+  border-top: none;
   font: var(--ui);
+
   line-height: 1.5;
 }
 
-#help > *:not( h2 ) {
-  margin-left: 12px;
+#HELP > *:not( h2 ) {
   margin-right: 12px;
+  margin-left: 12px;
 }
 
-#help::backdrop {
+#HELP::backdrop {
   background: rgba( 0, 0, 0, 0.15 );
 }
 
-#help h2 {
-  margin: 0 -3px 12px;
-  padding: 6px 10px;
+#HELP h2 {
+  font: bold 14px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
   border-radius: 8px 8px 0 0;
   background: var(--title);
   color: var(--title-ink);
-  font: bold 14px "Trebuchet MS", Tahoma, sans-serif;
-  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+  margin: 0 -3px 12px;
+  padding: 6px 10px;
 }
 
-#help h2::before {
+#HELP h2::before {
   content: "";
 }
 
-#sampleRow {
+#SAMPLE_ROW {
   border: 1px solid #d0d0bf;
-  border-radius: 4px;
   background: var(--field);
+  border-radius: 4px;
 }
 
-#samplePicker,
-#soundPanel select {
+#SAMPLE_PICKER,
+#SOUND_PANEL select {
   border: 1px solid var(--field-edge);
-  border-radius: 0;
   background: var(--field);
   color: var(--field-ink);
+  border-radius: 0;
   font: var(--ui);
 }
 
-#help pre,
-#help code {
+#HELP pre,
+#HELP code {
   font: 12px "Lucida Console", Consolas, monospace;
 }
 
-#help pre {
+#HELP pre {
   border: 1px solid var(--field-edge);
   background: var(--field);
   color: var(--field-ink);
 }
 
-#help i {
+#HELP i {
   color: var(--muted);
 }
 
-#closeHelpButton {
-  min-width: 75px;
+#CLOSE_HELP_BUTTON {
   padding: 4px 12px;
+  min-width: 75px;
 }
 
-#editorFrame {
+#EDITOR_FRAME {
   border: 1px solid var(--field-edge);
   background: var(--field);
 }
 
-#editor,
-#highlights {
+#EDITOR,
+#HIGHLIGHTS {
   font-family: "Lucida Console", Consolas, monospace;
 }
 
-#editor {
-  color: var(--field-ink);
+#EDITOR {
   caret-color: var(--field-ink);
+  color: var(--field-ink);
 }
 
-#editor::selection {
+#EDITOR::selection {
   background: var(--select);
   color: var(--select-ink);
 }
 
-#highlights mark {
-  background: transparent;
+#HIGHLIGHTS mark {
   text-decoration: underline wavy var(--problem);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
+  background: transparent;
 }
 
-#highlights .playing {
-  border-radius: 2px;
-  background: var(--marker);
+#HIGHLIGHTS .playing {
   box-shadow: 0 0 0 1px var(--select);
+  background: var(--marker);
+  border-radius: 2px;
 }
 
-#highlights .barMarker::before {
+#HIGHLIGHTS .barMarker::before {
   border-left: 1px solid var(--accent);
 }
 
-#highlights .barMarker::after {
-  color: var(--accent);
+#HIGHLIGHTS .barMarker::after {
   font: bold 10px Tahoma, sans-serif;
+  color: var(--accent);
 }
 
-#noteHint {
-  min-height: 24px;
-  padding: 4px 10px;
-  border-top: 1px solid #ffffff;
-  background: var(--face);
+#NOTE_HINT {
   box-shadow: inset 0 1px #d0cfc2;
-  color: var(--ink);
+  border-top: 1px solid #ffffff;
   font: 11px Tahoma, sans-serif;
+  background: var(--face);
+  padding: 4px 10px;
+  color: var(--ink);
+  min-height: 24px;
 }
 
-body.dark #noteHint {
+body.dark #NOTE_HINT {
   border-top-color: #2b3346;
   box-shadow: none;
 }
 
 body.dark header,
-body.dark #help h2,
-body.dark #soundTitle {
+body.dark #HELP h2,
+body.dark #SOUND_TITLE {
   box-shadow: inset 0 1px rgba( 255, 255, 255, 0.25 ), inset 0 -2px #2f6fd6;
 }
 
-body.dark #transport {
+body.dark #TRANSPORT {
   border-top-color: #2b3346;
 }
 
-#problemTip {
-  border: 1px solid #000000;
-  border-radius: 4px;
-  background: var(--tip);
+#PROBLEM_TIP {
   box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.3 );
+  border: 1px solid #000000;
+  background: var(--tip);
+  border-radius: 4px;
   color: var(--ink);
   font: var(--ui);
 }
 
-#splitter {
-  width: 5px;
+#SPLITTER {
   background: var(--face);
+  width: 5px;
 }
 
-#soundButton {
+#SOUND_BUTTON {
   border-radius: 50%;
   font-size: 18px;
 }
 
-#soundPanel {
-  padding: 0 0 10px;
+#SOUND_PANEL {
+  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
   border: 3px solid var(--frame);
-  border-top: none;
   border-radius: 8px 8px 0 0;
   background: var(--face);
-  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
+  padding: 0 0 10px;
   color: var(--ink);
+  border-top: none;
   font: var(--ui);
 }
 
-#soundTitle::before {
+#SOUND_TITLE::before {
   content: "";
 }
 
-#soundTitle {
-  display: block;
-  margin: 0 -3px 4px;
-  padding: 5px 10px;
+#SOUND_TITLE {
+  font: bold 13px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
   border-radius: 8px 8px 0 0;
   background: var(--title);
   color: var(--title-ink);
-  font: bold 13px "Trebuchet MS", Tahoma, sans-serif;
-  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+  margin: 0 -3px 4px;
+  padding: 5px 10px;
+  display: block;
 }
 
-#soundPanel > :not( #soundSliders, #soundTitle ),
-#soundSliders {
-  margin-left: 10px;
+#SOUND_PANEL > :not( #SOUND_SLIDER_LIST, #SOUND_TITLE ),
+#SOUND_SLIDER_LIST {
   margin-right: 10px;
+  margin-left: 10px;
 }
 
-#sheetInstruments {
+#SHEET_INSTRUMENTS {
   color: var(--muted);
   font-style: italic;
 }
 
-#soundSliders span:last-child,
-#clock,
-#swingReadout,
-#volumeReadout {
+#SOUND_SLIDER_LIST span:last-child,
+#CLOCK,
+#SWING_READOUT,
+#VOLUME_READOUT {
   font: 11px "Lucida Console", Consolas, monospace;
 }
 
-#transport {
-  padding: 5px 10px;
-  border-top: 1px solid #ffffff;
+#TRANSPORT {
   background: linear-gradient( var(--face), color-mix( in srgb, var(--face) 88%, #000000 ) );
+  border-top: 1px solid #ffffff;
+  padding: 5px 10px;
 }
 
-#transport button {
-  width: 32px;
+#TRANSPORT button {
   height: 28px;
+  width: 32px;
 }
 
-#transport #playButton {
-  width: 44px;
+#TRANSPORT #PLAY_BUTTON {
+  font: italic bold 15px "Trebuchet MS", Tahoma, sans-serif;
+  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.45 );
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
   border: 1px solid var(--go-edge);
   border-radius: 3px 12px 12px 3px;
   background: var(--go);
-  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.45 );
   color: #ffffff;
-  font: italic bold 15px "Trebuchet MS", Tahoma, sans-serif;
-  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+  width: 44px;
 }
 
-#transport #playButton .pauseIcon {
+#TRANSPORT #PLAY_BUTTON .pauseIcon {
   left: -1px;
 }
 
-#transport #playButton:hover {
+#TRANSPORT #PLAY_BUTTON:hover {
   filter: brightness( 1.12 );
 }
 
-#playButton.holding {
+#PLAY_BUTTON.holding {
   animation: throb 1.2s ease-in-out infinite;
 }
 
@@ -413,32 +414,32 @@ body.dark #transport {
   }
 }
 
-#transport #metronomeButton.on,
-#transport #keyButton.on,
-#transport #swingButton.on {
-  background: var(--button-pressed);
+#TRANSPORT #METRONOME_BUTTON.on,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on {
   box-shadow: var(--glow), inset 1px 1px 2px rgba( 0, 0, 0, 0.25 );
+  background: var(--button-pressed);
 }
 
-#swingControl,
-#volumeControl {
+#SWING_CONTROL,
+#VOLUME_CONTROL {
   font: var(--ui);
 }
 
 .popup {
-  border: 1px solid #aca899;
-  border-radius: 3px;
-  background: var(--face);
   box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.35 );
+  border: 1px solid #aca899;
+  background: var(--face);
+  border-radius: 3px;
   color: var(--ink);
   font: var(--ui);
 }
 
-#score {
+#SCORE {
   background: url( "../images/hills-day.svg" ) center / cover no-repeat, #3f86e3;
 }
 
-body.dark #score {
+body.dark #SCORE {
   background: url( "../images/hills-night.svg" ) center / cover no-repeat, #0a1838;
 }
 
@@ -446,70 +447,70 @@ body.dark #score {
   box-shadow: 4px 4px 12px rgba( 0, 0, 0, 0.35 );
 }
 
-#seekerThumb {
-  height: 20px;
-  border: 1px solid #1c5180;
-  border-radius: 2px 2px 5px 5px;
+#SEEKERThumb {
   background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
   box-shadow: inset 0 -2px #21a121;
+  border-radius: 2px 2px 5px 5px;
+  border: 1px solid #1c5180;
+  height: 20px;
 }
 
-body.dark #seekerThumb {
-  border-color: #000000;
+body.dark #SEEKERThumb {
   background: linear-gradient( #5d6b85, #2b3447 );
   box-shadow: inset 0 -2px var(--accent);
+  border-color: #000000;
 }
 
 input[type="range"] {
-  height: 22px;
-  appearance: none;
   background: transparent;
+  appearance: none;
+  height: 22px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
+  background: color-mix( in srgb, var(--face) 85%, #000000 );
   border: 1px solid #9d9c99;
   border-radius: 2px;
-  background: color-mix( in srgb, var(--face) 85%, #000000 );
+  height: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  width: 11px;
-  height: 20px;
-  margin-top: -9px;
-  appearance: none;
-  border: 1px solid #1c5180;
-  border-radius: 2px 2px 5px 5px;
   background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
   box-shadow: inset 0 -2px #21a121;
+  border-radius: 2px 2px 5px 5px;
+  border: 1px solid #1c5180;
+  margin-top: -9px;
+  appearance: none;
+  height: 20px;
+  width: 11px;
 }
 
 input[type="range"]::-moz-range-track {
-  height: 4px;
+  background: color-mix( in srgb, var(--face) 85%, #000000 );
   border: 1px solid #9d9c99;
   border-radius: 2px;
-  background: color-mix( in srgb, var(--face) 85%, #000000 );
+  height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 11px;
-  height: 20px;
-  border: 1px solid #1c5180;
-  border-radius: 2px 2px 5px 5px;
   background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
   box-shadow: inset 0 -2px #21a121;
+  border-radius: 2px 2px 5px 5px;
+  border: 1px solid #1c5180;
+  height: 20px;
+  width: 11px;
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
-  border-color: #000000;
   background: linear-gradient( #5d6b85, #2b3447 );
   box-shadow: inset 0 -2px var(--accent);
+  border-color: #000000;
 }
 
 body.dark input[type="range"]::-moz-range-thumb {
-  border-color: #000000;
   background: linear-gradient( #5d6b85, #2b3447 );
   box-shadow: inset 0 -2px var(--accent);
+  border-color: #000000;
 }
 
 @supports ( -moz-appearance: none ) {
@@ -523,8 +524,8 @@ body.dark input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar {
-  width: 17px;
   height: 17px;
+  width: 17px;
 }
 
 ::-webkit-scrollbar-track {
@@ -532,40 +533,40 @@ body.dark input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 1px solid #ffffff;
-  border-radius: 3px;
-  background: var(--scroll);
   box-shadow: 0 0 0 1px #98b1e8;
+  border: 1px solid #ffffff;
+  background: var(--scroll);
+  border-radius: 3px;
 }
 
 body.dark ::-webkit-scrollbar-thumb {
-  border-color: #4d5a76;
   box-shadow: 0 0 0 1px #05070c;
+  border-color: #4d5a76;
 }
 
 ::-webkit-scrollbar-button:single-button {
-  height: 17px;
   border: 1px solid #ffffff;
-  border-radius: 3px;
   background: var(--scroll);
+  border-radius: 3px;
+  height: 17px;
 }
 
 @media ( max-width: 700px ) {
   nav > button,
-  #exportButton,
-  #lookButton {
-    width: 32px;
+  #EXPORT_BUTTON,
+  #LOOK_BUTTON {
     height: 28px;
+    width: 32px;
   }
 
-  #exportMenu,
-  #lookMenu {
+  #EXPORT_MENU,
+  #LOOK_MENU {
     top: 34px;
   }
 
-  #transport button {
-    width: 34px;
+  #TRANSPORT button {
     height: 32px;
+    width: 34px;
   }
 }
 
@@ -593,14 +594,14 @@ select:has( + .dropdown ) {
   border-radius: 2px;
   content: "";
   bottom: 1px;
-  right: 1px;
   width: 15px;
+  right: 1px;
   top: 1px;
 }
 
 body.dark .dropdownButton::after {
-  background: var(--button);
   border-color: var(--field-edge);
+  background: var(--button);
 }
 
 .dropdownButton::before {
@@ -609,8 +610,8 @@ body.dark .dropdownButton::after {
   border-top: 5px solid #4d6185;
   position: absolute;
   margin-top: -2px;
-  content: "";
   right: 4.5px;
+  content: "";
   z-index: 1;
   top: 50%;
 }
