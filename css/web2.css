@@ -1,0 +1,643 @@
+:root {
+  --thumb: 11px;
+  --face: #ece9d8;
+  --ink: #000000;
+  --muted: #6d6d6d;
+  --frame: #0831d9;
+  --title: linear-gradient( #0997ff 0%, #0053ee 9%, #0050ee 45%, #0066ff 88%, #005bff 94%, #003dd7 100% );
+  --title-ink: #ffffff;
+  --title-button: linear-gradient( 135deg, #6fa6fe 0%, #3b7cf2 45%, #2663de 100% );
+  --button: linear-gradient( #ffffff 0%, #f4f3ee 60%, #ecebe6 86%, #d6d0c5 100% );
+  --button-pressed: linear-gradient( #e5e4de 0%, #e3e2da 80%, #f2f1ec 100% );
+  --button-edge: #003c74;
+  --glow: inset 0 -1px #f9b337, inset 0 1px #fee8b2, inset 1px 0 #fbd88e, inset -1px 0 #fbd88e;
+  --field: #ffffff;
+  --field-ink: #000000;
+  --field-edge: #7f9db9;
+  --select: #316ac5;
+  --select-ink: #ffffff;
+  --accent: #316ac5;
+  --go: linear-gradient( #6ec26b 0%, #3c9a39 45%, #2f8a2c 55%, #48a645 100% );
+  --go-edge: #1e6b1b;
+  --marker: #c1d2ee;
+  --problem: #e00000;
+  --tip: #ffffe1;
+  --scroll: linear-gradient( 90deg, #cad8fb, #b7cbf5 50%, #a9c1f2 );
+  --scroll-track: #f4f3ee;
+  --ui: 12px Tahoma, Verdana, "Segoe UI", sans-serif;
+}
+
+body.dark {
+  --face: #1c2230;
+  --ink: #e8eef8;
+  --muted: #8f9bb3;
+  --frame: #05070c;
+  --title: linear-gradient( #6b7a96 0%, #2a3346 7%, #151b28 45%, #0b0f17 85%, #1d2a44 100% );
+  --title-ink: #ffffff;
+  --title-button: linear-gradient( 135deg, #5d6b85 0%, #2b3447 50%, #121722 100% );
+  --button: linear-gradient( #3d4860 0%, #2c3548 55%, #232a3a 86%, #1b2130 100% );
+  --button-pressed: linear-gradient( #141924 0%, #1b2130 80%, #252d3f 100% );
+  --button-edge: #05070c;
+  --glow: inset 0 -1px #4aa3ff, inset 0 1px #9fd0ff, inset 1px 0 #6cb6ff, inset -1px 0 #6cb6ff;
+  --field: #11151e;
+  --field-ink: #e8eef8;
+  --field-edge: #3a4660;
+  --select: #2f6fd6;
+  --select-ink: #ffffff;
+  --accent: #6cb6ff;
+  --go: linear-gradient( #6ec26b 0%, #3c9a39 45%, #2f8a2c 55%, #48a645 100% );
+  --go-edge: #0f3d0d;
+  --marker: #24406e;
+  --problem: #ff7b7b;
+  --tip: #1f2636;
+  --scroll: linear-gradient( 90deg, #3d4860, #2f3850 50%, #283046 );
+  --scroll-track: #141924;
+}
+
+body {
+  background: var(--face);
+  color: var(--ink);
+  font: var(--ui);
+}
+
+header {
+  padding: 4px 6px 4px 10px;
+  background: var(--title);
+  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.35 );
+  color: var(--title-ink);
+}
+
+#brand {
+  font: bold 14px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+}
+
+#brand::before {
+  content: "";
+}
+
+nav {
+  gap: 3px;
+}
+
+nav > button,
+#exportButton,
+#lookButton {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  background: var(--title-button);
+  box-shadow: inset 0 0 2px rgba( 255, 255, 255, 0.5 );
+  color: #ffffff;
+  font: bold 13px Tahoma, sans-serif;
+}
+
+nav > button:hover,
+#exportButton:hover,
+#lookButton:hover,
+#exportItem:has( #exportMenu.open ) #exportButton,
+#lookItem:has( #lookMenu.open ) #lookButton {
+  filter: brightness( 1.2 );
+}
+
+#lookButton svg,
+#exportIcon {
+  width: 13px;
+  height: 13px;
+}
+
+#lookMenu button,
+#soundActions button,
+#closeHelpButton,
+#soundButton,
+#transport button {
+  border: 1px solid var(--button-edge);
+  border-radius: 3px;
+  background: var(--button);
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#lookMenu button:hover,
+#soundActions button:hover,
+#closeHelpButton:hover,
+#soundButton:hover,
+#transport button:hover {
+  box-shadow: var(--glow);
+}
+
+#lookMenu button:active,
+#soundActions button:active,
+#closeHelpButton:active,
+#soundButton:active,
+#transport button:active {
+  background: var(--button-pressed);
+}
+
+#exportMenu,
+#lookMenu {
+  top: 28px;
+  padding: 2px;
+  border: 1px solid #aca899;
+  background: var(--field);
+  box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.35 );
+}
+
+#exportMenu {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+#exportMenu button {
+  padding: 4px 22px;
+  border: none;
+  background: transparent;
+  color: var(--field-ink);
+  font: var(--ui);
+}
+
+#exportMenu button:hover {
+  background: var(--select);
+  color: var(--select-ink);
+}
+
+#lookMenu button {
+  height: 26px;
+  font-size: 15px;
+}
+
+#eraButton {
+  font: bold 12px Tahoma, sans-serif;
+}
+
+#help {
+  padding: 0 0 12px;
+  border: 3px solid var(--frame);
+  border-top: none;
+  border-radius: 8px 8px 0 0;
+  background: var(--face);
+  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
+  color: var(--ink);
+  font: var(--ui);
+  line-height: 1.5;
+}
+
+#help > *:not( h2 ) {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+#help::backdrop {
+  background: rgba( 0, 0, 0, 0.15 );
+}
+
+#help h2 {
+  margin: 0 -3px 12px;
+  padding: 6px 10px;
+  border-radius: 8px 8px 0 0;
+  background: var(--title);
+  color: var(--title-ink);
+  font: bold 14px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+}
+
+#help h2::before {
+  content: "";
+}
+
+#sampleRow {
+  border: 1px solid #d0d0bf;
+  border-radius: 4px;
+  background: var(--field);
+}
+
+#samplePicker,
+#soundPanel select {
+  border: 1px solid var(--field-edge);
+  border-radius: 0;
+  background: var(--field);
+  color: var(--field-ink);
+  font: var(--ui);
+}
+
+#help pre,
+#help code {
+  font: 12px "Lucida Console", Consolas, monospace;
+}
+
+#help pre {
+  border: 1px solid var(--field-edge);
+  background: var(--field);
+  color: var(--field-ink);
+}
+
+#help i {
+  color: var(--muted);
+}
+
+#closeHelpButton {
+  min-width: 75px;
+  padding: 4px 12px;
+}
+
+#editorFrame {
+  border: 1px solid var(--field-edge);
+  background: var(--field);
+}
+
+#editor,
+#highlights {
+  font-family: "Lucida Console", Consolas, monospace;
+}
+
+#editor {
+  color: var(--field-ink);
+  caret-color: var(--field-ink);
+}
+
+#editor::selection {
+  background: var(--select);
+  color: var(--select-ink);
+}
+
+#highlights mark {
+  background: transparent;
+  text-decoration: underline wavy var(--problem);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+#highlights .playing {
+  border-radius: 2px;
+  background: var(--marker);
+  box-shadow: 0 0 0 1px var(--select);
+}
+
+#highlights .barMarker::before {
+  border-left: 1px solid var(--accent);
+}
+
+#highlights .barMarker::after {
+  color: var(--accent);
+  font: bold 10px Tahoma, sans-serif;
+}
+
+#noteHint {
+  min-height: 24px;
+  padding: 4px 10px;
+  border-top: 1px solid #ffffff;
+  background: var(--face);
+  box-shadow: inset 0 1px #d0cfc2;
+  color: var(--ink);
+  font: 11px Tahoma, sans-serif;
+}
+
+body.dark #noteHint {
+  border-top-color: #2b3346;
+  box-shadow: none;
+}
+
+body.dark header,
+body.dark #help h2,
+body.dark #soundTitle {
+  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.25 ), inset 0 -2px #2f6fd6;
+}
+
+body.dark #transport {
+  border-top-color: #2b3346;
+}
+
+#problemTip {
+  border: 1px solid #000000;
+  border-radius: 4px;
+  background: var(--tip);
+  box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.3 );
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#splitter {
+  width: 5px;
+  background: var(--face);
+}
+
+#soundButton {
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+#soundPanel {
+  padding: 0 0 10px;
+  border: 3px solid var(--frame);
+  border-top: none;
+  border-radius: 8px 8px 0 0;
+  background: var(--face);
+  box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.4 );
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#soundTitle::before {
+  content: "";
+}
+
+#soundTitle {
+  display: block;
+  margin: 0 -3px 4px;
+  padding: 5px 10px;
+  border-radius: 8px 8px 0 0;
+  background: var(--title);
+  color: var(--title-ink);
+  font: bold 13px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+}
+
+#soundPanel > :not( #soundSliders, #soundTitle ),
+#soundSliders {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#sheetInstruments {
+  color: var(--muted);
+  font-style: italic;
+}
+
+#soundSliders span:last-child,
+#clock,
+#swingReadout,
+#volumeReadout {
+  font: 11px "Lucida Console", Consolas, monospace;
+}
+
+#transport {
+  padding: 5px 10px;
+  border-top: 1px solid #ffffff;
+  background: linear-gradient( var(--face), color-mix( in srgb, var(--face) 88%, #000000 ) );
+}
+
+#transport button {
+  width: 32px;
+  height: 28px;
+}
+
+#transport #playButton {
+  width: 44px;
+  border: 1px solid var(--go-edge);
+  border-radius: 3px 12px 12px 3px;
+  background: var(--go);
+  box-shadow: inset 0 1px rgba( 255, 255, 255, 0.45 );
+  color: #ffffff;
+  font: italic bold 15px "Trebuchet MS", Tahoma, sans-serif;
+  text-shadow: 1px 1px 0 rgba( 0, 0, 0, 0.45 );
+}
+
+#transport #playButton .pauseIcon {
+  left: -1px;
+}
+
+#transport #playButton:hover {
+  filter: brightness( 1.12 );
+}
+
+#playButton.holding {
+  animation: throb 1.2s ease-in-out infinite;
+}
+
+@keyframes throb {
+  50% {
+    filter: brightness( 1.35 );
+  }
+}
+
+#transport #metronomeButton.on,
+#transport #keyButton.on,
+#transport #swingButton.on {
+  background: var(--button-pressed);
+  box-shadow: var(--glow), inset 1px 1px 2px rgba( 0, 0, 0, 0.25 );
+}
+
+#swingControl,
+#volumeControl {
+  font: var(--ui);
+}
+
+.popup {
+  border: 1px solid #aca899;
+  border-radius: 3px;
+  background: var(--face);
+  box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.35 );
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#score {
+  background: url( "../images/hills-day.svg" ) center / cover no-repeat, #3f86e3;
+}
+
+body.dark #score {
+  background: url( "../images/hills-night.svg" ) center / cover no-repeat, #0a1838;
+}
+
+.page {
+  box-shadow: 4px 4px 12px rgba( 0, 0, 0, 0.35 );
+}
+
+#seekerThumb {
+  height: 20px;
+  border: 1px solid #1c5180;
+  border-radius: 2px 2px 5px 5px;
+  background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
+  box-shadow: inset 0 -2px #21a121;
+}
+
+body.dark #seekerThumb {
+  border-color: #000000;
+  background: linear-gradient( #5d6b85, #2b3447 );
+  box-shadow: inset 0 -2px var(--accent);
+}
+
+input[type="range"] {
+  height: 22px;
+  appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border: 1px solid #9d9c99;
+  border-radius: 2px;
+  background: color-mix( in srgb, var(--face) 85%, #000000 );
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 11px;
+  height: 20px;
+  margin-top: -9px;
+  appearance: none;
+  border: 1px solid #1c5180;
+  border-radius: 2px 2px 5px 5px;
+  background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
+  box-shadow: inset 0 -2px #21a121;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border: 1px solid #9d9c99;
+  border-radius: 2px;
+  background: color-mix( in srgb, var(--face) 85%, #000000 );
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 11px;
+  height: 20px;
+  border: 1px solid #1c5180;
+  border-radius: 2px 2px 5px 5px;
+  background: linear-gradient( #ffffff, #e6eef6 60%, #c6d9ee );
+  box-shadow: inset 0 -2px #21a121;
+}
+
+body.dark input[type="range"]::-webkit-slider-thumb {
+  border-color: #000000;
+  background: linear-gradient( #5d6b85, #2b3447 );
+  box-shadow: inset 0 -2px var(--accent);
+}
+
+body.dark input[type="range"]::-moz-range-thumb {
+  border-color: #000000;
+  background: linear-gradient( #5d6b85, #2b3447 );
+  box-shadow: inset 0 -2px var(--accent);
+}
+
+@supports ( -moz-appearance: none ) {
+  * {
+    scrollbar-color: #b7cbf5 var(--scroll-track);
+  }
+
+  body.dark * {
+    scrollbar-color: #3d4860 var(--scroll-track);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 17px;
+  height: 17px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  background: var(--scroll);
+  box-shadow: 0 0 0 1px #98b1e8;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  border-color: #4d5a76;
+  box-shadow: 0 0 0 1px #05070c;
+}
+
+::-webkit-scrollbar-button:single-button {
+  height: 17px;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  background: var(--scroll);
+}
+
+@media ( max-width: 700px ) {
+  nav > button,
+  #exportButton,
+  #lookButton {
+    width: 32px;
+    height: 28px;
+  }
+
+  #exportMenu,
+  #lookMenu {
+    top: 34px;
+  }
+
+  #transport button {
+    width: 34px;
+    height: 32px;
+  }
+}
+
+select:has( + .dropdown ) {
+  display: none;
+}
+
+.dropdown {
+  display: inline-flex;
+}
+
+.dropdownButton {
+  border: 1px solid var(--field-edge);
+  padding: 2px 22px 2px 4px;
+  background: var(--field);
+  color: var(--field-ink);
+  font: var(--ui);
+  height: 22px;
+}
+
+.dropdownButton::after {
+  background: linear-gradient( #e0e9fd, #c1d3fb 45%, #b2c7f5 55%, #c7d7fb );
+  border: 1px solid #b9cbf3;
+  position: absolute;
+  border-radius: 2px;
+  content: "";
+  bottom: 1px;
+  right: 1px;
+  width: 15px;
+  top: 1px;
+}
+
+body.dark .dropdownButton::after {
+  background: var(--button);
+  border-color: var(--field-edge);
+}
+
+.dropdownButton::before {
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 5px solid #4d6185;
+  position: absolute;
+  margin-top: -2px;
+  content: "";
+  right: 4.5px;
+  z-index: 1;
+  top: 50%;
+}
+
+body.dark .dropdownButton::before {
+  border-top-color: var(--accent);
+}
+
+.dropdownList {
+  border: 1px solid #000000;
+  background: var(--field);
+  top: 100%;
+}
+
+body.dark .dropdownList {
+  border-color: var(--field-edge);
+}
+
+.dropdownOption {
+  color: var(--field-ink);
+  background: transparent;
+  padding: 2px 4px;
+  font: var(--ui);
+  border: none;
+}
+
+.dropdownOption:hover {
+  background: var(--select);
+  color: var(--select-ink);
+}

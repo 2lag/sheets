@@ -1,0 +1,38 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  header,
+  #writing,
+  #splitter,
+  #soundButton,
+  #soundPanel,
+  #transport,
+  .playhead {
+    display: none;
+  }
+
+  body,
+  #workspace,
+  #output,
+  #score {
+    display: block;
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    background: none;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    background: #fff;
+    color: #000;
+    break-after: page;
+  }
+}

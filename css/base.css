@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "Bravura";
+  src: url( "../fonts/Bravura.woff2" ) format( "woff2" );
+  font-display: block;
+}
+
+:root {
+  --sheet-paper: #fdfdfb;
+  --sheet-ink: #1a1a1a;
+  --sheet-highlight: #6a3fb5;
+}
+
+.page {
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  background: var(--sheet-paper);
+  color: var(--sheet-ink);
+  box-shadow: 0 2px 10px rgba( 0, 0, 0, 0.18 );
+  font-size: 28px;
+}
+
+.page text {
+  fill: currentColor;
+}
+
+.page line {
+  stroke: currentColor;
+}
+
+.page polygon,
+.page .tie {
+  fill: currentColor;
+}
+
+.page .glyph {
+  font-family: "Bravura";
+}
+
+.page .centered {
+  text-anchor: middle;
+}
+
+.page .tupletNumber {
+  font-size: 20px;
+}
+
+.page circle {
+  fill: currentColor;
+}
+
+.page .slide {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3px;
+  stroke-linecap: round;
+}
+
+.page .grace {
+  font-size: 18.2px;
+}
+
+.page .title {
+  font: bold 26px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
+  text-anchor: middle;
+}
+
+.page .author {
+  font: 14px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
+  text-anchor: end;
+}
+
+.page .tempo {
+  font: bold 13px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
+}
+
+.page .measureNumber {
+  font: italic 10px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
+}
+
+.page .playhead {
+  fill: var(--sheet-highlight);
+  opacity: 0.22;
+}
+
+.page .playing {
+  color: var(--sheet-highlight);
+}
+
+.page .loopMark {
+  font: bold 22px "Century Schoolbook", "TeX Gyre Schola", Georgia, serif;
+  text-anchor: end;
+}

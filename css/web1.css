@@ -1,0 +1,565 @@
+:root {
+  --thumb: 11px;
+  --face: #c0c0c0;
+  --light: #ffffff;
+  --soft-light: #dfdfdf;
+  --shadow: #808080;
+  --dark: #000000;
+  --ink: #000000;
+  --muted: #808080;
+  --title-from: #000080;
+  --title-to: #1084d0;
+  --title-ink: #ffffff;
+  --select: #000080;
+  --select-ink: #ffffff;
+  --desk: #008080;
+  --field: #ffffff;
+  --field-ink: #000000;
+  --marker: #b8d8ff;
+  --problem: #ff0000;
+  --tip: #ffffe1;
+  --link: #0000ff;
+  --ui: 12px Tahoma, "Microsoft Sans Serif", "MS Sans Serif", Arial, sans-serif;
+  --raised: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
+  --pressed: inset -1px -1px var(--light), inset 1px 1px var(--dark), inset -2px -2px var(--soft-light), inset 2px 2px var(--shadow);
+  --sunken: inset -1px -1px var(--light), inset 1px 1px var(--shadow), inset -2px -2px var(--soft-light), inset 2px 2px var(--dark);
+  --window: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
+}
+
+body.dark {
+  --face: #2f2b45;
+  --light: #6c6596;
+  --soft-light: #4a446c;
+  --shadow: #17142a;
+  --dark: #05040c;
+  --ink: #ece8ff;
+  --muted: #a39dc8;
+  --title-from: #1b0b4f;
+  --title-to: #8a3fb8;
+  --title-ink: #ffffff;
+  --select: #6c3fa8;
+  --select-ink: #ffffff;
+  --desk: #070a24;
+  --field: #15131f;
+  --field-ink: #ece8ff;
+  --marker: #44306e;
+  --problem: #ff7b9c;
+  --tip: #262240;
+  --link: #c3b4ff;
+}
+
+body {
+  background: var(--face);
+  color: var(--ink);
+  font: var(--ui);
+}
+
+header {
+  margin: 3px 3px 0;
+  padding: 3px 3px 3px 6px;
+  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  color: var(--title-ink);
+}
+
+#brand {
+  font: bold 13px Tahoma, "Microsoft Sans Serif", Arial, sans-serif;
+}
+
+#brand::before {
+  content: "";
+}
+
+nav {
+  gap: 2px;
+}
+
+nav > button,
+#exportButton,
+#lookButton {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#lookButton svg,
+#exportIcon {
+  width: 13px;
+  height: 13px;
+}
+
+nav > button,
+#exportButton,
+#lookButton,
+#lookMenu button,
+#soundActions button,
+#closeHelpButton,
+#soundButton,
+#transport button {
+  border: none;
+  border-radius: 0;
+  background: var(--face);
+  box-shadow: var(--raised);
+  color: var(--ink);
+  font-family: Tahoma, "Microsoft Sans Serif", Arial, sans-serif;
+}
+
+nav > button:active,
+#exportButton:active,
+#lookButton:active,
+#lookMenu button:active,
+#soundActions button:active,
+#closeHelpButton:active,
+#soundButton:active,
+#transport button:active,
+#exportItem:has( #exportMenu.open ) #exportButton,
+#lookItem:has( #lookMenu.open ) #lookButton,
+#transport #metronomeButton.on,
+#transport #keyButton.on,
+#transport #swingButton.on {
+  box-shadow: var(--pressed);
+}
+
+#transport #metronomeButton.on,
+#transport #keyButton.on,
+#transport #swingButton.on {
+  background: repeating-conic-gradient( var(--face) 0 25%, var(--light) 0 50% ) 0 0 / 2px 2px;
+}
+
+#exportMenu,
+#lookMenu {
+  top: 28px;
+  padding: 3px;
+  background: var(--face);
+  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+}
+
+#exportMenu {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+#exportMenu button {
+  padding: 4px 20px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#exportMenu button:hover {
+  background: var(--select);
+  color: var(--select-ink);
+}
+
+#lookMenu button {
+  height: 26px;
+  font-size: 15px;
+}
+
+#eraButton {
+  font: bold 12px Tahoma, Arial, sans-serif;
+}
+
+#help {
+  padding: 3px 3px 12px;
+  border: none;
+  border-radius: 0;
+  background: var(--face);
+  box-shadow: var(--window);
+  color: var(--ink);
+  font: var(--ui);
+  line-height: 1.5;
+}
+
+#help > *:not( h2 ) {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+#help::backdrop {
+  background: transparent;
+}
+
+#help h2 {
+  margin: 0 0 12px;
+  padding: 3px 6px;
+  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  color: var(--title-ink);
+  font: bold 13px Tahoma, Arial, sans-serif;
+}
+
+#help h2::before {
+  content: "";
+}
+
+#sampleRow {
+  border: none;
+  box-shadow: var(--sunken), inset 0 0 0 3px var(--face);
+  border-radius: 0;
+}
+
+#samplePicker,
+#soundPanel select {
+  border: none;
+  border-radius: 0;
+  background: var(--field);
+  box-shadow: var(--sunken);
+  color: var(--field-ink);
+  font: var(--ui);
+}
+
+#help pre,
+#help code {
+  font: 12px "Courier New", Courier, monospace;
+}
+
+#help pre {
+  background: var(--field);
+  box-shadow: var(--sunken);
+  color: var(--field-ink);
+}
+
+#help table {
+  margin-top: 8px;
+}
+
+#help i {
+  color: var(--muted);
+}
+
+#closeHelpButton {
+  min-width: 75px;
+  padding: 4px 12px;
+}
+
+#writing {
+  padding: 3px;
+}
+
+#editorFrame {
+  background: var(--field);
+  box-shadow: var(--sunken);
+}
+
+#editor,
+#highlights {
+  inset: 2px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#editor {
+  color: var(--field-ink);
+  caret-color: var(--field-ink);
+}
+
+#editor::selection {
+  background: var(--select);
+  color: var(--select-ink);
+}
+
+#highlights mark {
+  background: transparent;
+  text-decoration: underline wavy var(--problem);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+#highlights .playing {
+  background: var(--marker);
+}
+
+#highlights .barMarker::before {
+  border-left: 1px dotted var(--link);
+}
+
+#highlights .barMarker::after {
+  color: var(--link);
+  font: bold 10px Tahoma, Arial, sans-serif;
+}
+
+#noteHint {
+  margin-top: 3px;
+  padding: 3px 6px;
+  min-height: 22px;
+  background: var(--face);
+  box-shadow: inset -1px -1px var(--light), inset 1px 1px var(--shadow);
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#problemTip {
+  border: 1px solid var(--dark);
+  background: var(--tip);
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#splitter {
+  width: 4px;
+  background: var(--face);
+}
+
+#output {
+  margin: 3px 3px 0 0;
+}
+
+#soundButton {
+  font-size: 18px;
+}
+
+#soundPanel {
+  padding: 3px 3px 10px;
+  background: var(--face);
+  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#soundTitle::before {
+  content: "";
+}
+
+#soundTitle {
+  display: block;
+  margin-bottom: 4px;
+  padding: 3px 6px;
+  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  color: var(--title-ink);
+  font: bold 12px Tahoma, Arial, sans-serif;
+}
+
+#soundPanel > :not( #soundSliders, #soundTitle ),
+#soundSliders {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+#sheetInstruments {
+  color: var(--muted);
+}
+
+#soundSliders span:last-child,
+#clock,
+#swingReadout,
+#volumeReadout {
+  font: 11px "Courier New", Courier, monospace;
+}
+
+#transport {
+  margin: 0 3px 3px;
+  padding: 4px 6px;
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+#transport button {
+  width: 30px;
+  height: 26px;
+  font-size: 14px;
+}
+
+#clock {
+  box-shadow: var(--sunken);
+  background: var(--field);
+  padding: 5px 8px 4px;
+  color: var(--field-ink);
+  line-height: 1;
+}
+
+#swingControl,
+#volumeControl {
+  font: var(--ui);
+}
+
+#playButton.holding {
+  animation: blink 1s steps( 1 ) infinite;
+}
+
+@keyframes blink {
+  50% {
+    color: var(--face);
+  }
+}
+
+.popup {
+  background: var(--face);
+  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  color: var(--ink);
+  font: var(--ui);
+}
+
+#score {
+  background: var(--desk);
+  box-shadow: var(--sunken);
+}
+
+body.dark #score {
+  background:
+    radial-gradient( 1.5px 1.5px at 23px 41px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 1.5px 1.5px at 97px 13px, #d6d0ff 50%, transparent 51% ),
+    radial-gradient( 2px 2px at 151px 88px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 1.5px 1.5px at 61px 132px, #fff4c8 50%, transparent 51% ),
+    radial-gradient( 1.5px 1.5px at 183px 161px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 2.5px 2.5px at 121px 191px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 1.5px 1.5px at 11px 187px, #c8d8ff 50%, transparent 51% ),
+    radial-gradient( 1px 1px at 37px 67px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 1px 1px at 113px 29px, #ffffff 50%, transparent 51% ),
+    radial-gradient( 1px 1px at 79px 103px, #e8e0ff 50%, transparent 51% ),
+    radial-gradient( 1px 1px at 131px 121px, #ffffff 50%, transparent 51% ),
+    linear-gradient( var(--desk), #1c1250 70%, #3a1c5e );
+  background-size: 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 143px 137px, 143px 137px, 143px 137px, 143px 137px, 100% 100%;
+}
+
+.page {
+  box-shadow: 3px 3px 0 rgba( 0, 0, 0, 0.5 );
+}
+
+#seekerThumb {
+  height: 20px;
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+input[type="range"] {
+  height: 22px;
+  appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--field);
+  box-shadow: var(--sunken);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 11px;
+  height: 20px;
+  margin-top: -8px;
+  appearance: none;
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: var(--field);
+  box-shadow: var(--sunken);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 11px;
+  height: 20px;
+  border: none;
+  border-radius: 0;
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+@supports ( -moz-appearance: none ) {
+  * {
+    scrollbar-color: var(--face) var(--soft-light);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: repeating-conic-gradient( var(--face) 0 25%, var(--light) 0 50% ) 0 0 / 2px 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+::-webkit-scrollbar-button:single-button {
+  height: 16px;
+  background: var(--face);
+  box-shadow: var(--raised);
+}
+
+@media ( max-width: 700px ) {
+  nav > button,
+  #exportButton,
+  #lookButton {
+    width: 32px;
+    height: 28px;
+  }
+
+  #exportMenu,
+  #lookMenu {
+    top: 34px;
+  }
+
+  #transport button {
+    width: 34px;
+    height: 32px;
+  }
+}
+
+select:has( + .dropdown ) {
+  display: none;
+}
+
+.dropdown {
+  display: inline-flex;
+}
+
+.dropdownButton {
+  padding: 3px 24px 3px 4px;
+  box-shadow: var(--sunken);
+  background: var(--field);
+  color: var(--field-ink);
+  font: var(--ui);
+  border: none;
+  height: 22px;
+}
+
+.dropdownButton::after {
+  box-shadow: var(--raised);
+  background: var(--face);
+  position: absolute;
+  bottom: 2px;
+  content: "";
+  right: 2px;
+  width: 16px;
+  top: 2px;
+}
+
+.dropdownButton::before {
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid var(--ink);
+  position: absolute;
+  margin-top: -2px;
+  content: "";
+  right: 6px;
+  z-index: 1;
+  top: 50%;
+}
+
+.dropdownList {
+  border: 1px solid var(--dark);
+  background: var(--field);
+  top: 100%;
+}
+
+.dropdownOption {
+  color: var(--field-ink);
+  background: transparent;
+  padding: 1px 4px;
+  font: var(--ui);
+  border: none;
+}
+
+.dropdownOption:hover {
+  background: var(--select);
+  color: var(--select-ink);
+}
