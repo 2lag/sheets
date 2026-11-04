@@ -16,10 +16,13 @@ THEME_BUTTON.addEventListener( "click", () => {
 });
 
 ERA_BUTTON.addEventListener( "click", () => {
-  const era = ERAS[ ( ERAS.indexOf( ERA_BUTTON.textContent ) + 1 ) % ERAS.length ];
+  const index = ERAS.indexOf( ERA_BUTTON.textContent );
+  const next = ( index + 1 ) % ERAS.length;
+  const era = ERAS[ next ];
   localStorage.setItem( "era", era );
   applyEra( era );
 });
 
 applyTheme( localStorage.getItem( "theme" ) === "night" ? "night" : "day" );
-applyEra( ERAS.includes( localStorage.getItem( "era" ) ) ? localStorage.getItem( "era" ) : "4.0" );
+const saved_era = localStorage.getItem( "era" );
+applyEra( ERAS.includes( saved_era ) ? saved_era : "4.0" );

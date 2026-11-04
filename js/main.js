@@ -13,19 +13,30 @@ function problemRangeOf( problem, line_text ) {
   const mark = document.createElement( "mark" );
   mark.dataset.reason = `${ problem.token }: ${ problem.reason }`;
   PROBLEM_MARKS.push( mark );
-  return { start, end: Math.max( start + 1, start + String( problem.token ).length ), element: mark };
+  const token_length = String( problem.token ).length;
+  const end = Math.max( start + 1, start + token_length );
+  return { start, end, element: mark };
 }
 
-function noteRangesOn( line_number, events ) {
-  const ranges = new Map();
-  events.forEach( event => sourcesOf( event )
-    .filter( source => source.line === line_number && source.token )
-    .forEach( source => {
-      if ( !ranges.has( source.column ) )
-        ranges.set( source.column, { start: source.column, end: source.column + source.token.length, element: document.createElement( "span" ) } );
-      event.textMarks.push( ranges.get( source.column ).element );
-    }));
-  return [ ...ranges.values() ];
+function noteRangesByLine( events ) {
+  const by_line = new Map();
+  events.forEach( event => {
+    sourcesOf( event ).forEach( source => {
+      if ( !source.line || !source.token )
+        return;
+      if ( !by_line.has( source.line ) )
+        by_line.set( source.line, new Map() );
+      const line_map = by_line.get( source.line );
+      if ( !line_map.has( source.column ) ) {
+        const range = { start: source.column,
+          end: source.column + source.token.length,
+          element: document.createElement( "span" ) };
+        line_map.set( source.column, range );
+      }
+      event.textMarks.push( line_map.get( source.column ).element );
+    });
+  });
+  return by_line;
 }
 
 function sourcesOf( event ) {
@@ -55,9 +66,17 @@ function showMarks( problems, parsed ) {
   events.forEach( event => event.textMarks = [] );
   const measure_starts = measureStartsOf( parsed );
   const lines = EDITOR.value.split( "\n" );
+  const events_by_line = noteRangesByLine( events );
   const pieces = lines.flatMap( ( line_text, index ) => {
-    const problem_ranges = problems.filter( problem => problem.line === index + 1 ).map( problem => problemRangeOf( problem, line_text ) );
-    const ranges = [ ...barRangesOn( index + 1, line_text, measure_starts ), ...problem_ranges, ...noteRangesOn( index + 1, events ) ];
+    const line_number = index + 1;
+    const line_problems = problems.filter(
+      problem => problem.line === line_number );
+    const problem_ranges = line_problems.map(
+      problem => problemRangeOf( problem, line_text ) );
+    const line_map = events_by_line.get( line_number );
+    const note_ranges = line_map ? [ ...line_map.values() ] : [];
+    const ranges = [ ...barRangesOn( line_number, line_text,
+      measure_starts ), ...problem_ranges, ...note_ranges ];
     return [ ...markedLine( line_text, ranges ), "\n" ];
   });
   HIGHLIGHTS.replaceChildren( ...pieces, " " );
@@ -130,7 +149,8 @@ function placeMenu( menu ) {
   menu.style.top = `${ HEADER.getBoundingClientRect().bottom }px`;
 }
 
-new ResizeObserver( () => [ EXPORT_MENU, LOOK_MENU ].forEach( placeMenu ) ).observe( HEADER );
+new ResizeObserver( () => [ EXPORT_MENU, LOOK_MENU ]
+  .forEach( placeMenu ) ).observe( HEADER );
 
 function closeLookMenu() {
   LOOK_MENU.classList.remove( "open" );
@@ -173,7 +193,10 @@ CLOSE_HELP_BUTTON.addEventListener( "click", () => HELP.close() );
 
 HELP.addEventListener( "click", event => {
   const box = HELP.getBoundingClientRect();
-  const clicked_outside = event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
+  const clicked_outside = event.clientX < box.left
+  || event.clientX > box.right
+  || event.clientY < box.top
+  || event.clientY > box.bottom;
   if ( event.target === HELP && clicked_outside )
     HELP.close();
 });
@@ -185,4 +208,5 @@ EDITOR.addEventListener( "input", () => {
 EDITOR.addEventListener( "scroll", followEditorScroll );
 EDITOR.addEventListener( "mousemove", showProblemTip );
 EDITOR.addEventListener( "mouseleave", hideProblemTip );
-Promise.allSettled( [ document.fonts.load( "28px Bravura" ), SHEET_LOADED ] ).then( refreshScore );
+Promise.allSettled( [ document.fonts.load( "28px Bravura" ),
+  SHEET_LOADED ] ).then( refreshScore );

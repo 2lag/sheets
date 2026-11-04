@@ -1,7 +1,11 @@
 function repeatPairsOf( repeats, from, to, level ) {
   const signs = repeats
-    .filter( sign => sign.level === level && sign.position >= from - 1e-6 && sign.position <= to + 1e-6 )
-    .sort( ( a, b ) => a.position - b.position || ( a.kind === "end" ? -1 : 1 ) );
+    .filter(
+      sign => sign.level === level
+        && sign.position >= from - 1e-6
+        && sign.position <= to + 1e-6 )
+    .sort( ( a, b ) => a.position - b.position || (
+      a.kind === "end" ? -1 : 1 ) );
   const open_starts = [];
   const pairs = [];
   signs.forEach( sign => {
@@ -16,7 +20,10 @@ function repeatPairsOf( repeats, from, to, level ) {
 }
 
 function hasRepeatsInside( repeats, from, to, level ) {
-  return repeats.some( sign => sign.level >= level && sign.position >= from - 1e-6 && sign.position <= to + 1e-6 );
+  return repeats.some(
+    sign => sign.level >= level
+      && sign.position >= from - 1e-6
+      && sign.position <= to + 1e-6 );
 }
 
 function unfold( repeats, from, to, level ) {
@@ -28,7 +35,8 @@ function unfold( repeats, from, to, level ) {
   let cursor = from;
   repeatPairsOf( repeats, from, to, level ).forEach( pair => {
     const body = unfold( repeats, pair.start, pair.end, level + 1 );
-    segments.push( ...unfold( repeats, cursor, pair.start, level + 1 ), ...body, ...body );
+    const before_body = unfold( repeats, cursor, pair.start, level + 1 );
+    segments.push( ...before_body, ...body, ...body );
     cursor = pair.end;
   });
   segments.push( ...unfold( repeats, cursor, to, level + 1 ) );

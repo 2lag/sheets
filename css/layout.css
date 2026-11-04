@@ -637,7 +637,7 @@ body.resizing {
   position: relative;
 }
 
-#SEEKERThumb {
+#SEEKER_THUMB {
   will-change: transform;
   pointer-events: none;
   width: var(--thumb);

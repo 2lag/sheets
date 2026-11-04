@@ -1,9 +1,11 @@
 function base64OfBytes( bytes ) {
-  return btoa( Array.from( bytes, byte => String.fromCharCode( byte ) ).join( "" ) );
+  const chars = Array.from( bytes, byte => String.fromCharCode( byte ) );
+  return btoa( chars.join( "" ) );
 }
 
 function bytesOfBase64( encoded ) {
-  return Uint8Array.from( atob( encoded ), character => character.charCodeAt( 0 ) );
+  const chars = atob( encoded );
+  return Uint8Array.from( chars, character => character.charCodeAt( 0 ) );
 }
 
 function base64Encode( text ) {
@@ -15,7 +17,8 @@ function base64Decode( encoded ) {
 }
 
 function urlSafe( encoded ) {
-  return encoded.replaceAll( "+", "-" ).replaceAll( "/", "_" ).replace( /=+$/, "" );
+  const swapped = encoded.replaceAll( "+", "-" ).replaceAll( "/", "_" );
+  return swapped.replace( /=+$/, "" );
 }
 
 function fromUrlSafe( encoded ) {
@@ -23,14 +26,18 @@ function fromUrlSafe( encoded ) {
 }
 
 async function compressedOf( text ) {
-  const stream = new Blob( [ text ] ).stream().pipeThrough( new CompressionStream( "deflate-raw" ) );
+  const blob = new Blob( [ text ] );
+  const stream = blob.stream().pipeThrough(
+    new CompressionStream( "deflate-raw" ) );
   const bytes = new Uint8Array( await new Response( stream ).arrayBuffer() );
   return urlSafe( base64OfBytes( bytes ) );
 }
 
 async function decompressedOf( encoded ) {
   const bytes = bytesOfBase64( fromUrlSafe( encoded ) );
-  const stream = new Blob( [ bytes ] ).stream().pipeThrough( new DecompressionStream( "deflate-raw" ) );
+  const blob = new Blob( [ bytes ] );
+  const stream = blob.stream().pipeThrough(
+    new DecompressionStream( "deflate-raw" ) );
   return new Response( stream ).text();
 }
 

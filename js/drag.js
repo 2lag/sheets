@@ -14,9 +14,11 @@ function canGrab( target ) {
 function placeSoundPanel( left, top ) {
   const box = SOUND_PANEL.getBoundingClientRect();
   const kept_left = Math.min( Math.max( 0, left ), innerWidth - box.width );
-  const kept_top = Math.min( Math.max( 0, top ), innerHeight - Math.min( box.height, 48 ) );
+  const max_top = innerHeight - Math.min( box.height, 48 );
+  const kept_top = Math.min( Math.max( 0, top ), max_top );
   SOUND_PANEL.classList.add( "moved" );
-  Object.assign( SOUND_PANEL.style, { left: `${ kept_left }px`, top: `${ kept_top }px` } );
+  const style = { left: `${ kept_left }px`, top: `${ kept_top }px` };
+  Object.assign( SOUND_PANEL.style, style );
 }
 
 SOUND_PANEL.addEventListener( "pointerdown", event => {
@@ -31,7 +33,10 @@ SOUND_PANEL.addEventListener( "pointerdown", event => {
 
 SOUND_PANEL.addEventListener( "pointermove", event => {
   if ( DRAG_OFFSET )
-    placeSoundPanel( event.clientX - DRAG_OFFSET.x, event.clientY - DRAG_OFFSET.y );
+    placeSoundPanel(
+      event.clientX - DRAG_OFFSET.x,
+      event.clientY - DRAG_OFFSET.y
+    );
 });
 
 SOUND_PANEL.addEventListener( "pointerup", () => {
@@ -41,5 +46,8 @@ SOUND_PANEL.addEventListener( "pointerup", () => {
 
 addEventListener( "resize", () => {
   if ( SOUND_PANEL.classList.contains( "moved" ) )
-    placeSoundPanel( parseFloat( SOUND_PANEL.style.left ), parseFloat( SOUND_PANEL.style.top ) );
+    placeSoundPanel(
+      parseFloat( SOUND_PANEL.style.left ),
+      parseFloat( SOUND_PANEL.style.top )
+    );
 });

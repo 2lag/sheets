@@ -418,7 +418,7 @@ body.dark #SCORE {
   box-shadow: 3px 3px 0 rgba( 0, 0, 0, 0.5 );
 }
 
-#SEEKERThumb {
+#SEEKER_THUMB {
   box-shadow: var(--raised);
   background: var(--face);
   height: 20px;

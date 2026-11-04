@@ -1,6 +1,7 @@
 function followedStaffOf( sheet ) {
   const heard = sheet.staves.filter( staff => !staff.muted );
-  return heard.find( staff => staff.clef === "treble" ) || heard[ 0 ] || sheet.staves[ 0 ];
+  const top = heard.find( staff => staff.clef === "treble" );
+  return top || heard[ 0 ] || sheet.staves[ 0 ];
 }
 
 function isComfortablyVisible( top ) {
@@ -11,14 +12,25 @@ function isComfortablyVisible( top ) {
 
 function followInEditor( event ) {
   const mark = event.textMarks?.[ 0 ];
-  if ( !mark || !followedStaffOf( SHEET ).events.includes( event ) || isComfortablyVisible( mark.offsetTop ) )
+  const followed = followedStaffOf( SHEET );
+  if ( !mark || !followed.events.includes( event )
+    || isComfortablyVisible( mark.offsetTop ) )
     return;
-  EDITOR.scrollTo( { top: mark.offsetTop - EDITOR.clientHeight / 3, behavior: "smooth" } );
+  const top = mark.offsetTop - EDITOR.clientHeight / 3;
+  EDITOR.scrollTo( {
+    top,
+    behavior: "smooth"
+  });
 }
 
 function eventAtCursor() {
   const place = cursorPlace();
-  const touched = event => ( event.token && touches( event, place ) ) || ( event.graceSources || [] ).some( source => touches( source, place ) );
+  const touched = event => {
+    const has_token = event.token && touches( event, place );
+    const has_grace = ( event.graceSources || [] )
+      .some( source => touches( source, place ) );
+    return has_token || has_grace;
+  };
   return SHEET.staves.flatMap( staff => staff.events ).find( touched );
 }
 
@@ -30,8 +42,13 @@ function isInView( mark ) {
 
 function showEditedNote() {
   const mark = eventAtCursor()?.marks?.[ 0 ];
-  if ( mark && !isInView( mark ) )
-    mark.scrollIntoView( { block: "center", inline: "nearest", behavior: "smooth" } );
+  if ( mark && !isInView( mark ) ) {
+    mark.scrollIntoView( {
+      block: "center",
+      inline: "nearest",
+      behavior: "smooth"
+    });
+  }
 }
 
 function toggleListening() {

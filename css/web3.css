@@ -424,7 +424,7 @@ body.resizing #SPLITTER {
   border-radius: 4px;
 }
 
-#SEEKERThumb {
+#SEEKER_THUMB {
   box-shadow: 0 0 0 1px var(--stroke-strong);
   border: 5px solid var(--card);
   transition: border-width 0.1s;
@@ -433,11 +433,11 @@ body.resizing #SPLITTER {
   height: 20px;
 }
 
-#SEEKER:hover + #SEEKERThumb {
+#SEEKER:hover + #SEEKER_THUMB {
   border-width: 4px;
 }
 
-#SEEKER:active + #SEEKERThumb {
+#SEEKER:active + #SEEKER_THUMB {
   border-width: 6px;
 }
 

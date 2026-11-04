@@ -21,7 +21,8 @@ function scheduleClick( time, kind ) {
   const envelope = AUDIO_CONTEXT.createGain();
   click.frequency.value = CLICKS[ kind ].pitch;
   envelope.gain.setValueAtTime( 0.0001, time );
-  envelope.gain.exponentialRampToValueAtTime( CLICKS[ kind ].loudness, time + 0.002 );
+  envelope.gain.exponentialRampToValueAtTime( CLICKS[ kind ].loudness,
+    time + 0.002 );
   envelope.gain.exponentialRampToValueAtTime( 0.0001, time + 0.05 );
   click.connect( envelope );
   envelope.connect( CLICK_VOLUME );
@@ -48,7 +49,9 @@ function metronomeOf( start_time, output, from, until ) {
   CLICK_VOLUME.gain.value = METRONOME_ON ? 1 : 0;
   CLICK_VOLUME.connect( output );
   const beat_length = countedBeatOf( SHEET.meter );
-  const beats_per_measure = Math.max( 1, Math.round( measureLengthOf( SHEET.meter ) / beat_length ) );
+  const measure_length = measureLengthOf( SHEET.meter );
+  const beats_per_measure = Math.max(
+    1, Math.round( measure_length / beat_length ) );
   const end = Math.min( until, totalDurationOf( SHEET ) );
   const last_beat = Math.ceil( end / beat_length - EPSILON );
   const audioTimeOf = position => audioTimeAt( position, start_time, from );
@@ -57,10 +60,12 @@ function metronomeOf( start_time, output, from, until ) {
   const clickBeat = () => {
     const position = beat * beat_length;
     if ( position >= from - EPSILON ) {
-      const count = Math.round( scorePositionOf( position ) / beat_length ) % beats_per_measure + 1;
+      const beat_number = scorePositionOf( position ) / beat_length;
+      const count = Math.round( beat_number ) % beats_per_measure + 1;
       const click_time = audioTimeOf( position );
       scheduleClick( click_time, count === 1 ? "downbeat" : "beat" );
-      HIGHLIGHT_TIMEOUTS.push( setTimeout( () => showBeat( count ), ( click_time - AUDIO_CONTEXT.currentTime ) * 1000 ) );
+      const delay = ( click_time - AUDIO_CONTEXT.currentTime ) * 1000;
+      HIGHLIGHT_TIMEOUTS.push( setTimeout( () => showBeat( count ), delay ) );
     }
     if ( subdivided )
       [ 1, 2 ]

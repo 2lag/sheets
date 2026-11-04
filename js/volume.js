@@ -15,8 +15,11 @@ VOLUME_SLIDER.addEventListener( "input", () => {
   MASTER_VOLUME = VOLUME_SLIDER.value / 100;
   localStorage.setItem( "volume", MASTER_VOLUME );
   showVolume();
-  if ( AUDIO_MIX )
-    AUDIO_MIX.master.gain.setTargetAtTime( masterGainOf( MASTER_VOLUME ), AUDIO_MIX.context.currentTime, 0.03 );
+  if ( AUDIO_MIX ) {
+    const gain = masterGainOf( MASTER_VOLUME );
+    const now = AUDIO_MIX.context.currentTime;
+    AUDIO_MIX.master.gain.setTargetAtTime( gain, now, 0.03 );
+  }
 });
 
 showVolume();

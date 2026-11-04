@@ -113,44 +113,6 @@ clef=b
 3d2.
 [2g 3g]2.`,
 
-  "Canon in D": `title=Canon in D
-author=Johann Pachelbel
-bpm=76
-ts=4,4
-key=d
-
-clef=t
-instrument=strings
-5f2 5e2
-5d2 5c2
-4b2 4a2
-4b2 5c2
-5d4 4f4 4a4 4g4
-4f4 4d4 4f4 4e4
-4d4 3b4 4d4 4a4
-4g4 4b4 4a4 4g4
-[5d 5f]2 [5c 5e]2
-[4b 5d]2 [4a 5c]2
-[4g 4b]2 [4f 4a]2
-[4g 4b]2 [4a 5c]2
-[4f 4a 5d]1
-
-clef=b
-instrument=cello
-3d2 2a2
-2b2 2f2
-2g2 2d2
-2g2 2a2
-3d2 2a2
-2b2 2f2
-2g2 2d2
-2g2 2a2
-3d2 2a2
-2b2 2f2
-2g2 2d2
-2g2 2a2
-[2d 3d]1`,
-
   "Greensleeves": `title=Greensleeves
 author=traditional
 bpm=96
@@ -318,81 +280,7 @@ instrument=chiptune
 2b8 3b8 2b8 3b8 2e8 3e8 2e8 3e8
 2a8 3a8 2a8 3a8 [1a 2a]2`,
 
-  "In the Hall of the Mountain King": `title=In the Hall of the Mountain King
-author=Edvard Grieg
-bpm=132
-ts=4,4
-key=bm
-
-clef=t
-instrument=strings
-3b8 4c8 4d8 4e8 4f8 4d8 4f4
-4es8 4c8 4es4 4e8 4cn8 4e4
-3b8 4c8 4d8 4e8 4f8 4d8 4f8 4b8
-4a8 4f8 4d8 4f8 4a2
-4b8 5c8 5d8 5e8 5f8 5d8 5f4
-5es8 5c8 5es4 5e8 5cn8 5e4
-4b8 5c8 5d8 5e8 5f8 5d8 5f8 5b8
-5a8 5f8 5d8 5f8 5a2
-4b8 5c8 5d8 5e8 5f8 5d8 5f4
-5es8 5c8 5es4 5e8 5cn8 5e4
-4b8 5c8 5d8 5e8 5f8 5d8 5f8 5b8
-5a8 5f8 5d8 5f8 5a2
-[4b 5d 5f 5b]2 r2
-
-clef=b
-instrument=upright bass
-2b4 3f4 2b4 3f4
-2c4 3gs4 2cn4 3g4
-2b4 3f4 2b4 3f4
-2d4 3a4 2d4 3a4
-2b4 3f4 2b4 3f4
-2c4 3gs4 2cn4 3g4
-2b4 3f4 2b4 3f4
-2d4 3a4 2d4 3a4
-3b4 4f4 3b4 4f4
-3c4 4gs4 3cn4 4g4
-3b4 4f4 3b4 4f4
-3d4 4a4 3d4 4a4
-[1b 2f 2b]2 r2`,
-
-  "Twinkle, Twinkle, Little Star": `title=Twinkle, Twinkle, Little Star
-author=traditional
-bpm=100
-ts=4,4
-key=c
-
-clef=t
-instrument=music box
-4c4 4c4 4g4 4g4
-4a4 4a4 4g2
-4f4 4f4 4e4 4e4
-4d4 4d4 4c2
-4g4 4g4 4f4 4f4
-4e4 4e4 4d2
-4g4 4g4 4f4 4f4
-4e4 4e4 4d2
-4c4 4c4 4g4 4g4
-4a4 4a4 4g2
-4f4 4f4 4e4 4e4
-4d4 4d4 4c2
-
-clef=b
-instrument=harp
-3c2 3e2
-3f2 3e2
-3d2 3c2
-2g2 3c2
-3e2 3d2
-3c2 2g2
-3e2 3d2
-3c2 2g2
-3c2 3e2
-3f2 3e2
-3d2 3c2
-2g2 [2c 3c]2`,
-
-  "Boogie in C (original)": `title=Boogie in C
+  "Boogie in C (Claude original)": `title=Boogie in C
 author=Claude Opus 5.5 - Medium
 bpm=132
 ts=4,4
@@ -428,73 +316,7 @@ clef=b
 2g8 2b8 3d8 3f8 2g2
 [1c 2c]1`,
 
-  "Midnight Blues (original)": `title=Midnight Blues
-author=Claude Opus 5.5 - Medium
-bpm=90
-ts=12,8
-key=am
-
-clef=t
-instrument=sax
-r4. 5e4 5c8 4a4. 5c8 5d8 5e8
-5g4. 5e8 5d8 5c8 5e2.
-r4. 5a4 5g8 5e8 5g8 5e8 5d8 5c8 4a8
-5c4. 4a4. 4a2.
-r4. 5f4 5d8 4a4. 5d8 5e8 5f8
-5a4. 5f8 5e8 5d8 5f2.
-5e4. 5c8 5d8 5eb8 5e4. 5c4.
-4a2. r4. 5e4 5c8
-5f4. 5a4. 6c4. 5a4.
-5gs4. 5b4. 5e4. 5d4.
-5c8 4b8 4a8 5c8 4b8 4a8 5e8 5d8 5c8 4a4.
-[4gs 4b 5e]2. [4gs 4b 5d 5e]2.
-[4a 5c 5e 5a]1.
-
-clef=b
-instrument=upright bass
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2d8 2a8 3d8 2d8 2a8 3d8 2d8 2a8 3d8 2d8 2a8 3d8
-2d8 2a8 3d8 2d8 2a8 3d8 2d8 2a8 3d8 2d8 2a8 3d8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2f8 3c8 3f8 2f8 3c8 3f8 2f8 3c8 3f8 2f8 3c8 3f8
-2e8 2b8 3e8 2e8 2b8 3e8 2e8 2b8 3e8 2e8 2b8 3e8
-2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8 2a8 3e8 3a8
-2e8 2b8 3e8 2e8 2b8 3e8 2e8 2b8 3e8 2e8 2b8 3e8
-[1a 2a]1.`,
-
-  "Pixel Quest (original)": `title=Pixel Quest
-author=Claude Opus 5.5 - Medium
-bpm=150
-ts=4,4
-key=c
-
-clef=t
-instrument=chiptune
-5c8 5e8 5g8 6c8 5b8 5g8 5e8 5g8
-5a4 5f8 5a8 6c4 5a4
-5g8 5e8 5c8 5e8 5g8 6c8 5b8 5a8
-5g2 r4 5g8 5a8
-5bb4 5a8 5g8 5f4 5a8 5f8
-5e4 5g8 5e8 5c4 5e8 5g8
-5d8 5e8 5f8 5d8 4b8 5d8 5g8 5b8
-[5e 5g 6c]2. r4
-
-clef=b
-instrument=chiptune
-3c8 3g8 4c8 3g8 3c8 3g8 4c8 3g8
-3f8 4c8 4f8 4c8 3f8 4c8 4f8 4c8
-3c8 3g8 4c8 3g8 3c8 3g8 4c8 3g8
-2g8 3d8 3g8 3d8 2g8 3d8 3g8 3d8
-2bb8 3f8 3bb8 3f8 2bb8 3f8 3bb8 3f8
-3c8 3g8 4c8 3g8 3c8 3g8 4c8 3g8
-2g8 3d8 3g8 3d8 2g8 3d8 3g8 3d8
-[3c 3g 4c]2. r4`,
-
-  "Showcase Shuffle (original)": `title=Showcase Shuffle
+  "Showcase Shuffle (Claude original)": `title=Showcase Shuffle
 author=Claude Opus 5.5 - Medium
 bpm=112
 ts=4,4
@@ -522,7 +344,7 @@ instrument=trombone
 2d4 2a4 2g4 3c4
 3c4 3c4 [2f 3c 3f]2^`,
 
-  "Night Walk (original)": `title=Night Walk
+  "Night Walk (Claude original)": `title=Night Walk
 author=Claude Opus 5.5 - Medium
 bpm=93
 ts=12,8
@@ -565,7 +387,7 @@ instrument=upright bass
 1b4. 2f4. [1b 2f 2b]2.
 2g8 3d8 3g8 3b8 3g8 3d8 2a8 3e8 3a8 4cs8 3a8 3e8
 [1d 2a 2d]1.`,
-  "Smoke (original)": `title=Smoke
+  "Smoke (Claude original)": `title=Smoke
 author=Claude Opus 5.5 - Medium
 bpm=92
 key=cm
@@ -606,7 +428,7 @@ instrument=upright bass
 2c8. 2c16 3c8 2b8 2g8. 2g16 3g8 3f8
 2c4 r8 2c8 2g4 2bn4)x3
 2g4 2bn4 2c2~ 2c1`,
-  "Magnum Opus: Fanfare (original)": `title=Claude's Magnum Opus: Fanfare
+  "Magnum Opus: Fanfare (Claude original)": `title=Claude's Magnum Opus: Fanfare
 author=Claude Opus 5.5 - Medium
 bpm=108
 ts=4,4
@@ -649,7 +471,7 @@ instrument=strings
 2f2 2a2
 2a1
 [1d 2a 2d]1`,
-  "Magnum Opus: Lo-fi Tokens (original)": `title=Claude's Magnum Opus: Lo-fi Tokens
+  "Magnum Opus: Lo-fi Tokens (Claude original)": `title=Claude's Magnum Opus: Lo-fi Tokens
 author=Claude Opus 5.5 - Medium
 bpm=80
 ts=4,4
@@ -678,7 +500,7 @@ instrument=upright bass
 2c4 r8 2c8 2g4 2b4
 3c4 2b4 2a4 2g4 ||
 [1f 2f]1`,
-  "Magnum Opus: Final Boss (original)": `title=Claude's Magnum Opus: Final Boss
+  "Magnum Opus: Final Boss (Claude original)": `title=Claude's Magnum Opus: Final Boss
 author=Claude Opus 5.5 - Medium
 bpm=160
 ts=4,4
@@ -752,7 +574,7 @@ instrument=chiptune
 (2c16 3c16)x8
 (2b16 3b16)x8
 [1e 2e]8> r8 [1e 2e]8> r8 [1e 2e]2>`,
-  "Comet Cat (original)": `title=Comet Cat
+  "Comet Cat (Claude original)": `title=Comet Cat
 author=Claude Opus 5.5 - Medium
 bpm=184
 ts=4,4
@@ -786,7 +608,95 @@ instrument=chiptune
 (2c8 3c8)x4
 (2d8 3d8)x2 (2e8 3e8)x2
 2a8 3a8 2a8 3a8 2e8 3e8 2e16 2f16 2g16 2e16
-||||`
+||||`,
+  "Stairway Rag (Qwen original)": `title=Stairway Rag
+author=Qwen3.8-DavidAU-MTP-Q8-TT
+bpm=140
+ts=2,4
+key=c
+
+clef=t
+instrument=piano
+4c8 4g8 4c8 4g8
+4e8 4c8 4e8 4c8
+4f8 4c8 4f8 4c8
+4g8 4g8 4g8 4g8
+4c8 4g8 4c8 4g8
+4e8 4c8 4e8 4c8
+4f8 4c8 4f8 4c8
+4g4 r4
+4c8 4e8 4g8 4c8
+4b8 4g8 4b8 4g8
+4a8 4e8 4a8 4e8
+4g8 4e8 4g8 4e8
+4c8 4e8 4g8 4c8
+4b8 4g8 4b8 4g8
+4a8 4e8 4a8 4e8
+4g4 r4
+
+clef=b
+instrument=piano
+2c8 3g8 2c8 3g8
+2c8 3g8 2c8 3g8
+2c8 3g8 2c8 3g8
+2c8 3g8 2c8 3g8
+2e8 3c8 2e8 3c8
+2e8 3c8 2e8 3c8
+2c4 3g4
+2c4 3g4
+2d8 3a8 2d8 3a8
+2d8 3a8 2d8 3a8
+2d8 3a8 2d8 3a8
+2d8 3a8 2d8 3a8
+2f8 3c8 2f8 3c8
+2f8 3c8 2f8 3c8
+2d4 3a4
+2d4 3a4
+`,
+  "Porteno Tango (Qwen original)": `title=Porteno Tango
+author=Qwen3.8-DavidAU-MTP-Q8-TT
+bpm=116
+ts=4,4
+key=cm
+
+clef=t
+instrument=sax
+5c4 5e4 5g4 5a4
+5g4 5e4 5c4 5a4
+5c4 5e4 5g4 5a4
+5a2 r4 5a4
+5d4 5f4 5a4 5bb4
+5a4 5f4 5d4 5f4
+5d4 5f4 5a4 5f4
+5d2 r4 5d4
+5g4 5bb4 5d4 5e4
+5d4 5bb4 5g4 5e4
+5g4 5bb4 5d4 5e4
+5e2 r4 5e4
+5a4 5c4 5e4 5f4
+5e4 5c4 5a4 5f4
+5a4 5c4 5e4 5f4
+5f2 r4 5f4
+
+clef=b
+instrument=upright bass
+3c4 3g4 3e4 3g4
+3c4 3g4 3e4 3g4
+3c4 3g4 3e4 3g4
+3c4 3g4 3e4 3g4
+3d4 3a4 3f4 3a4
+3d4 3a4 3f4 3a4
+3d4 3a4 3f4 3a4
+3d4 3a4 3f4 3a4
+3g4 3d4 3bb4 3d4
+3g4 3d4 3bb4 3d4
+3g4 3d4 3bb4 3d4
+3g4 3d4 3bb4 3d4
+3a4 3e4 3c4 3e4
+3a4 3e4 3c4 3e4
+3a4 3e4 3c4 3e4
+3a4 3e4 3c4 3e4
+`,
 };
 
 function isSampleOrEmpty( text ) {
@@ -794,7 +704,8 @@ function isSampleOrEmpty( text ) {
 }
 
 function loadSample( name ) {
-  const replacing = isSampleOrEmpty( EDITOR.value ) || confirm( `Replace your music with "${ name }"?` );
+  const replacing = isSampleOrEmpty( EDITOR.value )
+    || confirm( `Replace your music with "${ name }"?` );
   if ( !replacing )
     return;
   stopPlayback();

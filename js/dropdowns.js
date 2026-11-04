@@ -37,10 +37,13 @@ function choiceOf( entry, option ) {
 }
 
 function openDropdown( entry ) {
-  const choices = [ ...entry.select.options ].map( option => choiceOf( entry, option ) );
+  const choices = [ ...entry.select.options ].map(
+    option => choiceOf( entry, option ) );
   entry.list.replaceChildren( ...choices );
   entry.dropdown.classList.add( "open" );
-  choices.find( choice => choice.classList.contains( "chosen" ) )?.scrollIntoView( { block: "nearest" } );
+  const is_chosen = choice => choice.classList.contains( "chosen" );
+  const chosen = choices.find( is_chosen );
+  chosen?.scrollIntoView( { block: "nearest" } );
 }
 
 function toggleDropdown( entry ) {
@@ -71,7 +74,8 @@ function buildDropdown( select ) {
 }
 
 document.addEventListener( "DOMContentLoaded", () => {
-  [ SAMPLE_PICKER, PRESET_PICKER, WAVEFORM_PICKER, BODY_PICKER ].forEach( buildDropdown );
+  [ SAMPLE_PICKER, PRESET_PICKER, WAVEFORM_PICKER, BODY_PICKER ]
+    .forEach( buildDropdown );
 });
 
 document.addEventListener( "click", closeDropdowns );

@@ -1,13 +1,17 @@
-const ACCIDENTAL_SIGNS = { "-2": "𝄫", "-1": "♭", "0": "", "1": "♯", "2": "𝄪" };
-const LENGTH_NAMES = { 1: "whole", 2: "half", 4: "quarter", 8: "eighth", 16: "sixteenth", 32: "thirty-second", 64: "sixty-fourth" };
+const ACCIDENTAL_SIGNS = { "-2": "𝄫", "-1": "♭", "0": "", "1": "♯",
+  "2": "𝄪" };
+const LENGTH_NAMES = { 1: "whole", 2: "half", 4: "quarter", 8: "eighth",
+  16: "sixteenth", 32: "thirty-second", 64: "sixty-fourth" };
 
 function nameOf( pitch ) {
-  return pitch.letter.toUpperCase() + ACCIDENTAL_SIGNS[ pitch.alter ?? 0 ] + pitch.octave;
+  return pitch.letter.toUpperCase()
+    + ACCIDENTAL_SIGNS[ pitch.alter ?? 0 ] + pitch.octave;
 }
 
 function ordinalOf( number ) {
-  const ending = [ "th", "st", "nd", "rd" ][ number % 100 > 10 && number % 100 < 14 ? 0 : number % 10 ] || "th";
-  return number + ending;
+  const index = number % 100 > 10 && number % 100 < 14 ? 0 : number % 10;
+  const endings = [ "th", "st", "nd", "rd" ];
+  return number + ( endings[ index ] || "th" );
 }
 
 function ledgerPlaceOf( distance, side ) {
@@ -32,12 +36,15 @@ function staffPlaceOf( pitch, clef ) {
 
 function lengthNameOf( event ) {
   const dotted = [ "", "dotted ", "double-dotted " ][ event.dots || 0 ];
-  const tuplet = !event.tuplet ? "" : event.tuplet.count === 3 ? "triplet " : `${ event.tuplet.count }-tuplet `;
+  const tuplet = !event.tuplet
+    ? "" : event.tuplet.count === 3
+    ? "triplet " : `${ event.tuplet.count }-tuplet `;
   return dotted + tuplet + LENGTH_NAMES[ event.duration ];
 }
 
 function describePitch( pitch, clef ) {
-  const middle = pitch.letter === "c" && pitch.octave === 4 && !pitch.alter ? " (middle C)" : "";
+  const middle = pitch.letter === "c"
+    && pitch.octave === 4 && !pitch.alter ? " (middle C)" : "";
   return `${ nameOf( pitch ) }${ middle }, ${ staffPlaceOf( pitch, clef ) }`;
 }
 
@@ -45,8 +52,9 @@ function describeEvent( event, clef ) {
   if ( event.rest )
     return `${ lengthNameOf( event ) } rest`;
   const kind = event.pitches.length > 1 ? "chord" : "note";
-  const pitches = event.pitches.map( pitch => describePitch( pitch, clef ) ).join( " · " );
-  return `${ pitches } · ${ lengthNameOf( event ) } ${ kind }`;
+  const pitch_text = event.pitches.map( pitch => describePitch( pitch, clef ) )
+    .join( " · " );
+  return `${ pitch_text } · ${ lengthNameOf( event ) } ${ kind }`;
 }
 
 function cursorPlace() {
@@ -55,15 +63,21 @@ function cursorPlace() {
 }
 
 function touches( source, place ) {
-  return source.line === place.line && place.column >= source.column && place.column <= source.column + source.token.length;
+  return source.line === place.line
+    && place.column >= source.column
+    && place.column <= source.column + source.token.length;
 }
 
 function hintAt( place ) {
   for ( const staff of SHEET.staves ) {
     for ( const event of staff.events ) {
-      const grace_index = ( event.graceSources || [] ).findIndex( source => touches( source, place ) );
-      if ( grace_index >= 0 )
-        return `${ describePitch( event.graces[ grace_index ], staff.clef ) } · grace note`;
+      const grace_index = ( event.graceSources || [] ).findIndex(
+        source => touches( source, place ) );
+      if ( grace_index >= 0 ) {
+        const pitch = event.graces[ grace_index ];
+        const pitch_text = describePitch( pitch, staff.clef );
+        return `${ pitch_text } · grace note`;
+      }
       if ( event.token && touches( event, place ) )
         return describeEvent( event, staff.clef );
     }
@@ -75,4 +89,7 @@ function showNoteHint() {
   NOTE_HINT.textContent = hintAt( cursorPlace() );
 }
 
-[ "keyup", "pointerup", "focus" ].forEach( name => EDITOR.addEventListener( name, showNoteHint ) );
+document.addEventListener( "selectionchange", () => {
+  if ( document.activeElement === EDITOR )
+    showNoteHint();
+});
