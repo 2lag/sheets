@@ -11,6 +11,7 @@ Inspiration: https://lilypond.org/ & https://strudel.cc/
 ```
 
 Then open http://127.0.0.1:3000. The address bar always holds a shareable link to the current sheet.
+Or access [here](https://kuso.day/sheets/index.html)
 
 ## Syntax
 
