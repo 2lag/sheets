@@ -39,23 +39,27 @@ function positionOfSeeker() {
   return SEEKER.value / SEEKER.max * passLengthOf( SHEET );
 }
 
-SEEKER.addEventListener( "input", () => {
-  if ( HOLDING )
-    stopPlayback();
-  if ( PLAYING ) {
-    RESUME_AFTER_SEEKING = true;
-    stopPlayback();
+SEEKER.addEventListener( "input",
+  () => {
+    if ( HOLDING )
+      stopPlayback();
+    if ( PLAYING ) {
+      RESUME_AFTER_SEEKING = true;
+      stopPlayback();
+    }
+    PLAYBACK_POSITION = positionOfSeeker();
+    placePlayhead( PLAYBACK_POSITION );
+    showPosition( PLAYBACK_POSITION );
   }
-  PLAYBACK_POSITION = positionOfSeeker();
-  placePlayhead( PLAYBACK_POSITION );
-  showPosition( PLAYBACK_POSITION );
-});
+);
 
-SEEKER.addEventListener( "change", () => {
-  if ( RESUME_AFTER_SEEKING )
-    startPlayback();
-  RESUME_AFTER_SEEKING = false;
-});
+SEEKER.addEventListener( "change",
+  () => {
+    if ( RESUME_AFTER_SEEKING )
+      startPlayback();
+    RESUME_AFTER_SEEKING = false;
+  }
+);
 
 new ResizeObserver( placeSeekerThumb ).observe( TRANSPORT );
 ERA_STYLE.addEventListener( "load", placeSeekerThumb );

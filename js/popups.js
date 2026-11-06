@@ -13,17 +13,23 @@ function togglePopup( popup ) {
   popup.classList.toggle( "open", opening );
 }
 
-VOLUME_BUTTON.addEventListener( "click", event => {
-  event.stopPropagation();
-  togglePopup( VOLUME_POPUP );
-});
+VOLUME_BUTTON.addEventListener( "click",
+  event => {
+    event.stopPropagation();
+    togglePopup( VOLUME_POPUP );
+  }
+);
 
-SWING_BUTTON.addEventListener( "click", event => {
-  event.stopPropagation();
-  togglePopup( SWING_POPUP );
-});
+SWING_BUTTON.addEventListener( "click",
+  event => {
+    event.stopPropagation();
+    togglePopup( SWING_POPUP );
+  }
+);
 
-document.addEventListener( "click", event => {
-  if ( !POPUPS.some( popup => popup.contains( event.target ) ) )
-    closePopups();
-});
+document.addEventListener( "click",
+  event => {
+    if ( !POPUPS.some( popup => popup.contains( event.target ) ) )
+      closePopups();
+  }
+);

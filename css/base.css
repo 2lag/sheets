@@ -12,9 +12,9 @@
 
 .page {
   box-shadow: 0 2px 10px rgba( 0, 0, 0, 0.18 );
-  background: var(--sheet-paper);
+  background: var( --sheet-paper );
   -webkit-user-select: none;
-  color: var(--sheet-ink);
+  color: var( --sheet-ink );
   margin: 0 auto 24px;
   user-select: none;
   max-width: 900px;
@@ -31,8 +31,8 @@
   stroke: currentColor;
 }
 
-.page polygon,
-.page .tie {
+.page .tie,
+.page polygon {
   fill: currentColor;
 }
 
@@ -82,12 +82,12 @@
 }
 
 .page .playhead {
-  fill: var(--sheet-highlight);
+  fill: var( --sheet-highlight );
   opacity: 0.22;
 }
 
 .page .playing {
-  color: var(--sheet-highlight);
+  color: var( --sheet-highlight );
 }
 
 .page .loopMark {

@@ -1,19 +1,31 @@
+let LATEST_REMEMBERED = 0;
+
 function base64OfBytes( bytes ) {
-  const chars = Array.from( bytes, byte => String.fromCharCode( byte ) );
+  const chars = Array.from(
+    bytes,
+    byte => String.fromCharCode( byte )
+  );
   return btoa( chars.join( "" ) );
 }
 
 function bytesOfBase64( encoded ) {
   const chars = atob( encoded );
-  return Uint8Array.from( chars, character => character.charCodeAt( 0 ) );
+  return Uint8Array.from(
+    chars,
+    character => character.charCodeAt( 0 )
+  );
 }
 
 function base64Encode( text ) {
-  return base64OfBytes( new TextEncoder().encode( text ) );
+  return base64OfBytes(
+    new TextEncoder().encode( text )
+  );
 }
 
 function base64Decode( encoded ) {
-  return new TextDecoder().decode( bytesOfBase64( encoded ) );
+  return new TextDecoder().decode(
+    bytesOfBase64( encoded )
+  );
 }
 
 function urlSafe( encoded ) {
@@ -26,18 +38,24 @@ function fromUrlSafe( encoded ) {
 }
 
 async function compressedOf( text ) {
-  const blob = new Blob( [ text ] );
-  const stream = blob.stream().pipeThrough(
-    new CompressionStream( "deflate-raw" ) );
-  const bytes = new Uint8Array( await new Response( stream ).arrayBuffer() );
+  const blob = new Blob([ text ]);
+  const stream = blob.stream()
+                     .pipeThrough(
+                       new CompressionStream( "deflate-raw" )
+                     );
+  const bytes = new Uint8Array(
+    await new Response( stream ).arrayBuffer()
+  );
   return urlSafe( base64OfBytes( bytes ) );
 }
 
 async function decompressedOf( encoded ) {
   const bytes = bytesOfBase64( fromUrlSafe( encoded ) );
-  const blob = new Blob( [ bytes ] );
-  const stream = blob.stream().pipeThrough(
-    new DecompressionStream( "deflate-raw" ) );
+  const blob = new Blob([ bytes ]);
+  const stream = blob.stream()
+                     .pipeThrough(
+                       new DecompressionStream( "deflate-raw" )
+                     );
   return new Response( stream ).text();
 }
 
@@ -48,16 +66,16 @@ async function sheetFromLink() {
       return await decompressedOf( parameters.get( "s" ) );
     if ( parameters.has( "sheet" ) )
       return base64Decode( parameters.get( "sheet" ) );
-  } catch {
-    return null;
-  }
+  } catch {}
   return null;
 }
 
 async function loadSheet() {
-  const text = await sheetFromLink() ?? localStorage.getItem( "sheet" );
-  if ( text )
-    EDITOR.value = text;
+  const text = await sheetFromLink()
+            ?? localStorage.getItem( "sheet" );
+  if ( !text )
+    return;
+  EDITOR.value = text;
 }
 
 async function shareLinkOf( text ) {
@@ -68,6 +86,8 @@ async function shareLinkOf( text ) {
 }
 
 function copyWithoutClipboard( text ) {
+  if ( !document.queryCommandSupported?.( "copy" ) )
+    return false;
   const field = document.createElement( "textarea" );
   field.value = text;
   field.style.position = "fixed";
@@ -83,12 +103,8 @@ async function copyText( text ) {
   try {
     await navigator.clipboard.writeText( text );
     return true;
-  } catch {
-    return copyWithoutClipboard( text );
-  }
+  } catch { return copyWithoutClipboard( text ); }
 }
-
-let LATEST_REMEMBERED = 0;
 
 function saveLocally( text ) {
   try {

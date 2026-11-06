@@ -1,8 +1,8 @@
 :root {
-  --pressed: inset -1px -1px var(--light), inset 1px 1px var(--dark), inset -2px -2px var(--soft-light), inset 2px 2px var(--shadow);
-  --raised: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
-  --sunken: inset -1px -1px var(--light), inset 1px 1px var(--shadow), inset -2px -2px var(--soft-light), inset 2px 2px var(--dark);
-  --window: inset -1px -1px var(--dark), inset 1px 1px var(--soft-light), inset -2px -2px var(--shadow), inset 2px 2px var(--light);
+  --pressed: inset -1px -1px var( --light ), inset 1px 1px var( --dark ), inset -2px -2px var( --soft-light ), inset 2px 2px var( --shadow );
+  --raised: inset -1px -1px var( --dark ), inset 1px 1px var( --soft-light ), inset -2px -2px var( --shadow ), inset 2px 2px var( --light );
+  --sunken: inset -1px -1px var( --light ), inset 1px 1px var( --shadow ), inset -2px -2px var( --soft-light ), inset 2px 2px var( --dark );
+  --window: inset -1px -1px var( --dark ), inset 1px 1px var( --soft-light ), inset -2px -2px var( --shadow ), inset 2px 2px var( --light );
   --ui: 12px Tahoma, "Microsoft Sans Serif", "MS Sans Serif", Arial, sans-serif;
   --soft-light: #dfdfdf;
   --title-from: #000080;
@@ -49,15 +49,15 @@ body.dark {
 }
 
 body {
-  background: var(--face);
-  color: var(--ink);
-  font: var(--ui);
+  background: var( --face );
+  color: var( --ink );
+  font: var( --ui );
 }
 
 header {
-  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  background: linear-gradient( 90deg, var( --title-from ), var( --title-to ) );
+  color: var( --title-ink );
   padding: 3px 3px 3px 6px;
-  color: var(--title-ink);
   margin: 3px 3px 0;
 }
 
@@ -74,8 +74,8 @@ nav {
 }
 
 nav > button,
-#EXPORT_BUTTON,
-#LOOK_BUTTON {
+#LOOK_BUTTON,
+#EXPORT_BUTTON {
   font-weight: bold;
   font-size: 13px;
   height: 22px;
@@ -83,54 +83,54 @@ nav > button,
   padding: 0;
 }
 
-#LOOK_BUTTON svg,
-#EXPORT_ICON {
+#EXPORT_ICON,
+#LOOK_BUTTON svg {
   height: 13px;
   width: 13px;
 }
 
 nav > button,
-#EXPORT_BUTTON,
 #LOOK_BUTTON,
-#LOOK_MENU button,
-#SOUND_ACTIONS button,
-#CLOSE_HELP_BUTTON,
 #SOUND_BUTTON,
-#TRANSPORT button {
+#EXPORT_BUTTON,
+#LOOK_MENU button,
+#TRANSPORT button,
+#CLOSE_HELP_BUTTON,
+#SOUND_ACTIONS button {
   font-family: Tahoma, "Microsoft Sans Serif", Arial, sans-serif;
-  box-shadow: var(--raised);
-  background: var(--face);
-  color: var(--ink);
+  box-shadow: var( --raised );
+  background: var( --face );
+  color: var( --ink );
   border-radius: 0;
   border: none;
 }
 
 nav > button:active,
-#EXPORT_BUTTON:active,
 #LOOK_BUTTON:active,
-#LOOK_MENU button:active,
-#SOUND_ACTIONS button:active,
-#CLOSE_HELP_BUTTON:active,
 #SOUND_BUTTON:active,
+#EXPORT_BUTTON:active,
+#LOOK_MENU button:active,
 #TRANSPORT button:active,
-#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
+#CLOSE_HELP_BUTTON:active,
+#TRANSPORT #KEY_BUTTON.on,
+#TRANSPORT #SWING_BUTTON.on,
+#SOUND_ACTIONS button:active,
+#TRANSPORT #METRONOME_BUTTON.on,
 #LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON,
-#TRANSPORT #METRONOME_BUTTON.on,
-#TRANSPORT #KEY_BUTTON.on,
-#TRANSPORT #SWING_BUTTON.on {
-  box-shadow: var(--pressed);
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON {
+  box-shadow: var( --pressed );
 }
 
-#TRANSPORT #METRONOME_BUTTON.on,
 #TRANSPORT #KEY_BUTTON.on,
-#TRANSPORT #SWING_BUTTON.on {
-  background: repeating-conic-gradient( var(--face) 0 25%, var(--light) 0 50% ) 0 0 / 2px 2px;
+#TRANSPORT #SWING_BUTTON.on,
+#TRANSPORT #METRONOME_BUTTON.on {
+  background: repeating-conic-gradient( var( --face ) 0 25%, var( --light ) 0 50% ) 0 0 / 2px 2px;
 }
 
-#EXPORT_MENU,
-#LOOK_MENU {
-  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
-  background: var(--face);
+#LOOK_MENU,
+#EXPORT_MENU {
+  box-shadow: var( --window ), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var( --face );
   padding: 3px;
   top: 28px;
 }
@@ -143,15 +143,15 @@ nav > button:active,
 
 #EXPORT_MENU button {
   background: transparent;
+  color: var( --ink );
   padding: 4px 20px;
-  color: var(--ink);
-  font: var(--ui);
+  font: var( --ui );
   border: none;
 }
 
 #EXPORT_MENU button:hover {
-  background: var(--select);
-  color: var(--select-ink);
+  background: var( --select );
+  color: var( --select-ink );
 }
 
 #LOOK_MENU button {
@@ -164,12 +164,12 @@ nav > button:active,
 }
 
 #HELP {
-  box-shadow: var(--window);
-  background: var(--face);
+  box-shadow: var( --window );
+  background: var( --face );
   padding: 3px 3px 12px;
-  color: var(--ink);
+  color: var( --ink );
+  font: var( --ui );
   border-radius: 0;
-  font: var(--ui);
   border: none;
 
   line-height: 1.5;
@@ -185,9 +185,9 @@ nav > button:active,
 }
 
 #HELP h2 {
-  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  background: linear-gradient( 90deg, var( --title-from ), var( --title-to ) );
   font: bold 13px Tahoma, Arial, sans-serif;
-  color: var(--title-ink);
+  color: var( --title-ink );
   margin: 0 0 12px;
   padding: 3px 6px;
 }
@@ -197,18 +197,18 @@ nav > button:active,
 }
 
 #SAMPLE_ROW {
-  box-shadow: var(--sunken), inset 0 0 0 3px var(--face);
+  box-shadow: var( --sunken ), inset 0 0 0 3px var( --face );
   border-radius: 0;
   border: none;
 }
 
 #SAMPLE_PICKER,
 #SOUND_PANEL select {
-  box-shadow: var(--sunken);
-  background: var(--field);
-  color: var(--field-ink);
+  box-shadow: var( --sunken );
+  background: var( --field );
+  color: var( --field-ink );
+  font: var( --ui );
   border-radius: 0;
-  font: var(--ui);
   border: none;
 }
 
@@ -218,9 +218,9 @@ nav > button:active,
 }
 
 #HELP pre {
-  box-shadow: var(--sunken);
-  background: var(--field);
-  color: var(--field-ink);
+  box-shadow: var( --sunken );
+  background: var( --field );
+  color: var( --field-ink );
 }
 
 #HELP table {
@@ -228,7 +228,7 @@ nav > button:active,
 }
 
 #HELP i {
-  color: var(--muted);
+  color: var( --muted );
 }
 
 #CLOSE_HELP_BUTTON {
@@ -241,8 +241,8 @@ nav > button:active,
 }
 
 #EDITOR_FRAME {
-  box-shadow: var(--sunken);
-  background: var(--field);
+  box-shadow: var( --sunken );
+  background: var( --field );
 }
 
 #EDITOR,
@@ -252,54 +252,54 @@ nav > button:active,
 }
 
 #EDITOR {
-  caret-color: var(--field-ink);
-  color: var(--field-ink);
+  caret-color: var( --field-ink );
+  color: var( --field-ink );
 }
 
 #EDITOR::selection {
-  background: var(--select);
-  color: var(--select-ink);
+  background: var( --select );
+  color: var( --select-ink );
 }
 
 #HIGHLIGHTS mark {
-  text-decoration: underline wavy var(--problem);
+  text-decoration: underline wavy var( --problem );
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
   background: transparent;
 }
 
 #HIGHLIGHTS .playing {
-  background: var(--marker);
+  background: var( --marker );
 }
 
 #HIGHLIGHTS .barMarker::before {
-  border-left: 1px dotted var(--link);
+  border-left: 1px dotted var( --link );
 }
 
 #HIGHLIGHTS .barMarker::after {
   font: bold 10px Tahoma, Arial, sans-serif;
-  color: var(--link);
+  color: var( --link );
 }
 
 #NOTE_HINT {
-  box-shadow: inset -1px -1px var(--light), inset 1px 1px var(--shadow);
-  background: var(--face);
-  color: var(--ink);
+  box-shadow: inset -1px -1px var( --light ), inset 1px 1px var( --shadow );
+  background: var( --face );
+  color: var( --ink );
+  font: var( --ui );
   padding: 3px 6px;
   min-height: 22px;
   margin-top: 3px;
-  font: var(--ui);
 }
 
 #PROBLEM_TIP {
-  border: 1px solid var(--dark);
-  background: var(--tip);
-  color: var(--ink);
-  font: var(--ui);
+  border: 1px solid var( --dark );
+  background: var( --tip );
+  color: var( --ink );
+  font: var( --ui );
 }
 
 #SPLITTER {
-  background: var(--face);
+  background: var( --face );
   width: 4px;
 }
 
@@ -312,11 +312,11 @@ nav > button:active,
 }
 
 #SOUND_PANEL {
-  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
-  background: var(--face);
+  box-shadow: var( --window ), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var( --face );
   padding: 3px 3px 10px;
-  color: var(--ink);
-  font: var(--ui);
+  color: var( --ink );
+  font: var( --ui );
 }
 
 #SOUND_TITLE::before {
@@ -324,34 +324,34 @@ nav > button:active,
 }
 
 #SOUND_TITLE {
-  background: linear-gradient( 90deg, var(--title-from), var(--title-to) );
+  background: linear-gradient( 90deg, var( --title-from ), var( --title-to ) );
   font: bold 12px Tahoma, Arial, sans-serif;
-  color: var(--title-ink);
+  color: var( --title-ink );
   margin-bottom: 4px;
   padding: 3px 6px;
   display: block;
 }
 
-#SOUND_PANEL > :not( #SOUND_SLIDER_LIST, #SOUND_TITLE ),
-#SOUND_SLIDER_LIST {
+#SOUND_SLIDER_LIST,
+#SOUND_PANEL > :not( #SOUND_SLIDER_LIST, #SOUND_TITLE ) {
   margin-right: 8px;
   margin-left: 8px;
 }
 
 #SHEET_INSTRUMENTS {
-  color: var(--muted);
+  color: var( --muted );
 }
 
-#SOUND_SLIDER_LIST span:last-child,
 #CLOCK,
 #SWING_READOUT,
-#VOLUME_READOUT {
+#VOLUME_READOUT,
+#SOUND_SLIDER_LIST span:last-child {
   font: 11px "Courier New", Courier, monospace;
 }
 
 #TRANSPORT {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   margin: 0 3px 3px;
   padding: 4px 6px;
 }
@@ -363,16 +363,16 @@ nav > button:active,
 }
 
 #CLOCK {
-  box-shadow: var(--sunken);
-  background: var(--field);
-  color: var(--field-ink);
+  box-shadow: var( --sunken );
+  background: var( --field );
+  color: var( --field-ink );
   padding: 5px 8px 4px;
   line-height: 1;
 }
 
 #SWING_CONTROL,
 #VOLUME_CONTROL {
-  font: var(--ui);
+  font: var( --ui );
 }
 
 #PLAY_BUTTON.holding {
@@ -381,20 +381,20 @@ nav > button:active,
 
 @keyframes blink {
   50% {
-    color: var(--face);
+    color: var( --face );
   }
 }
 
 .popup {
-  box-shadow: var(--window), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
-  background: var(--face);
-  color: var(--ink);
-  font: var(--ui);
+  box-shadow: var( --window ), 2px 2px 0 rgba( 0, 0, 0, 0.35 );
+  background: var( --face );
+  color: var( --ink );
+  font: var( --ui );
 }
 
 #SCORE {
-  box-shadow: var(--sunken);
-  background: var(--desk);
+  box-shadow: var( --sunken );
+  background: var( --desk );
 }
 
 body.dark #SCORE {
@@ -410,8 +410,19 @@ body.dark #SCORE {
     radial-gradient( 1px 1px at 113px 29px, #ffffff 50%, transparent 51% ),
     radial-gradient( 1px 1px at 79px 103px, #e8e0ff 50%, transparent 51% ),
     radial-gradient( 1px 1px at 131px 121px, #ffffff 50%, transparent 51% ),
-    linear-gradient( var(--desk), #1c1250 70%, #3a1c5e );
-  background-size: 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 200px 210px, 143px 137px, 143px 137px, 143px 137px, 143px 137px, 100% 100%;
+    linear-gradient( var( --desk ), #1c1250 70%, #3a1c5e );
+  background-size: 200px 210px,
+                   200px 210px,
+                   200px 210px,
+                   200px 210px,
+                   200px 210px,
+                   200px 210px,
+                   200px 210px,
+                   143px 137px,
+                   143px 137px,
+                   143px 137px,
+                   143px 137px,
+                   100% 100%;
 }
 
 .page {
@@ -419,8 +430,8 @@ body.dark #SCORE {
 }
 
 #SEEKER_THUMB {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   height: 20px;
 }
 
@@ -431,14 +442,14 @@ input[type="range"] {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  box-shadow: var(--sunken);
-  background: var(--field);
+  box-shadow: var( --sunken );
+  background: var( --field );
   height: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   margin-top: -8px;
   appearance: none;
   height: 20px;
@@ -446,14 +457,14 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-moz-range-track {
-  box-shadow: var(--sunken);
-  background: var(--field);
+  box-shadow: var( --sunken );
+  background: var( --field );
   height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   border-radius: 0;
   height: 20px;
   border: none;
@@ -462,7 +473,7 @@ input[type="range"]::-moz-range-thumb {
 
 @supports ( -moz-appearance: none ) {
   * {
-    scrollbar-color: var(--face) var(--soft-light);
+    scrollbar-color: var( --face ) var( --soft-light );
   }
 }
 
@@ -472,17 +483,17 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-track {
-  background: repeating-conic-gradient( var(--face) 0 25%, var(--light) 0 50% ) 0 0 / 2px 2px;
+  background: repeating-conic-gradient( var( --face ) 0 25%, var( --light ) 0 50% ) 0 0 / 2px 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
 }
 
 ::-webkit-scrollbar-button:single-button {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   height: 16px;
 }
 
@@ -514,18 +525,18 @@ select:has( + .dropdown ) {
 }
 
 .dropdownButton {
+  box-shadow: var( --sunken );
+  background: var( --field );
   padding: 3px 24px 3px 4px;
-  box-shadow: var(--sunken);
-  background: var(--field);
-  color: var(--field-ink);
-  font: var(--ui);
+  color: var( --field-ink );
+  font: var( --ui );
   border: none;
   height: 22px;
 }
 
 .dropdownButton::after {
-  box-shadow: var(--raised);
-  background: var(--face);
+  box-shadow: var( --raised );
+  background: var( --face );
   position: absolute;
   bottom: 2px;
   content: "";
@@ -537,7 +548,7 @@ select:has( + .dropdown ) {
 .dropdownButton::before {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  border-top: 4px solid var(--ink);
+  border-top: 4px solid var( --ink );
   position: absolute;
   margin-top: -2px;
   content: "";
@@ -547,20 +558,20 @@ select:has( + .dropdown ) {
 }
 
 .dropdownList {
-  border: 1px solid var(--dark);
-  background: var(--field);
+  border: 1px solid var( --dark );
+  background: var( --field );
   top: 100%;
 }
 
 .dropdownOption {
-  color: var(--field-ink);
+  color: var( --field-ink );
   background: transparent;
+  font: var( --ui );
   padding: 1px 4px;
-  font: var(--ui);
   border: none;
 }
 
 .dropdownOption:hover {
-  background: var(--select);
-  color: var(--select-ink);
+  background: var( --select );
+  color: var( --select-ink );
 }

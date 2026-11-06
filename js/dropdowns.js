@@ -29,21 +29,24 @@ function choiceOf( entry, option ) {
   choice.className = "dropdownOption";
   choice.textContent = option.textContent;
   choice.classList.toggle( "chosen", option.selected );
-  choice.addEventListener( "click", event => {
-    event.stopPropagation();
-    choose( entry, option.value );
-  });
+  choice.addEventListener( "click",
+    event => {
+      event.stopPropagation();
+      choose( entry, option.value );
+    }
+  );
   return choice;
 }
 
 function openDropdown( entry ) {
   const choices = [ ...entry.select.options ].map(
-    option => choiceOf( entry, option ) );
+    option => choiceOf( entry, option )
+  );
   entry.list.replaceChildren( ...choices );
   entry.dropdown.classList.add( "open" );
   const is_chosen = choice => choice.classList.contains( "chosen" );
   const chosen = choices.find( is_chosen );
-  chosen?.scrollIntoView( { block: "nearest" } );
+  chosen?.scrollIntoView({ block: "nearest" });
 }
 
 function toggleDropdown( entry ) {
@@ -64,23 +67,29 @@ function buildDropdown( select ) {
   list.className = "dropdownList";
   dropdown.append( button, list );
   select.after( dropdown );
-  button.addEventListener( "click", event => {
-    event.stopPropagation();
-    toggleDropdown( entry );
-  });
+  button.addEventListener( "click",
+    event => {
+      event.stopPropagation();
+      toggleDropdown( entry );
+    }
+  );
   select.addEventListener( "change", () => showChoice( entry ) );
   DROPDOWNS.push( entry );
   showChoice( entry );
 }
 
 document.addEventListener( "DOMContentLoaded", () => {
-  [ SAMPLE_PICKER, PRESET_PICKER, WAVEFORM_PICKER, BODY_PICKER ]
-    .forEach( buildDropdown );
+  [
+    SAMPLE_PICKER, PRESET_PICKER,
+    WAVEFORM_PICKER, BODY_PICKER
+  ].forEach( buildDropdown );
 });
 
 document.addEventListener( "click", closeDropdowns );
-
-document.addEventListener( "keydown", event => {
-  if ( event.key === "Escape" )
+document.addEventListener( "keydown",
+  event => {
+    if ( event.key !== "Escape" )
+      return;
     closeDropdowns();
-});
+  }
+);

@@ -25,12 +25,12 @@ body.dark {
 
 body {
   font-family: system-ui, sans-serif;
-  background: var(--chrome);
-  color: var(--ink);
+  background: var( --chrome );
+  color: var( --ink );
 }
 
 header {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var( --line );
 }
 
 #BRAND {
@@ -39,34 +39,34 @@ header {
 }
 
 nav > button,
-#EXPORT_BUTTON,
-#LOOK_BUTTON {
+#LOOK_BUTTON,
+#EXPORT_BUTTON {
   background: transparent;
+  color: var( --ink );
   border-radius: 6px;
-  color: var(--ink);
   font-size: 20px;
   border: none;
 }
 
 nav > button:hover,
-#EXPORT_BUTTON:hover,
 #LOOK_BUTTON:hover,
-#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON,
-#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON {
-  background: var(--line);
+#EXPORT_BUTTON:hover,
+#LOOK_ITEM:has( #LOOK_MENU.open ) #LOOK_BUTTON,
+#EXPORT_ITEM:has( #EXPORT_MENU.open ) #EXPORT_BUTTON {
+  background: var( --line );
 }
 
 #LOOK_MENU {
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
   border-radius: 6px;
 }
 
 #LOOK_MENU button {
   background: transparent;
+  color: var( --ink );
   border-radius: 4px;
-  color: var(--ink);
   font-size: 18px;
   border: none;
 }
@@ -76,47 +76,47 @@ nav > button:hover,
 }
 
 #LOOK_MENU button:hover {
-  background: var(--line);
+  background: var( --line );
 }
 
 #EXPORT_MENU {
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
   border-radius: 6px;
 }
 
 #EXPORT_MENU button {
   background: transparent;
+  color: var( --ink );
   border-radius: 4px;
-  color: var(--ink);
   font-size: 14px;
   border: none;
 }
 
 #EXPORT_MENU button:hover {
-  background: var(--line);
+  background: var( --line );
 }
 
 #HELP {
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
+  color: var( --ink );
   border-radius: 8px;
-  color: var(--ink);
   line-height: 1.5;
   font-size: 14px;
 }
 
 #SAMPLE_ROW {
-  border: 1px solid var(--accent);
+  border: 1px solid var( --accent );
   border-radius: 6px;
 }
 
 #SAMPLE_PICKER {
-  background: var(--editor-paper);
-  border: 1px solid var(--line);
+  background: var( --editor-paper );
+  border: 1px solid var( --line );
+  color: var( --ink );
   border-radius: 4px;
-  color: var(--ink);
   font-size: 14px;
 }
 
@@ -134,7 +134,7 @@ nav > button:hover,
 }
 
 #HELP pre {
-  background: var(--editor-paper);
+  background: var( --editor-paper );
   border-radius: 6px;
 }
 
@@ -143,84 +143,84 @@ nav > button:hover,
 }
 
 #CLOSE_HELP_BUTTON {
-  border: 1px solid var(--line);
+  border: 1px solid var( --line );
   background: transparent;
+  color: var( --ink );
   border-radius: 6px;
-  color: var(--ink);
 }
 
 #EDITOR_FRAME {
-  background: var(--editor-paper);
+  background: var( --editor-paper );
 }
 
 #HIGHLIGHTS mark {
-  background: color-mix( in srgb, var(--problem) 18%, transparent );
-  text-decoration: underline wavy var(--problem);
+  background: color-mix( in srgb, var( --problem ) 18%, transparent );
+  text-decoration: underline wavy var( --problem );
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
   border-radius: 2px;
 }
 
 #HIGHLIGHTS .playing {
-  background: color-mix( in srgb, var(--sheet-highlight) 30%, transparent );
+  background: color-mix( in srgb, var( --sheet-highlight ) 30%, transparent );
   border-radius: 2px;
 }
 
 #HIGHLIGHTS .barMarker::before {
-  border-left: 1.5px solid color-mix( in srgb, var(--accent) 60%, transparent );
+  border-left: 1.5px solid color-mix( in srgb, var( --accent ) 60%, transparent );
 }
 
 #HIGHLIGHTS .barMarker::after {
-  color: var(--accent);
+  color: var( --accent );
 }
 
 #EDITOR {
-  caret-color: var(--editor-ink);
-  color: var(--editor-ink);
+  caret-color: var( --editor-ink );
+  color: var( --editor-ink );
 }
 
 #NOTE_HINT {
-  color: color-mix( in srgb, var(--ink) 70%, transparent );
+  color: color-mix( in srgb, var( --ink ) 70%, transparent );
   font: 12px/1.4 system-ui, sans-serif;
-  border-top: 1px solid var(--line);
-  background: var(--chrome);
+  border-top: 1px solid var( --line );
+  background: var( --chrome );
 }
 
 #PROBLEM_TIP {
   font: 12px/1.4 system-ui, sans-serif;
-  background: var(--problem);
-  color: var(--editor-paper);
+  background: var( --problem );
+  color: var( --editor-paper );
   border-radius: 5px;
 }
 
 #SPLITTER {
-  background: var(--line);
+  background: var( --line );
 }
 
 #SPLITTER:hover,
 body.resizing #SPLITTER {
-  background: var(--accent);
+  background: var( --accent );
 }
 
 #SOUND_BUTTON {
   box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.12 );
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
+  color: var( --ink );
   border-radius: 50%;
-  color: var(--ink);
   font-size: 18px;
 }
 
 #SOUND_BUTTON:hover {
-  background: var(--line);
+  background: var( --line );
 }
 
 #SOUND_PANEL {
   box-shadow: 0 8px 24px rgba( 0, 0, 0, 0.18 );
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
+  color: var( --ink );
   border-radius: 8px;
-  color: var(--ink);
   font-size: 13px;
 }
 
@@ -231,14 +231,14 @@ body.resizing #SPLITTER {
 }
 
 #SOUND_PANEL select {
-  background: var(--editor-paper);
-  border: 1px solid var(--line);
+  background: var( --editor-paper );
+  border: 1px solid var( --line );
+  color: var( --ink );
   border-radius: 4px;
-  color: var(--ink);
 }
 
 #SOUND_SLIDER_LIST input {
-  accent-color: var(--accent);
+  accent-color: var( --accent );
 }
 
 #SOUND_SLIDER_LIST span:last-child {
@@ -247,34 +247,34 @@ body.resizing #SPLITTER {
 }
 
 #SOUND_ACTIONS button {
-  border: 1px solid var(--line);
+  border: 1px solid var( --line );
   background: transparent;
+  color: var( --ink );
   border-radius: 6px;
-  color: var(--ink);
   font-size: 12px;
 }
 
 #SOUND_ACTIONS button:hover {
-  background: var(--line);
+  background: var( --line );
 }
 
 #TRANSPORT {
-  border-top: 1px solid var(--line);
-  background: var(--chrome);
+  border-top: 1px solid var( --line );
+  background: var( --chrome );
 }
 
 #TRANSPORT button {
   font: 16px system-ui, sans-serif;
   border: 1px solid transparent;
   background: transparent;
+  color: var( --ink );
   border-radius: 50%;
-  color: var(--ink);
 }
 
 #PLAY_BUTTON.holding {
   animation: waiting 1.2s ease-in-out infinite;
-  background: var(--accent);
-  color: var(--chrome);
+  background: var( --accent );
+  color: var( --chrome );
 }
 
 @keyframes waiting {
@@ -284,7 +284,7 @@ body.resizing #SPLITTER {
 }
 
 #TRANSPORT button:hover {
-  background: var(--line);
+  background: var( --line );
 }
 
 #CLOCK {
@@ -294,7 +294,7 @@ body.resizing #SPLITTER {
 }
 
 #SEEKER {
-  accent-color: var(--accent);
+  accent-color: var( --accent );
 }
 
 #SWING_CONTROL,
@@ -305,7 +305,7 @@ body.resizing #SPLITTER {
 
 #SWING_SLIDER,
 #VOLUME_SLIDER {
-  accent-color: var(--accent);
+  accent-color: var( --accent );
 }
 
 #SWING_READOUT,
@@ -314,34 +314,34 @@ body.resizing #SPLITTER {
   opacity: 0.75;
 }
 
-#METRONOME_BUTTON,
 #KEY_BUTTON,
+#SWING_BUTTON,
 #VOLUME_BUTTON,
-#SWING_BUTTON {
+#METRONOME_BUTTON {
   font-weight: bold;
   opacity: 0.55;
 }
 
-#TRANSPORT #METRONOME_BUTTON.on,
 #TRANSPORT #KEY_BUTTON.on,
-#TRANSPORT #SWING_BUTTON.on {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--chrome);
+#TRANSPORT #SWING_BUTTON.on,
+#TRANSPORT #METRONOME_BUTTON.on {
+  border-color: var( --accent );
+  background: var( --accent );
+  color: var( --chrome );
   opacity: 1;
 }
 
 .popup {
   box-shadow: 0 6px 18px rgba( 0, 0, 0, 0.15 );
   font: 12px system-ui, sans-serif;
-  border: 1px solid var(--line);
-  background: var(--chrome);
+  border: 1px solid var( --line );
+  background: var( --chrome );
+  color: var( --ink );
   border-radius: 8px;
-  color: var(--ink);
 }
 
 #SCORE {
-  background: var(--desk);
+  background: var( --desk );
 }
 
 @media ( max-width: 700px ) {
@@ -358,15 +358,15 @@ input[type="range"] {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--line);
+  background: var( --line );
   border-radius: 2px;
   height: 4px;
 }
 
-input[type="range"]::-webkit-slider-thumb,
-#SEEKER_THUMB {
+#SEEKER_THUMB,
+input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
-  background: var(--accent);
+  background: var( --accent );
   border-radius: 50%;
   height: 16px;
   width: 16px;
@@ -378,20 +378,20 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-moz-range-track {
-  background: var(--line);
+  background: var( --line );
   border-radius: 2px;
   height: 4px;
 }
 
 input[type="range"]::-moz-range-progress {
-  background: var(--accent);
+  background: var( --accent );
   border-radius: 2px;
   height: 4px;
 }
 
 input[type="range"]::-moz-range-thumb {
   box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.3 );
-  background: var(--accent);
+  background: var( --accent );
   border-radius: 50%;
   height: 16px;
   border: none;
@@ -400,7 +400,7 @@ input[type="range"]::-moz-range-thumb {
 
 @supports ( -moz-appearance: none ) {
   * {
-    scrollbar-color: var(--line) transparent;
+    scrollbar-color: var( --line ) transparent;
     scrollbar-width: thin;
   }
 }
@@ -415,13 +415,13 @@ input[type="range"]::-moz-range-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--line) padding-box;
+  background: var( --line ) padding-box;
   border: 3px solid transparent;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent) padding-box;
+  background: var( --accent ) padding-box;
 }
 
 #SOUND_PANEL {

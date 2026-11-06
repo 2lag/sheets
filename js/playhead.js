@@ -1,7 +1,9 @@
-const PLAYHEAD = document.createElementNS( "http://www.w3.org/2000/svg",
-  "rect" );
-let PLAYHEAD_FRAME = null;
+const PLAYHEAD = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "rect"
+);
 let PLAYHEAD_SYSTEM = null;
+let PLAYHEAD_FRAME = null;
 
 PLAYHEAD.setAttribute( "class", "playhead" );
 PLAYHEAD.setAttribute( "width", 0.5 * SPACE );
@@ -12,8 +14,12 @@ function playheadXAt( time ) {
   const index = Math.max( 0, PLAYHEAD_STOPS.findLastIndex( matches ) );
   const stop = PLAYHEAD_STOPS[ index ];
   const next = PLAYHEAD_STOPS[ index + 1 ];
-  if ( !next || next.system !== stop.system )
-    return { x: stop.x, system: stop.system };
+  if ( !next || next.system !== stop.system ) {
+    return {
+      x: stop.x,
+      system: stop.system
+    };
+  }
   const progress = ( time - stop.time ) / ( next.time - stop.time );
   const x = stop.x + ( next.x - stop.x ) * Math.min( 1, progress );
   return { x, system: stop.system };
@@ -33,8 +39,10 @@ function placePlayhead( time, follow_it = true ) {
   PLAYHEAD.setAttribute( "height", bottom - top );
   system.page.appendChild( PLAYHEAD );
   if ( follow_it ) {
-    PLAYHEAD.scrollIntoView( {
-      block: "center", inline: "nearest", behavior: "smooth"
+    PLAYHEAD.scrollIntoView({
+      block: "center",
+      inline: "nearest",
+      behavior: "smooth"
     });
   }
 }

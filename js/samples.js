@@ -1,5 +1,6 @@
 const SAMPLES = {
-  "Ode to Joy": `title=Ode to Joy
+  "Ode to Joy":
+`title=Ode to Joy
 author=Ludwig van Beethoven
 bpm=112
 ts=4,4
@@ -43,7 +44,8 @@ instrument=cello
 [3d 3a]1
 2a2 [2d 3d]2`,
 
-  "Für Elise": `title=Für Elise
+  "Für Elise":
+`title=Für Elise
 author=Ludwig van Beethoven
 bpm=72
 ts=3,8
@@ -51,27 +53,51 @@ key=am
 
 clef=t
 r4 5e16 5ds16
-5e16 5ds16 5e16 4b16 5d16 5c16
-4a8 r16 4c16 4e16 4a16
-4b8 r16 4e16 4gs16 4b16
-5c8 r16 4e16 5e16 5ds16
-5e16 5ds16 5e16 4b16 5d16 5c16
-4a8 r16 4c16 4e16 4a16
-4b8 r16 4e16 5c16 4b16
-4a4.
-
 clef=b
 r4.
+
+clef=t
+5e16 5ds16 5e16 4b16 5d16 5c16
+clef=b
 r4.
+
+clef=t
+4a8 r16 4c16 4e16 4a16
+clef=b
 2a16 3e16 3a16 r16 r8
+
+clef=t
+4b8 r16 4e16 4gs16 4b16
+clef=b
 2e16 3e16 3gs16 r16 r8
+
+clef=t
+5c8 r16 4e16 5e16 5ds16
+clef=b
 2a16 3e16 3a16 r16 r8
+
+clef=t
+5e16 5ds16 5e16 4b16 5d16 5c16
+clef=b
 r4.
+
+clef=t
+4a8 r16 4c16 4e16 4a16
+clef=b
 2a16 3e16 3a16 r16 r8
+
+clef=t
+4b8 r16 4e16 5c16 4b16
+clef=b
 2e16 3e16 3gs16 r16 r8
+
+clef=t
+4a4.
+clef=b
 [2a 3e 3a]4.`,
 
-  "Minuet in G": `title=Minuet in G
+  "Minuet in G":
+`title=Minuet in G
 author=Christian Petzold
 bpm=120
 ts=3,4
@@ -113,7 +139,8 @@ clef=b
 3d2.
 [2g 3g]2.`,
 
-  "Greensleeves": `title=Greensleeves
+  "Greensleeves":
+`title=Greensleeves
 author=traditional
 bpm=96
 ts=6,8
@@ -159,7 +186,8 @@ r2.
 2a4. 2e4.
 [2a 3e]2.`,
 
-  "Flight of the Bumblebee": `title=Flight of the Bumblebee
+  "Flight of the Bumblebee":
+`title=Flight of the Bumblebee
 author=Nikolai Rimsky-Korsakov
 bpm=150
 ts=2,4
@@ -220,7 +248,8 @@ r2
 2e4 3e4
 [1a 2a]4 r4`,
 
-  "Korobeiniki (the Tetris theme)": `title=Korobeiniki (the Tetris theme)
+  "Korobeiniki (the Tetris theme)":
+`title=Korobeiniki (the Tetris theme)
 author=traditional Russian
 bpm=150
 ts=4,4
@@ -280,7 +309,8 @@ instrument=chiptune
 2b8 3b8 2b8 3b8 2e8 3e8 2e8 3e8
 2a8 3a8 2a8 3a8 [1a 2a]2`,
 
-  "Boogie in C (Claude original)": `title=Boogie in C
+  "Boogie in C (Claude original)":
+`title=Boogie in C
 author=Claude Opus 5.5 - Medium
 bpm=132
 ts=4,4
@@ -316,7 +346,8 @@ clef=b
 2g8 2b8 3d8 3f8 2g2
 [1c 2c]1`,
 
-  "Showcase Shuffle (Claude original)": `title=Showcase Shuffle
+  "Showcase Shuffle (Claude original)":
+`title=Showcase Shuffle
 author=Claude Opus 5.5 - Medium
 bpm=112
 ts=4,4
@@ -344,7 +375,8 @@ instrument=trombone
 2d4 2a4 2g4 3c4
 3c4 3c4 [2f 3c 3f]2^`,
 
-  "Night Walk (Claude original)": `title=Night Walk
+  "Night Walk (Claude original)":
+`title=Night Walk
 author=Claude Opus 5.5 - Medium
 bpm=93
 ts=12,8
@@ -387,7 +419,9 @@ instrument=upright bass
 1b4. 2f4. [1b 2f 2b]2.
 2g8 3d8 3g8 3b8 3g8 3d8 2a8 3e8 3a8 4cs8 3a8 3e8
 [1d 2a 2d]1.`,
-  "Smoke (Claude original)": `title=Smoke
+
+  "Smoke (Claude original)":
+`title=Smoke
 author=Claude Opus 5.5 - Medium
 bpm=92
 key=cm
@@ -428,7 +462,9 @@ instrument=upright bass
 2c8. 2c16 3c8 2b8 2g8. 2g16 3g8 3f8
 2c4 r8 2c8 2g4 2bn4)x3
 2g4 2bn4 2c2~ 2c1`,
-  "Magnum Opus: Fanfare (Claude original)": `title=Claude's Magnum Opus: Fanfare
+
+  "Magnum Opus: Fanfare (Claude original)":
+`title=Claude's Magnum Opus: Fanfare
 author=Claude Opus 5.5 - Medium
 bpm=108
 ts=4,4
@@ -471,7 +507,9 @@ instrument=strings
 2f2 2a2
 2a1
 [1d 2a 2d]1`,
-  "Magnum Opus: Lo-fi Tokens (Claude original)": `title=Claude's Magnum Opus: Lo-fi Tokens
+
+  "Magnum Opus: Lo-fi Tokens (Claude original)":
+`title=Claude's Magnum Opus: Lo-fi Tokens
 author=Claude Opus 5.5 - Medium
 bpm=80
 ts=4,4
@@ -500,7 +538,9 @@ instrument=upright bass
 2c4 r8 2c8 2g4 2b4
 3c4 2b4 2a4 2g4 ||
 [1f 2f]1`,
-  "Magnum Opus: Final Boss (Claude original)": `title=Claude's Magnum Opus: Final Boss
+
+  "Magnum Opus: Final Boss (Claude original)":
+`title=Claude's Magnum Opus: Final Boss
 author=Claude Opus 5.5 - Medium
 bpm=160
 ts=4,4
@@ -574,7 +614,9 @@ instrument=chiptune
 (2c16 3c16)x8
 (2b16 3b16)x8
 [1e 2e]8> r8 [1e 2e]8> r8 [1e 2e]2>`,
-  "Comet Cat (Claude original)": `title=Comet Cat
+
+  "Comet Cat (Claude original)":
+`title=Comet Cat
 author=Claude Opus 5.5 - Medium
 bpm=184
 ts=4,4
@@ -609,7 +651,9 @@ instrument=chiptune
 (2d8 3d8)x2 (2e8 3e8)x2
 2a8 3a8 2a8 3a8 2e8 3e8 2e16 2f16 2g16 2e16
 ||||`,
-  "Stairway Rag (Qwen original)": `title=Stairway Rag
+
+  "Stairway Rag (Qwen original)":
+`title=Stairway Rag
 author=Qwen3.8-DavidAU-MTP-Q8-TT
 bpm=140
 ts=2,4
@@ -653,7 +697,9 @@ instrument=piano
 2d4 3a4
 2d4 3a4
 `,
-  "Porteno Tango (Qwen original)": `title=Porteno Tango
+
+  "Porteno Tango (Qwen original)":
+`title=Porteno Tango
 author=Qwen3.8-DavidAU-MTP-Q8-TT
 bpm=116
 ts=4,4
@@ -700,14 +746,17 @@ instrument=upright bass
 };
 
 function isSampleOrEmpty( text ) {
-  return !text.trim() || Object.values( SAMPLES ).includes( text );
+  return !text.trim()
+      || Object.values( SAMPLES ).includes( text );
 }
 
 function loadSample( name ) {
-  const replacing = isSampleOrEmpty( EDITOR.value )
-    || confirm( `Replace your music with "${ name }"?` );
-  if ( !replacing )
-    return;
+  if ( !isSampleOrEmpty( EDITOR.value )
+    && !confirm(
+         `Replace your music with "${ name }"?`
+       )
+  ) return;
+
   stopPlayback();
   PLAYBACK_POSITION = 0;
   EDITOR.value = SAMPLES[ name ];
@@ -721,8 +770,10 @@ SAMPLE_PICKER.replaceChildren(
   ...Object.keys( SAMPLES ).map( name => new Option( name, name ) )
 );
 
-SAMPLE_PICKER.addEventListener( "change", () => {
-  if ( SAMPLE_PICKER.value )
-    loadSample( SAMPLE_PICKER.value );
-  SAMPLE_PICKER.value = "";
-});
+SAMPLE_PICKER.addEventListener( "change",
+  () => {
+    if ( SAMPLE_PICKER.value )
+      loadSample( SAMPLE_PICKER.value );
+    SAMPLE_PICKER.value = "";
+  }
+);
