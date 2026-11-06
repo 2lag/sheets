@@ -55,8 +55,9 @@ instrument=cello
 | `mclef=b`      | mute that staff (any one of its clef lines will do)  |
 | `# ...`        | comment                                              |
 
-Durations are `1 2 4 8 16 32 64`. Notes follow the key signature: in `key=f`, `4b4` is B flat, and
-changing `key=` re-pitches the whole sheet. Add `s`, `b` or `n` to step outside the key for one note;
+Durations are `1 2 4 8 16 32 64`. Notes follow the key signature: in `key=f`, `4b4` is B flat.
+A `key=` line between music lines changes the key from that barline on, for both staves, and the sheet
+prints the new key signature there. Add `s`, `b` or `n` to step outside the key for one note;
 the sheet prints whatever sharps, flats and naturals are needed. Notes that cross a barline are split and tied
 automatically, and measures are beamed by the beat.
 
@@ -89,3 +90,13 @@ Instruments carry over to strudel.cc as its General MIDI sounds.
 - `css/web1.css` to `css/web4.css` one skin per look: colors, fonts, borders and effects
 - `images/hills-day.svg` `images/hills-night.svg` the rolling-hill wallpapers behind the XP look (original drawings)
 - `js/main.js` connects the editor to everything
+
+## Future ideas
+
+- Manual line and page breaks
+- More barline styles, such as a double barline to mark the end of a phrase
+- A number on every measure, not just the first of each line
+- Rehearsal letters
+- Dynamics (p, mf, f, crescendos and so on)
+- More clefs than treble and bass, such as alto, tenor and percussion
+- Full scores: any number of staves, each with its own clef and instrument
