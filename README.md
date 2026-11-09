@@ -46,18 +46,26 @@ instrument=cello
 | `g5cs 5d4`     | grace note before the next note (several make a run) |
 | `4c8- 4d8- 4e8`| slur: each `-` joins a note to the next              |
 | `4c4*` `4c4>` `4c4_` | staccato, accent, tenuto (combine: `4c4*>`)    |
+| `4c4:mf`       | dynamics `:pp :p :mp :mf :f :ff :sfz`, from this note on |
+| `4c4:<` `4c4:>2` | crescendo / diminuendo to the next dynamic, or one step over that many beats |
 | `4c2^`         | fermata: playback waits until you press play         |
 | `5c4\` `5c4/`  | fall off / rise off the note                         |
 | `{4c8 4d8 4e8}`| triplet (5 sixteenths make a quintuplet, etc.)       |
 | `\|` `\|\|`      | start / end repeat, on a barline (nest by opening another `\|` inside) |
 | `\|\|\|` `\|\|\|\|`  | endless loop: plays between them forever (one per sheet) |
 | `4c8x4` `(…)x2`  | write a note, chord, triplet or `( )` group several times in a row (groups can span lines) |
-| `mclef=b`      | mute that staff (any one of its clef lines will do)  |
+| `break=line` `break=page` | start a new line or page at this barline  |
+| `bar=double` `bar=final`  | draw this barline double (end of a phrase) or as a final barline |
+| `mark=` `mark=Bridge`     | rehearsal mark at this barline (left empty, the next letter: A, B, C…) |
+| `numbers=all` `numbers=none` | number every measure, or none (normally the first of each line) |
+| `clef=t2` `clef=a` `clef=tn` | numbered clefs for full scores (each is its own staff, in the order they appear) |
+| `mclef=b` `mclef=t2` | mute that staff (any one of its clef lines will do) |
 | `# ...`        | comment                                              |
 
 Durations are `1 2 4 8 16 32 64`. Notes follow the key signature: in `key=f`, `4b4` is B flat.
-A `key=` line between music lines changes the key from that barline on, for both staves, and the sheet
-prints the new key signature there. Add `s`, `b` or `n` to step outside the key for one note;
+A `key=` line between music lines changes the key from that barline on, for every staff, and the sheet
+prints the new key signature there. `key=`, `break=`, `bar=` and `mark=` lines all act on the barline
+where they appear, so they go between measures. Add `s`, `b` or `n` to step outside the key for one note;
 the sheet prints whatever sharps, flats and naturals are needed. Notes that cross a barline are split and tied
 automatically, and measures are beamed by the beat.
 
@@ -83,20 +91,19 @@ Instruments carry over to strudel.cc as its General MIDI sounds.
 - `js/drag.js` lets the sound panel be dragged anywhere (by its title bar, or anywhere but a control in 4.0)
 - `js/export.js` strudel.cc and PDF export
 - `js/read.js` loads compressed `?s=` share links and remembers your work
-- `js/theme.js` day / night and the 1.0 (Windows 98), 2.0 (XP), 3.0 (Windows 11) and 4.0 (age of AI, the default) looks
+- `js/theme.js` day / night (following the system until one is picked; 1.0 and 2.0 are day only) and the 1.0 (Windows 98), 2.0 (XP), 3.0 (Windows 11) and 4.0 (age of AI, the default) looks
 - `css/base.css` the music font and the sheet itself, shared by every look
 - `css/print.css` printing, loaded last so it wins over any look
 - `css/layout.css` where everything sits and what shows when, shared by every look
 - `css/web1.css` to `css/web4.css` one skin per look: colors, fonts, borders and effects
 - `images/hills-day.svg` `images/hills-night.svg` the rolling-hill wallpapers behind the XP look (original drawings)
+- `js/undo.js` the editor's own undo / redo history, so shortcut edits undo cleanly
+- `js/cursors.js` extra cursors: shift+alt+up / down adds one on the line above / below; typing, arrows, ctrl+arrows,
+  shift selection, alt+up / down, cut, copy and paste work at all of them, and escape drops them
+- `js/keys.js` editor shortcuts: ctrl+a selects only the music text, ctrl+c / ctrl+x with nothing selected take the whole line,
+  tab / shift+tab indent, ctrl+/ comments, alt+up / down move lines, ctrl+enter plays
 - `js/main.js` connects the editor to everything
 
-## Future ideas
+## Future Todo
 
-- Manual line and page breaks
-- More barline styles, such as a double barline to mark the end of a phrase
-- A number on every measure, not just the first of each line
-- Rehearsal letters
-- Dynamics (p, mf, f, crescendos and so on)
-- More clefs than treble and bass, such as alto, tenor and percussion
-- Full scores: any number of staves, each with its own clef and instrument
+Subdivide files, i.e. create a folder just for engrave.js given its size.
